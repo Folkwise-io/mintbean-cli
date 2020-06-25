@@ -7,11 +7,9 @@ const path = require('path');
 const { program } = require('commander');
 const shell = require('shelljs');
 
-
 const enquirer  = require('./lib/enquirer');
 const files = require('./lib/files');
 const github = require('./lib/github');
-
 
 const displayMessageIntro = () => {
   console.log(
@@ -29,14 +27,20 @@ const createReactApp = (project, username) => {
   shell.exec(`create-react-app ${project} --template cra-template-mintbean-challenge-react-starter`);
 
   console.log(chalk.green('Updating package.json...'));
-  shell.exec(`dot-json ./${project}/package.json homepage "https://${username}.io/${project}/"`);
-  console.log(chalk.green('Changing into project directory...'));
-  process.chdir(`./${project}`);
-  console.log(chalk.green('Creating and connecting to new GitHub repo...'));
+  shell.exec(`cd ${project} && dot-json package.json homepage "https://${username}.io/${project}/"`);
+
+  // console.log(chalk.green('Changing into project directory...'));
+  // process.chdir(`./${project}`);
+
+  console.log(chalk.green('Changing into project directory and adding file...'));
+  shell.exec(`cd ${project} && mkdir folder`);
+  shell.exec(`cd ${project} && pwd`);
+
+  // console.log(chalk.green('Creating and connecting to new GitHub repo...'));
   // shell.exec(`hub create ${project}`);
-  shell.exec(`git remote rm origin`);
-  shell.exec(`git remote add origin git@github.com:${username}/${project}.git`);
-  shell.exec(`git remote -v`);
+  // shell.exec(`git remote rm origin`);
+  // shell.exec(`git remote add origin git@github.com:${username}/${project}.git`);
+  // shell.exec(`git remote -v`);
 
   console.log(chalk.green(`Done! 'cd ${project}' to get started coding!`))
 }
