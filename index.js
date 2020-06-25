@@ -2,27 +2,14 @@
 
 const chalk = require('chalk');
 const clear = require('clear');
-const figlet = require('figlet');
 const path = require('path');
 const { program } = require('commander');
 const shell = require('shelljs');
-const DotJson = require('dot-json');
 
 const enquirer  = require('./lib/enquirer');
 const files = require('./lib/files');
 const react = require('./lib/react');
-
-// helpers (TODO: refactor to module)
-const displayMessageIntro = () => {
-  console.log(
-    chalk.cyanBright(
-      figlet.textSync('Mint', { horizontalLayout: 'full' })
-    )
-  );
-  console.log(
-    chalk.whiteBright('Let mint do the hard work... you do the coding \n')
-  );
-}
+const message = require('./lib/message');
 
 
 // cli command config
@@ -34,7 +21,7 @@ program
   .description('create new project directory of type -t')
   .option('-t, --type <type>','specify project type: react, js', 'react')
   .action(function (project, cmdObj) {
-    displayMessageIntro();
+    message.banner();
 
     // case: react
     if(cmdObj.type ==='react') {
