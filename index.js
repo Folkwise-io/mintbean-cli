@@ -33,7 +33,7 @@ const createReactApp = (project, username) => {
   console.log(chalk.green('Changing into project directory...'));
   process.chdir(`./${project}`);
   console.log(chalk.green('Creating and connecting to new GitHub repo...'));
-  shell.exec(`hub create ${project}`);
+  // shell.exec(`hub create ${project}`);
   shell.exec(`git remote rm origin`);
   shell.exec(`git remote add origin git@github.com:${username}/${project}.git`);
   shell.exec(`git remote -v`);
@@ -51,6 +51,7 @@ program
   .action(function (project, cmdObj) {
     displayMessageIntro();
 
+    // case: react
     if(cmdObj.type ==='react') {
       console.log(chalk.green(`Starting new react project`),
       chalk.bold.blue(`'${project}'`),
