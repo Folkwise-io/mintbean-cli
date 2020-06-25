@@ -16,6 +16,6 @@ Run `mint` for list of commands
 aiming for at least these features (bold indicates WIP)
 | cmd  | description  |
 |---   |---           |
-| **`mint |-h|--help`** | display help. also works `mint -h`  |
-| `mint -v|--version`  |   |
+| **`mint -h --help`** | display help. also works `mint -h`  |
+| `mint -v --version`  |   |
 |   |   |
