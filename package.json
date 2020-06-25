@@ -5,8 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/clairefro/mintbean-cli",
   "bin": {
-    "mint": "./index.js",
-    "dot-json": "./node_modules/dot-json/lib/dot-json.js"
+    "mint": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
