@@ -11,6 +11,7 @@ const enquirer  = require('./src/lib/enquirer');
 const files = require('./src/lib/files');
 const react = require('./src/lib/react');
 const message = require('./src/lib/message');
+const create = require('./src/lib/create');
 
 
 // cli command config
@@ -44,6 +45,15 @@ program
     shell.exec('gh-pages -d build')
     console.log(chalk.green(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
   })
+
+  program
+    .command('create <project>')
+    .alias('c')
+    .description('start new project from template')
+    .action(function () {
+      create.getTemplate()
+    })
+
 
 // future commands
 program
