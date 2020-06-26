@@ -25,9 +25,8 @@ const createProgram = () => {
     .action(function (project, cmdObj) {
       message.banner();
       
-      console.log("test");
       const templatingService = new TemplatingService();
-      templatingService.template('vanilla');
+      templatingService.template('vanilla', { projectName: project });
   
       // case: react
       if(cmdObj.type ==='react') {

@@ -22,8 +22,7 @@ const walk = function(dir) {
       } else { 
           /* Is a file */
           results.push({
-            absolutePath,
-            pathFromDirectoryRoot
+            absolutePath
           });
       }
   });
@@ -31,16 +30,23 @@ const walk = function(dir) {
   return results;
 }
 
-const getTemplatesPath = () => path.join(__dirname, '..', 'templates', name);
-const getTemporaryDirectory = () => {
-  tmp.dir((err, path, cleanupCallback) => {
-    if (err) {
-      console.log("Failed to create temporary directory. Process will exit.");
-      throw err;
-    }
+const setRelativePaths = (dir, files=[]) => files.map(({ absolutePath }) => ({
+  absolutePath,
+  pathFromDirectoryRoot: path.relative(dir, absolutePath)
+}));
 
-    return path;
-  })
+const getTemplatesPath = (name) => path.join(__dirname, '..', 'templates', name);
+const getTemporaryDirectory = () => tmp.dirSync();
+
+const getTarget = projectName => path.join(process.cwd(), projectName);
+
+const checkFileOrDirExists = path => fs.existsSync(path);
+
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (!fs.existsSync(dirname)) {
+    fs.mkdirSync(dirname, { recursive: true });
+  }
 }
 
 /**
@@ -54,47 +60,37 @@ const validateOptions = options => {
   if (!options.projectName) {
     throw new Error("No project name specified");
   }
-}
 
-const getTarget = projectName => path.join(process.cwd(), projectName);
-
-const validateTarget = projectName => {
-  const conflict = fs.existsSync(getTarget());
+  const target = getTarget(options.projectName);
+  const conflict = checkFileOrDirExists(target);
   if (conflict) {
     throw new Error("Whoops! A file or directory by the name already exists at " + projectName);
-  }
-}
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (!fs.existsSync(dirname)) {
-    fs.mkdirSync(dirname, { recursive: true });
   }
 }
 
 module.exports = class TemplatingService {
   /**
    * 
-   * @param {*} name 
+   * @param {*} templateName 
    * @param { TemplateOptions } options 
    */
-  template(name='vanilla', options = {}) {
+  template(templateName='vanilla', options = {}) {
     validateOptions(options);
-    validateTarget(options.projectName);
 
-    const templatesPath = getTemplatesPath();
-    const files = walk(templatesPath);
-    const temporaryDirectory = getTemporaryDirectory();
+    const templatesPath = getTemplatesPath(templateName);
+    const files = setRelativePaths(templatesPath, walk(templatesPath));
+    const temporaryDirectory = getTemporaryDirectory().name;
 
     files.forEach(({ absolutePath, pathFromDirectoryRoot }) => {
       const template = fs.readFileSync(absolutePath).toString("utf-8");
       const output = ejs.compile(template)(options);
       const tmpDestination = path.join(temporaryDirectory, pathFromDirectoryRoot);
+      ensureDirectoryExistence(tmpDestination);
       fs.writeFileSync(tmpDestination, output);
     });
 
     const finalTarget = getTarget(options.projectName);
     ensureDirectoryExistence(finalTarget);
-    // fs.copySync(temporaryDirectory, finalTarget);
+    fs.copySync(temporaryDirectory, finalTarget);
   }  
 }
