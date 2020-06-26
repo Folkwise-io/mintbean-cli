@@ -5,6 +5,8 @@ const chalk = require('chalk');
 
 const CHOICES = fs.readdirSync(path.join(__dirname, '../../templates'));
 
+const ghUsernameRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, 'i');
+
 const QUESTIONS = [
   {
     name: 'template',
@@ -17,8 +19,7 @@ const QUESTIONS = [
     type: 'input',
     message: 'GitHub username: ',
     validate: (input) => {
-      const regex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, 'i');
-      if (input === '' || !regex.test(input) ) {
+      if (input === '' || !ghUsernameRegex.test(input) ) {
         return 'not valid username, try again'
       }
       return true
@@ -53,6 +54,7 @@ module.exports = {
         targetPath,
       }
       console.log(options)
+      return options
     });
   },
   createProject: (options) => {
