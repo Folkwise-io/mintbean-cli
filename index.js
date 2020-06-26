@@ -46,13 +46,13 @@ program
     console.log(chalk.green(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
   })
 
-  program
-    .command('create <project>')
-    .alias('c')
-    .description('start new project from template')
-    .action(function () {
-      create.getTemplate()
-    })
+program
+  .command('create [project]')
+  .alias('c')
+  .description('start new project from template')
+  .action(function (project) {
+    const options = create.getOptions(project)
+  })
 
 
 // future commands
