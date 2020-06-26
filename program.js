@@ -56,7 +56,6 @@ const createProgram = () => {
     .description('start new project from template')
     .action(function (project) {
       create.newProject(project)
-
     })
 
   // future commands
