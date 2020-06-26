@@ -6,6 +6,7 @@ const path = require('path');
 const { program } = require('commander');
 const shell = require('shelljs');
 
+const { version } = require('./package.json')
 const enquirer  = require('./lib/enquirer');
 const files = require('./lib/files');
 const react = require('./lib/react');
@@ -13,7 +14,7 @@ const message = require('./lib/message');
 
 
 // cli command config
-program.version('0.1.0');
+program.version(version);
 
 program
   .command('new <project>')
