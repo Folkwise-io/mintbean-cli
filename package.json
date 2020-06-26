@@ -4,7 +4,7 @@
   "description": "Template and deploy projects for Mintbean hackathons",
   "main": "index.js",
   "repository": "https://github.com/clairefro/mintbean-cli",
-  "bugs" : "https://github.com/clairefro/mintbean-cli/issues",
+  "bugs": "https://github.com/clairefro/mintbean-cli/issues",
   "bin": {
     "mint": "./index.js"
   },
@@ -16,7 +16,7 @@
     "cli"
   ],
   "author": "Claire Froelich",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@octokit/auth-basic": "1.4.5",
     "@octokit/rest": "18.0.0",
@@ -32,6 +32,7 @@
     "figlet": "1.4.0",
     "fs-extra": "9.0.1",
     "hub": "6.1.2",
+    "inquirer": "^7.2.0",
     "lodash": "4.17.15",
     "shelljs": "0.8.4",
     "simple-git": "2.10.0",
@@ -40,6 +41,5 @@
   },
   "devDependencies": {
     "jest": "26.1.0"
-  },
-  "license": "MIT"
+  }
 }

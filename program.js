@@ -8,6 +8,7 @@ const enquirer  = require('./lib/enquirer');
 const files = require('./lib/files');
 const react = require('./lib/react');
 const message = require('./lib/message');
+const create = require('./lib/create');
 const TemplatingService = require('./service/templating.service');
 const { version } = require("./package.json");
 
@@ -16,7 +17,7 @@ const createProgram = () => {
 
   // cli command config
   program.version(version);
-  
+
   program
     .command('new <project>')
     .alias('n')
@@ -24,22 +25,22 @@ const createProgram = () => {
     .option('-t, --type <type>','specify project type: react, js', 'react')
     .action(function (project, cmdObj) {
       message.banner();
-      
+
       const templatingService = new TemplatingService();
       templatingService.template('vanilla', { projectName: project });
-  
+
       // case: react
-      if(cmdObj.type ==='react') {
-        console.log(chalk.green(`Starting new react project`),
-        chalk.bold.blue(`'${project}'`),
-        chalk.green(`...`)
-      );
-        enquirer.askGithubUsername()
-          .then(res => react.createReactApp(project, res.username))
-          .catch(err => console.log(chalk.red(err)))
-      }
+      // if(cmdObj.type ==='react') {
+      //   console.log(chalk.green(`Starting new react project`),
+      //   chalk.bold.blue(`'${project}'`),
+      //   chalk.green(`...`)
+      // );
+      //   enquirer.askGithubUsername()
+      //     .then(res => react.createReactApp(project, res.username))
+      //     .catch(err => console.log(chalk.red(err)))
+      // }
     });
-  
+
   program
     .command('deploy')
     .description('deploy project to GitHub pages from master (origin)')
@@ -48,7 +49,16 @@ const createProgram = () => {
       shell.exec('gh-pages -d build')
       console.log(chalk.green(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
     })
-  
+
+  program
+    .command('create [project]')
+    .alias('c')
+    .description('start new project from template')
+    .action(function (project) {
+      create.newProject(project)
+
+    })
+
   // future commands
   program
     .command('config')
@@ -60,8 +70,6 @@ const createProgram = () => {
 
   return program;
 }
-
-
 
 module.exports = {
   createProgram

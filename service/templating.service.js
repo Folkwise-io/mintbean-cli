@@ -16,10 +16,10 @@ const walk = function(dir) {
       const absolutePath = dir + '/' + pathFromDirectoryRoot;
 
       const stat = fs.statSync(absolutePath);
-      if (stat && stat.isDirectory()) { 
+      if (stat && stat.isDirectory()) {
           /* Recurse into a subdirectory */
           results = results.concat(walk(absolutePath));
-      } else { 
+      } else {
           /* Is a file */
           results.push({
             absolutePath
@@ -50,7 +50,7 @@ function ensureDirectoryExistence(filePath) {
 }
 
 /**
- * @param {TemplateOptions} options 
+ * @param {TemplateOptions} options
  */
 const validateOptions = options => {
   if (!options) {
@@ -70,12 +70,13 @@ const validateOptions = options => {
 
 module.exports = class TemplatingService {
   /**
-   * 
-   * @param {*} templateName 
-   * @param { TemplateOptions } options 
+   *
+   * @param {*} templateName
+   * @param { TemplateOptions } options
    */
-  template(templateName='vanilla', options = {}) {
-    validateOptions(options);
+  template(templateName = 'vanilla' , options = {}) {
+    console.log({templateName, options})
+    // validateOptions(options);
 
     const templatesPath = getTemplatesPath(templateName);
     const files = setRelativePaths(templatesPath, walk(templatesPath));
@@ -92,5 +93,5 @@ module.exports = class TemplatingService {
     const finalTarget = getTarget(options.projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
-  }  
+  }
 }

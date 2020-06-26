@@ -1,0 +1,7 @@
+{
+  "name": "test-proj",
+  "description": "This project was generated from the Mintbean Vanilla template using the mintbean-cli tool.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
