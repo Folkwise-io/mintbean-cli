@@ -9,6 +9,7 @@ const ejs = require('ejs');
  */
 
 // taken from https://stackoverflow.com/a/16684530/1204556
+// returns array with path of every file in dir
 const walk = function(dir) {
   let results = [];
   const list = fs.readdirSync(dir);
@@ -16,10 +17,10 @@ const walk = function(dir) {
       const absolutePath = dir + '/' + pathFromDirectoryRoot;
 
       const stat = fs.statSync(absolutePath);
-      if (stat && stat.isDirectory()) { 
+      if (stat && stat.isDirectory()) {
           /* Recurse into a subdirectory */
           results = results.concat(walk(absolutePath));
-      } else { 
+      } else {
           /* Is a file */
           results.push({
             absolutePath
@@ -30,6 +31,7 @@ const walk = function(dir) {
   return results;
 }
 
+// step 1: cp template
 const setRelativePaths = (dir, files=[]) => files.map(({ absolutePath }) => ({
   absolutePath,
   pathFromDirectoryRoot: path.relative(dir, absolutePath)
@@ -50,7 +52,7 @@ function ensureDirectoryExistence(filePath) {
 }
 
 /**
- * @param {TemplateOptions} options 
+ * @param {TemplateOptions} options
  */
 const validateOptions = options => {
   if (!options) {
@@ -70,8 +72,8 @@ const validateOptions = options => {
 
 module.exports = class TemplatingService {
   /**
-   * 
-   * @param {*} templateName 
+   *
+   * @param {*} templateName
    * @param { TemplateOptions } options 
    */
   template(templateName='vanilla', options = {}) {
@@ -92,5 +94,5 @@ module.exports = class TemplatingService {
     const finalTarget = getTarget(options.projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
-  }  
+  }
 }
