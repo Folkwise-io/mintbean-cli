@@ -7,10 +7,10 @@ const { program } = require('commander');
 const shell = require('shelljs');
 
 const { version } = require('./package.json')
-const enquirer  = require('./lib/enquirer');
-const files = require('./lib/files');
-const react = require('./lib/react');
-const message = require('./lib/message');
+const enquirer  = require('./src/lib/enquirer');
+const files = require('./src/lib/files');
+const react = require('./src/lib/react');
+const message = require('./src/lib/message');
 
 
 // cli command config
