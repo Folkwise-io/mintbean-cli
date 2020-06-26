@@ -25,10 +25,6 @@ const validateOptions = options => {
     throw new Error("No options received. This is an illegal state. Please report it to the author of this project with the following trace.")
   }
 
-  if (!options.projectName) {
-    throw new Error("No project name specified");
-  }
-
   if (!options.templateName) {
     throw new Error("No template name specified");
   }

@@ -1,23 +1,19 @@
 const chalk = require('chalk');
-const clear = require('clear');
 const path = require('path');
 const { Command } = require('commander');
 const shell = require('shelljs');
 
-const enquirer  = require('./lib/enquirer');
-const files = require('./lib/files');
 const create = require('./lib/create');
 const { version } = require("./package.json");
 
 const createProgram = () => {
   const program = new Command();
 
-  // cli command config
   program.version(version);
 
   program
-    .command('create [project]')
-    .alias('c')
+    .command('new [project]')
+    .alias('n')
     .description('start new project from template')
     .action(function (project) {
       create.newProject(project)
