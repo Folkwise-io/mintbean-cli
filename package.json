@@ -1,9 +1,10 @@
 {
   "name": "mintbean-cli",
   "version": "1.0.6",
-  "description": "",
+  "description": "Template and deploy projects for Mintbean hackathons",
   "main": "index.js",
   "repository": "https://github.com/clairefro/mintbean-cli",
+  "bugs" : "https://github.com/clairefro/mintbean-cli/issues",
   "bin": {
     "mint": "./index.js"
   },
@@ -39,5 +40,6 @@
   },
   "devDependencies": {
     "jest": "26.1.0"
-  }
+  },
+  "license": "MIT"
 }
