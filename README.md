@@ -1,3 +1,4 @@
+[![NPM](https://nodei.co/npm/mintbean-cli.png?compact=true)](https://nodei.co/npm/mintbean-cli/)
 # mintbean-cli
 
 Command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
