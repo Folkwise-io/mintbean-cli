@@ -9,8 +9,8 @@ const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistenc
 
 const setRelativePaths = (dir, files=[]) => (
   files.map(({ absolutePath }) => ({
-  absolutePath,
-  pathFromDirectoryRoot: path.relative(dir, absolutePath)
+    absolutePath,
+    pathFromDirectoryRoot: path.relative(dir, absolutePath)
   }))
 );
 
