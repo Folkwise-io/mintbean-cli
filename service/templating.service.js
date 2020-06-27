@@ -2,82 +2,46 @@ const fs = require('fs-extra');
 const path = require('path');
 const tmp = require('tmp');
 const ejs = require('ejs');
+const chalk = require('chalk');
 
-/**
- * @typedef {Object} TemplateOptions
- * @property {string} projectName
- */
+const walk = require('../lib/files').walk;
+const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
 
-// taken from https://stackoverflow.com/a/16684530/1204556
-const walk = function(dir) {
-  let results = [];
-  const list = fs.readdirSync(dir);
-  list.forEach(function(pathFromDirectoryRoot) {
-      const absolutePath = dir + '/' + pathFromDirectoryRoot;
-
-      const stat = fs.statSync(absolutePath);
-      if (stat && stat.isDirectory()) { 
-          /* Recurse into a subdirectory */
-          results = results.concat(walk(absolutePath));
-      } else { 
-          /* Is a file */
-          results.push({
-            absolutePath
-          });
-      }
-  });
-
-  return results;
-}
-
-const setRelativePaths = (dir, files=[]) => files.map(({ absolutePath }) => ({
+const setRelativePaths = (dir, files=[]) => (
+  files.map(({ absolutePath }) => ({
   absolutePath,
   pathFromDirectoryRoot: path.relative(dir, absolutePath)
-}));
+  }))
+);
 
-const getTemplatesPath = (name) => path.join(__dirname, '..', 'templates', name);
+const getTemplatePath = (name) => path.join(__dirname, '../templates', name);
 const getTemporaryDirectory = () => tmp.dirSync();
-
-const getTarget = projectName => path.join(process.cwd(), projectName);
-
-const checkFileOrDirExists = path => fs.existsSync(path);
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (!fs.existsSync(dirname)) {
-    fs.mkdirSync(dirname, { recursive: true });
-  }
-}
+const getTargetPath = projectName => path.join(process.cwd(), projectName);
 
 /**
- * @param {TemplateOptions} options 
+ * @param {TemplateOptions} options
  */
 const validateOptions = options => {
   if (!options) {
     throw new Error("No options received. This is an illegal state. Please report it to the author of this project with the following trace.")
   }
 
-  if (!options.projectName) {
-    throw new Error("No project name specified");
-  }
-
-  const target = getTarget(options.projectName);
-  const conflict = checkFileOrDirExists(target);
-  if (conflict) {
-    throw new Error("Whoops! A file or directory by the name already exists at " + projectName);
+  if (!options.templateName) {
+    throw new Error("No template name specified");
   }
 }
 
 module.exports = class TemplatingService {
   /**
-   * 
-   * @param {*} templateName 
-   * @param { TemplateOptions } options 
+   *
+   * @param {*} templateName
+   * @param { TemplateOptions } options
    */
-  template(templateName='vanilla', options = {}) {
+  template(options = {}) {
     validateOptions(options);
+    const { templateName, projectName } = options;
 
-    const templatesPath = getTemplatesPath(templateName);
+    const templatesPath = getTemplatePath(templateName);
     const files = setRelativePaths(templatesPath, walk(templatesPath));
     const temporaryDirectory = getTemporaryDirectory().name;
 
@@ -89,8 +53,10 @@ module.exports = class TemplatingService {
       fs.writeFileSync(tmpDestination, output);
     });
 
-    const finalTarget = getTarget(options.projectName);
+    const finalTarget = getTargetPath(projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
-  }  
+
+    console.log(chalk.green(`Done! 'cd ${projectName}' to get started`))
+  }
 }

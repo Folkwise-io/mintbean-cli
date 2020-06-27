@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.body-outer {
+  display: inline-block;
+  background: #02ed9d;
+  background: linear-gradient(180deg, #02ed9d, #009be2);
+  padding: 2px;
+  margin: 20px;
+}
+
+.body-inner {
+  display: inline-block;
+  padding: 10px 20px;
+  min-width: 300px;
+  background-color: white;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px;
+}
