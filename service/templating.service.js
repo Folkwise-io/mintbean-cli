@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const tmp = require('tmp');
 const ejs = require('ejs');
+const chalk = require('chalk');
 
 const walk = require('../lib/files').walk;
 const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
@@ -38,7 +39,7 @@ module.exports = class TemplatingService {
    */
   template(options = {}) {
     validateOptions(options);
-    const { templateName } = options;
+    const { templateName, projectName } = options;
 
     const templatesPath = getTemplatePath(templateName);
     const files = setRelativePaths(templatesPath, walk(templatesPath));
@@ -52,8 +53,10 @@ module.exports = class TemplatingService {
       fs.writeFileSync(tmpDestination, output);
     });
 
-    const finalTarget = getTargetPath(options.projectName);
+    const finalTarget = getTargetPath(projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
+
+    console.log(chalk.green(`Done! 'cd ${projectName}' to get started`))
   }
 }
