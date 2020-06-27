@@ -2,15 +2,14 @@ const fs = require('fs-extra');
 const path = require('path');
 const tmp = require('tmp');
 const ejs = require('ejs');
-const chalk = require('chalk');
 
 const walk = require('../lib/files').walk;
 const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
 
 const setRelativePaths = (dir, files=[]) => (
   files.map(({ absolutePath }) => ({
-    absolutePath,
-    pathFromDirectoryRoot: path.relative(dir, absolutePath)
+  absolutePath,
+  pathFromDirectoryRoot: path.relative(dir, absolutePath)
   }))
 );
 
@@ -39,24 +38,27 @@ module.exports = class TemplatingService {
    */
   template(options = {}) {
     validateOptions(options);
-    const { templateName, projectName } = options;
+    const { templateName } = options;
 
     const templatesPath = getTemplatePath(templateName);
     const files = setRelativePaths(templatesPath, walk(templatesPath));
     const temporaryDirectory = getTemporaryDirectory().name;
 
     files.forEach(({ absolutePath, pathFromDirectoryRoot }) => {
-      const template = fs.readFileSync(absolutePath).toString("utf-8");
-      const output = ejs.compile(template)(options);
+      const templateBuffer = fs.readFileSync(absolutePath)
+      const templateString = templateBuffer.toString()
+
+      // if templatable, compile with ejs
+      let output = (/<%=.*%>/.test(templateString)) ?
+                   ejs.compile(templateString)(options) :
+                   templateBuffer;
       const tmpDestination = path.join(temporaryDirectory, pathFromDirectoryRoot);
       ensureDirectoryExistence(tmpDestination);
       fs.writeFileSync(tmpDestination, output);
     });
 
-    const finalTarget = getTargetPath(projectName);
+    const finalTarget = getTargetPath(options.projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
-
-    console.log(chalk.green(`Done! 'cd ${projectName}' to get started`))
   }
 }
