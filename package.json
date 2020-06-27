@@ -9,7 +9,7 @@
     "mint": "./index.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest /test --verbose"
   },
   "keywords": [
     "mintbean",
