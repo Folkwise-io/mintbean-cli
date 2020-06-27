@@ -1,0 +1,74 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn test
+
+PATH: 
+  ./bin:./node_modules/.bin:/anaconda3/bin:/home/claire/anaconda3/bin:/home/claire/.rbenv/shims:/home/claire/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/bin/:/usr/local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/home/claire/.yarn/bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  12.14.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/claire/overflow/code/clairefro/mintbean/mintbean-cli/package.json: Unexpected token } in JSON at position 1002
+      at JSON.parse (<anonymous>)
+      at /usr/local/share/.config/yarn/global/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/share/.config/yarn/global/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/share/.config/yarn/global/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "mintbean-cli",
+    "version": "1.0.8",
+    "description": "Template and deploy projects for Mintbean hackathons",
+    "main": "index.js",
+    "repository": "https://github.com/clairefro/mintbean-cli",
+    "bugs": "https://github.com/clairefro/mintbean-cli/issues",
+    "bin": {
+      "mint": "./index.js"
+    },
+    "scripts": {
+      "test": "jest /test"
+    },
+    "keywords": [
+      "mintbean",
+      "cli"
+    ],
+    "author": "Claire Froelich",
+    "license": "MIT",
+    "dependencies": {
+      "@octokit/auth-basic": "1.4.5",
+      "@octokit/rest": "18.0.0",
+      "chalk": "4.1.0",
+      "clear": "0.1.0",
+      "clui": "0.3.6",
+      "commander": "5.1.0",
+      "configstore": "5.0.1",
+      "create-react-app": "3.4.1",
+      "dot-json": "1.2.0",
+      "ejs": "3.1.3",
+      "figlet": "1.4.0",
+      "fs-extra": "9.0.1",
+      "hub": "6.1.2",
+      "inquirer": "^7.2.0",
+      "lodash": "4.17.15",
+      "shelljs": "0.8.4",
+      "simple-git": "2.10.0",
+      "tmp": "0.2.1",
+      "touch": "3.1.0"
+    },
+    "devDependencies": {
+      "jest": "26.1.0"
+    },
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
