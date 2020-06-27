@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/mintbean-cli.svg)](https://badge.fury.io/js/mintbean-cli)
 ### status: Not quite ready :)
-CLI current templates `vanilla-js` and `react-gh-pages`, with bug that image files don't copy over. In new projects still need to manually run 
+CLI currently templates `vanilla-js` and `react-gh-pages`, with bug that image files don't copy over. In new projects still need to manually run 
 ```
 git init
 /* create remote repo */
