@@ -2,6 +2,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const tmp = require('tmp');
 const ejs = require('ejs');
+const shell = require('shelljs')
+const mime = require ('mime');
 
 const walk = require('../lib/files').walk;
 const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
@@ -30,6 +32,13 @@ const validateOptions = options => {
   }
 }
 
+// returns true if file is of mimetype 'text/...' or 'application/...'
+const isEjsTemplatable = (file) => {
+  const ext = path.extname(file).replace('.','');
+  const mimetype= mime.getType(ext);
+  return (/^(text\/)|(application\/)/).test(mimetype)
+}
+
 module.exports = class TemplatingService {
   /**
    *
@@ -46,11 +55,11 @@ module.exports = class TemplatingService {
 
     files.forEach(({ absolutePath, pathFromDirectoryRoot }) => {
       const templateBuffer = fs.readFileSync(absolutePath)
-      const templateString = templateBuffer.toString()
 
-      // if templatable, compile with ejs
-      let output = (/<%=.*%>/.test(templateString)) ?
-                   ejs.compile(templateString)(options) :
+      // only run ejs.compile on text files
+      const isTemplatable = isEjsTemplatable(absolutePath)
+      const output = isTemplatable ?
+                   ejs.compile(templateBuffer.toString('utf-8'))(options) :
                    templateBuffer;
       const tmpDestination = path.join(temporaryDirectory, pathFromDirectoryRoot);
       ensureDirectoryExistence(tmpDestination);
