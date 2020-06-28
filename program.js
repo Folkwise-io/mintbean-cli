@@ -5,6 +5,7 @@ const { Command } = require('commander');
 const shell = require('shelljs');
 
 const create = require('./lib/create');
+const connect = require('./lib/connect').connect;
 const init = require('./lib/init').initialize;
 const config = require('./lib/config');
 const { version } = require("./package.json");
@@ -33,7 +34,7 @@ const createProgram = () => {
 
   program
     .command('init')
-    .description('git init. Must be run from project folder root')
+    .description('Alias for \'git init\'. MUST RUN FROM PROJECT FOLDER ROOT.')
     .action(function () {
       init()
     })
@@ -41,21 +42,15 @@ const createProgram = () => {
 
   program
     .command('connect')
-    .description('MUST RUN FROM PROJECT ROOT. Create new public GitHub repo and add it to project remote as origin')
+    .alias('c')
+    .description('Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT. ')
     .action(function () {
-      if(!fs.existsSync(path.join(process.cwd(), '.git'))) {
-        shell.exec('git init')
-      }
-      const projectName = path.basename(process.cwd());
-      shell.exec(`git remote add origin git@github.com:clairefro/${projectName}.git`)
-      console.log('Added github repo and remote.')
-      shell.exec(`git remote -v`)
+      connect()
     })
 
-  // future commands
   program
     .command('config')
-    .description('set up mintbean credentials etc.')
+    .description('Set up or view config (Github credentials etc.)')
     .option('-v, --view', 'view current config')
     .option('-g, --github <username>', 'set github username')
     .option('-t, --token <token', 'set github personal access token')
