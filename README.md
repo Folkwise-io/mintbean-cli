@@ -36,10 +36,9 @@ Aiming for at least these features (bold indicates Beta avail)
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | **`mint [-h\|--help`]**          | display help                                                                                                                   |
 
-| **`mint -V\|--version`**         | display version                                                                                                                |
+| **`mint -V\|--version`**         | display version                          |
 
 | **`mint new\|n [project-name]`** | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
-
 
 | **`mint init`**          | Alias for 'git init'. MUST RUN FROM PROJECT FOLDER ROOT.                  |
 
