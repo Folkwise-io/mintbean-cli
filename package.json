@@ -1,6 +1,6 @@
 {
   "name": "mintbean-cli",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Template and deploy projects for Mintbean hackathons",
   "main": "index.js",
   "repository": "https://github.com/clairefro/mintbean-cli",
