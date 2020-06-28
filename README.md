@@ -45,9 +45,7 @@ Aiming for at least these features (bold indicates Beta avail)
 
 | **`mint -c\|--connect`**          | Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT.                  |
 
-| **`mint config `**
-
-options: [-v\|--view]         | Set up or view config (Github credentials etc.)                  |
+| **`mint config `**      | Set up or view config (Github credentials etc.)                  |
 
 
 
