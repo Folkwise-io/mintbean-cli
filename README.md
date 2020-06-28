@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/mintbean-cli.svg)](https://badge.fury.io/js/mintbean-cli)
 ### status: Not quite ready :)
-CLI currently templates `vanilla-js` and `react-gh-pages`, with bug that image files don't copy over. In new projects still need to manually run 
+CLI currently templates `vanilla-js` and `react-gh-pages`, with bug that image files don't copy over. In new projects still need to manually run
 ```
 git init
 /* create remote repo */
@@ -30,15 +30,31 @@ Run `mint` for list of commands
 
 ## Roadmap
 
-Aiming for at least these features (bold indicates WIP)
+Aiming for at least these features (bold indicates Beta avail)
 
 | cmd                              | description                                                                                                                    |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | **`mint [-h\|--help`]**          | display help                                                                                                                   |
+
 | **`mint -V\|--version`**         | display version                                                                                                                |
+
 | **`mint new\|n [project-name]`** | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
+
+
+| **`mint init **          | Alias for 'git init'. MUST RUN FROM PROJECT FOLDER ROOT.                  |
+
+| **`mint -c\|--connect`**          | Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT.                  |
+
+| **`mint config `**
+
+options: [-v\|--view]         | Set up or view config (Github credentials etc.)                  |
+
+
+
 | `mint deploy`                    | deploy project to github pages based on project type                                                                           |
+
 | `mint share`                     | display remote repo link and github pages link                                                                                 |
+
 | `mint login`                     | save user preferences, github/mintbean credentials                                                                             |
 
 # Developers
