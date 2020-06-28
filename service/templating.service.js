@@ -4,6 +4,7 @@ const tmp = require('tmp');
 const ejs = require('ejs');
 const shell = require('shelljs')
 const mime = require ('mime');
+const chalk = require ('chalk');
 
 const walk = require('../lib/files').walk;
 const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
@@ -47,7 +48,9 @@ module.exports = class TemplatingService {
    */
   template(options = {}) {
     validateOptions(options);
-    const { templateName } = options;
+    const { templateName,
+            projectName,
+            githubUsername } = options;
 
     const templatesPath = getTemplatePath(templateName);
     const files = setRelativePaths(templatesPath, walk(templatesPath));
@@ -66,8 +69,10 @@ module.exports = class TemplatingService {
       fs.writeFileSync(tmpDestination, output);
     });
 
-    const finalTarget = getTargetPath(options.projectName);
+    const finalTarget = getTargetPath(projectName);
     ensureDirectoryExistence(finalTarget);
     fs.copySync(temporaryDirectory, finalTarget);
+    console.log(chalk.cyanBright(`Done! Created new project '${projectName}' for github user '${githubUsername}'`));
+    console.log(chalk.cyanBright(`'cd ${projectName}' to start coding!`));
   }
 }
