@@ -54,7 +54,6 @@ module.exports = class TemplatingService {
     const temporaryDirectory = getTemporaryDirectory().name;
 
     files.forEach(({ absolutePath, pathFromDirectoryRoot }) => {
-      // const templateBuffer = fs.readFileSync(absolutePath)
       const templateBuffer = fs.readFileSync(absolutePath)
 
       // only run ejs.compile on text files
