@@ -32,27 +32,17 @@ Run `mint` for list of commands
 
 Aiming for at least these features (bold indicates Beta avail)
 
-| cmd                              | description                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **`mint [-h\|--help`]**          | display help                                                                                                                   |
-
-| **`mint -V\|--version`**         | display version                          |
-
+| cmd                              | description                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **`mint [-h\|--help`]**          | display help                                                                                      |
+| **`mint -V\|--version`**         | display version                                                                                   |
 | **`mint new\|n [project-name]`** | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
-
-| **`mint init`**          | Alias for 'git init'. MUST RUN FROM PROJECT FOLDER ROOT.                  |
-
-| **`mint -c\|--connect`**          | Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT.                  |
-
-| **`mint config `**      | Set up or view config (Github credentials etc.)                  |
-
-
-
-| `mint deploy`                    | deploy project to github pages based on project type                                                                           |
-
-| `mint share`                     | display remote repo link and github pages link                                                                                 |
-
-| `mint login`                     | save user preferences, github/mintbean credentials                                                                             |
+| **`mint init`**                  | Alias for 'git init'. MUST RUN FROM PROJECT FOLDER ROOT.                                          |
+| **`mint -c\|--connect`**         | Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT. |
+| **`mint config `**               | Set up or view config (Github credentials etc.)                                                   |
+| `mint deploy`                    | deploy project to github pages based on project type                                              |
+| `mint share`                     | display remote repo link and github pages link                                                    |
+| `mint login`                     | save user preferences, github/mintbean credentials                                                |
 
 # Developers
 
