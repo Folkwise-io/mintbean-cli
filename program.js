@@ -4,9 +4,9 @@ const fs = require('fs');
 const { Command } = require('commander');
 const shell = require('shelljs');
 
-const connect = require('./commands/connect').connect;
-const config = require('./lib/config');
+const config = require('./commands/config').config;
 const create = require('./commands/new');
+const connect = require('./commands/connect').connect;
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
 const { version } = require("./package.json");
@@ -50,13 +50,24 @@ const createProgram = () => {
     });
 
   program
+    .command('connect')
+    .alias('c')
+    // .option('-c, --connect', "Set project's remote origin to new repo")
+    .description('Add or override remote origin with github preferences in config')
+    .action(function () {
+      connect()
+    });
+
+  program
     .command('config')
     .description('Set up or view config (Github credentials etc.)')
     .option('-v, --view', 'view current config')
     .option('-g, --github <username>', 'set github username')
-    .option('-t, --token <token', 'set github personal access token')
+    .option('-t, --token <token>', 'set github personal access token')
+    .option('-S, --ssh', 'set github connection type to ssh')
+    .option('-H, --https', 'set github connection type to https')
     .action((cmdObj) => {
-      config.parse(cmdObj)
+      config(cmdObj)
     });
 
   return program;
