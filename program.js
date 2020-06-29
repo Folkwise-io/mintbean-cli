@@ -4,10 +4,11 @@ const fs = require('fs');
 const { Command } = require('commander');
 const shell = require('shelljs');
 
-const create = require('./lib/create');
-const connect = require('./lib/connect').connect;
-const init = require('./lib/init').initialize;
+const connect = require('./commands/connect').connect;
 const config = require('./lib/config');
+const create = require('./commands/new');
+const init = require('./commands/init').initialize;
+const repo = require('./commands/repo').repo;
 const { version } = require("./package.json");
 
 const createProgram = () => {
@@ -21,32 +22,32 @@ const createProgram = () => {
     .description('start new project from template')
     .action(function (project) {
       create.newProject(project)
-    })
+    });
 
   program
     .command('deploy')
     .description('deploy project to GitHub pages from master (origin)')
     .action(function () {
-      console.log(chalk.green('Deploying project to GitHub pages from master at origin...'))
-      shell.exec('gh-pages -d build')
-      console.log(chalk.green(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
-    })
+      console.log(chalk.red('Sorry this command not developed yet...'))
+      // shell.exec('gh-pages -d build')
+      // console.log(chalk.cyanBright(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
+    });
 
   program
     .command('init')
     .description('Alias for \'git init\'. MUST RUN FROM PROJECT FOLDER ROOT.')
     .action(function () {
       init()
-    })
-
+    });
 
   program
-    .command('connect')
-    .alias('c')
-    .description('Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT. ')
-    .action(function () {
-      connect()
-    })
+    .command('repo')
+    .alias('r')
+    .option('-c, --connect', "Set project's remote origin to new repo")
+    .description('Create GitHub remote repo with project name (RUN FROM PROJECT ROOT))')
+    .action(function (cmdObj) {
+      repo(cmdObj)
+    });
 
   program
     .command('config')
