@@ -4,7 +4,7 @@ const files = require('../lib/files.js');
 const getConfig = require('../lib/config').getConfig;
 const git = require('../lib/git');
 const github = require('../lib/github');
-
+const connect = require('./connect').connect;
 
 const repo = (cmdObj) => {
   const githubUsername = getConfig('github');
@@ -19,12 +19,8 @@ const repo = (cmdObj) => {
   const success = github.createRepo(githubUsername, githubToken, projectName);
   if (!success) return
   if(cmdObj.connect) {
-    console.log(chalk.cyanBright('Connecting remote origin...'));
-    git.createOrOverrideRemoteOrigin(githubUsername, projectName);
-    console.log(chalk.cyanBright("To make first push:"));
-    console.log("git add .");
-    console.log("git commit -m \"init\"");
-    console.log("git push origin master");
+    const connectionType = getConfig('connection');
+    connect(githubUsername, projectName, connectionType);
   }
 }
 

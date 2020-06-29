@@ -4,8 +4,9 @@ const fs = require('fs');
 const { Command } = require('commander');
 const shell = require('shelljs');
 
-const config = require('./commands/config');
+const config = require('./commands/config').config;
 const create = require('./commands/new');
+const connect = require('./commands/connect').connect;
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
 const { version } = require("./package.json");
@@ -49,6 +50,15 @@ const createProgram = () => {
     });
 
   program
+    .command('connect')
+    .alias('c')
+    // .option('-c, --connect', "Set project's remote origin to new repo")
+    .description('Add or override remote origin with github preferences in config')
+    .action(function () {
+      connect()
+    });
+
+  program
     .command('config')
     .description('Set up or view config (Github credentials etc.)')
     .option('-v, --view', 'view current config')
@@ -57,7 +67,7 @@ const createProgram = () => {
     .option('-S, --ssh', 'set github connection type to ssh')
     .option('-H, --https', 'set github connection type to https')
     .action((cmdObj) => {
-      config.parse(cmdObj)
+      config(cmdObj)
     });
 
   return program;
