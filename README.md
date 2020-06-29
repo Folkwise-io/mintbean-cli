@@ -18,15 +18,29 @@ Command line interface for easy creation and deployment of submissions for Mintb
 
 `npm install -g mintbean-cli`
 
-## Usage
+### Pre-requisites
+You need to have `node`, `npm` and `git` installed on your machine. Assuming you have npm for downloading `mintbean-cli`:
+```
+**LINUX**
+sudo apt install node git
 
-This tool is run with `mint` command once installed.
+**MAC**
+brew install node
+brew install git
+
+```
+For Windows, Google your way through installing :)
+
+## Usage
 
 Run `mint` for list of commands
 
-### create new react app
+### Create new app
 
-`mint n <my-app>`
+`mint n <my-app>`, then select template from list.
+Current templates:
+- vanilla-js
+- react-gh-pages
 
 ## Roadmap
 
@@ -37,9 +51,9 @@ Aiming for at least these features (bold indicates Beta avail)
 | **`mint [-h\|--help`]**          | display help                                                                                      |
 | **`mint -V\|--version`**         | display version                                                                                   |
 | **`mint new\|n [project-name]`** | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
-| **`mint init`**                  | Alias for 'git init'. MUST RUN FROM PROJECT FOLDER ROOT.                                          |
-| **`mint -c\|--connect`**         | Create new public GitHub repo and add it to project remote as origin. MUST RUN FROM PROJECT ROOT. |
-| **`mint config `**               | Set up or view config (Github credentials etc.)                                                   |
+| **`mint init`**                  | Alias for 'git init'. RUN FROM PROJECT ROOT.                                          |
+| **`mint repo\|r` [-c|--connect]**         | Create new public GitHub repo. RUN FROM PROJECT ROOT. <br> options: (-c): also connect git remote origin to new repo|
+| **`mint config [-v|--view] [-g|--github] [-t|--token]`**               | Set up or view config (Github credentials etc.)     options: (-v) view current config, (-g) set github username, (-t) set github personal access token                                              |
 | `mint deploy`                    | deploy project to github pages based on project type                                              |
 | `mint share`                     | display remote repo link and github pages link                                                    |
 | `mint login`                     | save user preferences, github/mintbean credentials                                                |
