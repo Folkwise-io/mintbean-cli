@@ -1,10 +1,8 @@
 [![npm version](https://badge.fury.io/js/mintbean-cli.svg)](https://badge.fury.io/js/mintbean-cli)
 ### status: Not quite ready :)
-CLI currently templates `vanilla-js` and `react-gh-pages`, with bug that image files don't copy over. In new projects still need to manually run
+CLI currently templates `vanilla-js` and `react-gh-pages`. Only react is deployable by `mint` command at this time: After creating new project (`mint n <my-app>` > `react-gh-pages`) you still need to manually do the following to deploy
 ```
-git init
-/* create remote repo */
-/* react */
+mint r -c      ** creates and connects to remote repo ** 
 yarn install
 yarn deploy
 ```

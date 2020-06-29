@@ -4,8 +4,7 @@ const fs = require('fs');
 const { Command } = require('commander');
 const shell = require('shelljs');
 
-const connect = require('./commands/connect').connect;
-const config = require('./lib/config');
+const config = require('./commands/config');
 const create = require('./commands/new');
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
@@ -54,7 +53,9 @@ const createProgram = () => {
     .description('Set up or view config (Github credentials etc.)')
     .option('-v, --view', 'view current config')
     .option('-g, --github <username>', 'set github username')
-    .option('-t, --token <token', 'set github personal access token')
+    .option('-t, --token <token>', 'set github personal access token')
+    .option('-S, --ssh', 'set github connection type to ssh')
+    .option('-H, --https', 'set github connection type to https')
     .action((cmdObj) => {
       config.parse(cmdObj)
     });
