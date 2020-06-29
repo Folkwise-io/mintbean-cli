@@ -6,6 +6,7 @@ const shell = require('shelljs');
 
 const config = require('./commands/config').config;
 const create = require('./commands/new');
+const deploy = require('./commands/deploy').deploy;
 const connect = require('./commands/connect').connect;
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
@@ -28,9 +29,7 @@ const createProgram = () => {
     .command('deploy')
     .description('deploy project to GitHub pages from master (origin)')
     .action(function () {
-      console.log(chalk.red('Sorry this command not developed yet...'))
-      // shell.exec('gh-pages -d build')
-      // console.log(chalk.cyanBright(`Done! 'https://${username}.io/${path.basename(CWD)}/'`))
+      deploy()
     });
 
   program
