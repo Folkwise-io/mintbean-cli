@@ -36,6 +36,7 @@ const deploy = () => {
       if(homepage) {
         console.log(chalk.cyanBright(`Deployed to`), chalk.bold.cyanBright(`${homepage}`))
       }
+      console.log('(allow a minute or two for deploy to propogate...)')
     }
   } else {
     console.log(chalk.red('No "mintbean">"scripts">"predeploy" or "deploy" found in package.json!'))
