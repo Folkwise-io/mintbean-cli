@@ -51,7 +51,6 @@ const createProgram = () => {
   program
     .command('connect')
     .alias('c')
-    // .option('-c, --connect', "Set project's remote origin to new repo")
     .description('Add or override remote origin with github preferences in config')
     .action(function () {
       connect()
