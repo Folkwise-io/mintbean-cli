@@ -5,6 +5,7 @@ const chalk = require('chalk');
 
 const files = require('../lib/files');
 const config = require('../lib/config');
+const message = require('../lib/message');
 
 const TemplatingService = require('../service/templating.service');
 
@@ -69,7 +70,7 @@ module.exports = {
         return false
       }
     }
-
+    message.banner();
     const options = await getProjectOptions(project);
     const templatingService = new TemplatingService();
     templatingService.template({...options});
