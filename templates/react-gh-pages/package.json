@@ -38,6 +38,8 @@
   },
   "mintbean": {
     "template": "<%= templateName %>",
+    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+    "packageManager": "<%= packageManager %>",
     "scripts": {
       "predeploy": "react-scripts build",
       "deploy": "gh-pages -d build"

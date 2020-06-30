@@ -6,6 +6,8 @@
   "license": "MIT",
   "mintbean": {
     "template": "<%= templateName %>",
+    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+    "packageManager": "<%= packageManager %>",
     "scripts": {
       "predeploy": "parcel build index.html --public-url https://<%= githubUsername %>.github.io/<%= projectName %>/",
       "deploy": "gh-pages -d dist"

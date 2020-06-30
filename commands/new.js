@@ -10,6 +10,7 @@ const message = require('../lib/message');
 const TemplatingService = require('../service/templating.service');
 
 const TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, '../templates'));
+const PM_CHOICES = ['yarn', 'npm'];
 
 const ghUsernameRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, 'i');
 
@@ -19,6 +20,12 @@ const QUESTIONS = [
     type: 'list',
     message: 'Choose a template for new project:',
     choices: TEMPLATE_CHOICES
+  },
+  {
+    name: 'packagemgr',
+    type: 'list',
+    message: 'Which package manager will you use:',
+    choices: PM_CHOICES
   },
   {
     name: 'github',
@@ -46,12 +53,15 @@ const getProjectOptions = async (project) => {
     config.setConfig('github', answers.github)
   }
   const githubUsername = config.getConfig('github');
+  const packageManager = answers.packagemgr;
+  console.log(packageManager)
   const projectName = project ? project : generateProjectName();
 
   const options = {
     projectName,
     githubUsername,
-    templateName
+    templateName,
+    packageManager
   }
   return options
 }
