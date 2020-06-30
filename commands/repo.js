@@ -20,7 +20,10 @@ const repo = (cmdObj) => {
   if (!success) return
   if(cmdObj.connect) {
     const connectionType = getConfig('connection');
-    connect(githubUsername, projectName, connectionType);
+    connect(githubUsername, projectName, connectionType, { skipInitMsg: cmdObj.push? true : false });
+  }
+  if(cmdObj.push) {
+    git.addCommitPushMaster('Initial commit');
   }
 }
 
