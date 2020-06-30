@@ -7,6 +7,7 @@ const mime = require ('mime');
 const chalk = require ('chalk');
 
 const walk = require('../lib/files').walk;
+const npm = require('../lib/npm');
 const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
 
 const setRelativePaths = (dir, files=[]) => (
@@ -71,7 +72,12 @@ module.exports = class TemplatingService {
 
     const finalTarget = getTargetPath(projectName);
     ensureDirectoryExistence(finalTarget);
+    console.log(chalk.cyanBright(`Building project from template...`));
     fs.copySync(temporaryDirectory, finalTarget);
+
+    console.log(chalk.cyanBright(`Installing packages...`));
+    shell.exec(`cd ${projectName} && npm i`);
+
     console.log(chalk.cyanBright(`Done! Created new project '${projectName}' for github user '${githubUsername}'`));
     console.log(chalk.cyanBright(`'cd ${projectName}' to start coding!`));
   }
