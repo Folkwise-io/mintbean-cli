@@ -1,12 +1,4 @@
 [![npm version](https://badge.fury.io/js/mintbean-cli.svg)](https://badge.fury.io/js/mintbean-cli)
-### status: Not quite ready :)
-CLI currently templates `vanilla-js` and `react-gh-pages`. Only react is deployable by `mint` command at this time: After creating new project (`mint n <my-app>` > `react-gh-pages`) you still need to manually do the following to deploy
-```
-mint r -c      ** creates and connects to remote repo ** 
-yarn install
-yarn deploy
-```
-working on automating this, no worries!
 
 # mintbean-cli
 
@@ -27,18 +19,47 @@ brew install node
 brew install git
 
 ```
-For Windows, Google your way through installing :)
+For Windows, Google your way through installing these :)
 
 ## Usage
-
 Run `mint` for list of commands
 
-### Create new app
+### Basic flow
+After setting up your first-time config, creating a project and deploying is easy as:
 
-`mint n <my-app>`, then select template from list.
-Current templates:
-- vanilla-js
-- react-gh-pages
+```
+mint new <my-project>
+cd <my-project>
+mint repo --connect --push
+mint deploy
+```
+
+or for the cool kids:
+
+```
+mint n <my-project>
+cd <my-project>
+mint r -cp
+mint d
+```
+
+Deployment defaults to GitHub pages, but you can define your own custom 'predeploy' and 'deploy' commands in `package.json`>"mintbean.scripts"
+
+### First-time config
+The first time you use `mintbean-cli` you will need to set up your Github credentials using `mint config`
+
+```
+mint config -g <github-username> -t <token>
+```
+
+The connection type defaults to SSH. You can specifcy HTTPS connection instead with -H flag (or switch back to SSH with -S).
+
+```
+mint config -g <github-username> -t <token> -H
+```
+
+View your config settings anytime with `mint config -v`.
+
 
 ## Roadmap
 

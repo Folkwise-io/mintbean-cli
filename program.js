@@ -28,6 +28,7 @@ const createProgram = () => {
 
   program
     .command('deploy')
+    .alias('d')
     .description('Deploy project as prescribed in package.json > "mintbean" predeploy and deploy scripts.')
     .action(function () {
       deploy()
