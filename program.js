@@ -28,7 +28,7 @@ const createProgram = () => {
 
   program
     .command('deploy')
-    .description('Deploy project (defaults to GitHub pages)')
+    .description('Deploy project as prescribed in package.json > "mintbean" predeploy and deploy scripts.')
     .action(function () {
       deploy()
     });
