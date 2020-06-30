@@ -10,6 +10,7 @@ const deploy = require('./commands/deploy').deploy;
 const connect = require('./commands/connect').connect;
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
+const test = require('./commands/test').test;
 const { version } = require("./package.json");
 
 const createProgram = () => {
@@ -20,21 +21,21 @@ const createProgram = () => {
   program
     .command('new [project]')
     .alias('n')
-    .description('start new project from template')
+    .description('Start new project from template')
     .action(function (project) {
       create.newProject(project)
     });
 
   program
     .command('deploy')
-    .description('deploy project to GitHub pages from master (origin)')
+    .description('Deploy project as prescribed in package.json > "mintbean" predeploy and deploy scripts.')
     .action(function () {
       deploy()
     });
 
   program
     .command('init')
-    .description('Alias for \'git init\'. MUST RUN FROM PROJECT FOLDER ROOT.')
+    .description('Alias for \'git init\'.')
     .action(function () {
       init()
     });
@@ -51,7 +52,6 @@ const createProgram = () => {
   program
     .command('connect')
     .alias('c')
-    // .option('-c, --connect', "Set project's remote origin to new repo")
     .description('Add or override remote origin with github preferences in config')
     .action(function () {
       connect()
@@ -67,6 +67,13 @@ const createProgram = () => {
     .option('-H, --https', 'set github connection type to https')
     .action((cmdObj) => {
       config(cmdObj)
+    });
+
+  program
+    .command('test')
+    .description('[For dev use only]')
+    .action(() => {
+      test()
     });
 
   return program;

@@ -3,3 +3,5 @@
 
 # production
 /build
+/dist
+.cache
