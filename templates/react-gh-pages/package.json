@@ -19,8 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "node_modules/.bin/gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,7 +42,7 @@
     "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
     "packageManager": "<%= packageManager %>",
     "scripts": {
-      "deploy": "yarn deploy"
+      "deploy": "npm run deploy"
     }
   }
 }
