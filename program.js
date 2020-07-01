@@ -74,6 +74,7 @@ const createProgram = () => {
 
   program
     .command('develop')
+    .alias('dev')
     .description('Start development server to test out your project')
     .action(() => {
       develop()
