@@ -2,7 +2,7 @@
 
 # mintbean-cli
 
-Command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
+A command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
 
 ## Install
 
@@ -25,7 +25,7 @@ For Windows, Google your way through installing these :)
 Run `mint` for list of commands
 
 ### Basic flow
-After setting up your first-time config, creating a project and deploying is easy as:
+After completing first-time config (see below), creating a project and deploying is easy as:
 
 ```
 mint new <my-project>
@@ -42,17 +42,15 @@ cd <my-project>
 mint r -cp
 mint d
 ```
-
-Deployment defaults to GitHub pages, but you can define your own custom 'predeploy' and 'deploy' commands in `package.json`>"mintbean.scripts"
-
 ### First-time config
-The first time you use `mintbean-cli` you will need to set up your Github credentials using `mint config`
+The first time you use `mintbean-cli` you will need to hook it up to your Github by saving your credentials using `mint config`
 
 ```
 mint config -g <github-username> -t <token>
 ```
+For the token, create a new GitHub personal access token [here](https://github.com/settings/tokens). Be sure to assign this token full scope of 'repo' and 'user'. You can reset your token anytime and update your `mint` config.
 
-The connection type defaults to SSH. You can specifcy HTTPS connection instead with -H flag (or switch back to SSH with -S).
+The connection type defaults to SSH. You can specify HTTPS connection instead with -H flag (or switch back to SSH with -S).
 
 ```
 mint config -g <github-username> -t <token> -H
@@ -60,26 +58,35 @@ mint config -g <github-username> -t <token> -H
 
 View your config settings anytime with `mint config -v`.
 
+### Deployment
+After you've created and connected a repo with `mint repo -c`, simply run `mint deploy` anytime and every time you want to update your deployment.
 
-## Roadmap
+Deployment defaults to GitHub pages, but you can define your own custom 'predeploy' and 'deploy' commands in `package.json`>"mintbean.scripts" if you prefer some other hosting platform.
 
-Aiming for at least these features (bold indicates Beta avail)
+By default the deploy logs the `mintbean.homepage` definined in `package.json` so you can link to it quickly. Be patient on first deploy to github pages though - it can take up to a minute or two before the page is ready :)
+
+## Commands
+**IMPORTANT** Except for `mint [-h -V]`, `mint config` or `mint new`, **run all commands at the project root!**. Sorry, it's my first CLI :)
 
 | cmd                              | description                                                                                       |
 | -------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **`mint [-h\|--help`]**          | display help                                                                                      |
-| **`mint -V\|--version`**         | display version                                                                                   |
-| **`mint new\|n [project-name]`** | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
-| **`mint init`**                  | Alias for 'git init'. RUN FROM PROJECT ROOT.                                          |
-| **`mint repo\|r` [-c\|--connect]**         | Create new public GitHub repo. RUN FROM PROJECT ROOT. <br> options: (-c): also connect git remote origin to new repo|
-| **`mint config [-v\|--view] [-g\|--github] [-t\|--token]`**               | Set up or view config (Github credentials etc.)     options: (-v) view current config, (-g) set github username, (-t) set github personal access token                                              |
-| `mint deploy`                    | deploy project to github pages based on project type                                              |
-| `mint share`                     | display remote repo link and github pages link                                                    |
-| `mint login`                     | save user preferences, github/mintbean credentials                                                |
+|`mint [-h\|--help`]          | display help             |
+| `mint -V\|--version`         | display version             |
+| `mint new\|n [project-name]` | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
+| `mint repo\|r` <br> [-c\|--connect]<br>  [-p\|--push]         | Create new public GitHub repo. <br> options: <br>(-c): (recommended) also connect git remote origin to new repo <br> (-p): (recommended) also do initial git add/commit/push of master to remote origin |
+| `mint config <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token]`       | Set up or view config (Github credentials etc.)   <br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set github personal access token              |
+| `mint deploy\|d`                    | deploy project based on mintbean "deploy" and "predeploy"  scripts in `package.json` (templates come ready for deployment to github pages)     |
+| `mint init`              | Alias for 'git init'.                      |
+| `mint connect\|c`              | Add or override remote origin with github preferences in config (won't usually need to run this as it is built into -c flag in `mint repo -c`)        |
+
 
 # Developers
 
 ## Testing
+Testing is not yet set up for developers. Coming soon.
 
-Currently, jest tests are limited to synchronous execution. Async execution is not supported because of how the CLI
-depends on the current working directory to determine the target directory for the templated project.
+## New templates
+Have a project starter template idea? Submit it [here](https://github.com/clairefro/mintbean-cli/issues/new?assignees=&labels=template&template=template-proposal.md&title=Template+proposal%3A+)
+
+## Bugs
+Report them [here](https://github.com/clairefro/mintbean-cli/issues/new?assignees=&labels=&template=bug_report.md&title=)
