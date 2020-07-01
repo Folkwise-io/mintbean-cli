@@ -10,6 +10,7 @@ const deploy = require('./commands/deploy').deploy;
 const connect = require('./commands/connect').connect;
 const init = require('./commands/init').initialize;
 const repo = require('./commands/repo').repo;
+const develop = require('./commands/develop').develop;
 const test = require('./commands/test').test;
 const { version } = require("./package.json");
 
@@ -69,6 +70,13 @@ const createProgram = () => {
     .option('-H, --https', 'set github connection type to https')
     .action((cmdObj) => {
       config(cmdObj)
+    });
+
+  program
+    .command('develop')
+    .description('Start development server to test out your project')
+    .action(() => {
+      develop()
     });
 
   program

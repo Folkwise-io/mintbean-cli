@@ -4,13 +4,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "predeploy": "parcel build index.html --public-url https://clairefro.github.io/vanilla/",
+    "deploy": "gh-pages -d dist"
+  },
   "mintbean": {
     "template": "<%= templateName %>",
     "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "packageManager": "<%= packageManager %>",
     "scripts": {
-      "predeploy": "parcel build index.html --public-url https://<%= githubUsername %>.github.io/<%= projectName %>/",
-      "deploy": "gh-pages -d dist"
+      "deploy": "npm run deploy",
+      "develop": "npm run start"
     }
   },
   "devDependencies": {
