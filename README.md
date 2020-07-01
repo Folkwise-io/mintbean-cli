@@ -21,7 +21,7 @@ You need to have `node` and `git` installed on your machine. If you don't:
 Run `mint` for list of commands
 
 ### Creating and deploying projects
-First, connect your `mintbean-cli` to GitHub with first-time config (see below). Don't have a GitHub account? [Make one!](https://github.com/join)
+If it is your first time using `mintbean-cli`, first connect to GitHub with config (see below).
 
 #### Suggested flow for new projects
 
@@ -40,40 +40,45 @@ cd <my-project>
 mint r -cp
 mint d
 ```
-### First-time config
-The first time you use `mintbean-cli` you have to hook it up to your Github with `mint config`
+### Config
+The first time you use `mintbean-cli` you need to hook it up to your GitHub. Don't have a GitHub account? [Make one!](https://github.com/join)
 
-```
-mint config -g <github-username> -t <token>
-```
+`mint config -g <github-username> -t <token>`
+
 Create a new GitHub personal access token [here](https://github.com/settings/tokens). Be sure to assign this token full scope of 'repo' and 'user'. You can reset your token anytime and update your `mint` config.
 
-> The connection type defaults to SSH. You can specify HTTPS connection instead with -H flag (or switch back to SSH with -S).
+> Advanced: the connection type defaults to SSH. You can specify HTTPS connection instead with -H flag (or switch back to SSH with -S).
 
-```
-mint config -g <github-username> -t <token> -H
-```
+`mint config -g <github-username> -t <token> -H`
 
 View your config settings anytime with `mint config -v`.
 
+### Development
+`mint develop` or `mint dev`
+
+Starts a local development server to display your code's output. Changes to your code automatically updates when you save. 
+
 ### Deployment
-After you've created and connected a repo with `mint repo -c`, simply run `mint deploy` anytime and every time you want to update your deployment.
+If you haven't yet, create a remote repo: `mint repo -cp`
 
-Deployment defaults to GitHub pages, but you can define your own custom 'predeploy' and 'deploy' commands in `package.json`>"mintbean.scripts" if you prefer some other hosting platform.
+Then just run `mint deploy` anytime and every time you want to update your deployment.
 
-By default the deploy logs the `mintbean.homepage` definined in `package.json` so you can link to it quickly. Be patient on first deploy to github pages though - it can take up to a minute or two before the page is ready :)
+Deployment defaults to GitHub pages, but you can define your own custom 'predeploy' and 'deploy' commands in `package.json`> "scripts" if you prefer some other building/hosting platform.
+
+Be patient on first deploy to GitHub pages - it can take up to a minute or two before the page is ready :)
 
 ## Commands
-**IMPORTANT** Except for `mint [-h -V]`, `mint config` or `mint new`, **run all commands at the project root!**. Sorry, it's my first CLI :)
+In general, **run all commands at the project root!**. Commands you can run anywhere: `mint [-h|-V]`, `mint config` or `mint new`
 
 | cmd                              | description                                                                                       |
 | -------------------------------- | ------------------------------------------------------------------------------------------------- |
 |`mint [-h\|--help`]          | display help             |
-| `mint -V\|--version`         | display version             |
+| `mint -V\|--version`         | display mintbean-cli version             |
 | `mint new\|n [project-name]` | create new project from template that you select after running. If no project name given, name defaults to `mintbean-hackathon-challenge-YYYY-MM-DD` |
 | `mint repo\|r` <br> [-c\|--connect]<br>  [-p\|--push]         | Create new public GitHub repo. <br> options: <br>(-c): (recommended) also connect git remote origin to new repo <br> (-p): (recommended) also do initial git add/commit/push of master to remote origin |
-| `mint config <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token]`       | Set up or view config (Github credentials etc.)   <br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set github personal access token              |
-| `mint deploy\|d`                    | deploy project based on mintbean "deploy" and "predeploy"  scripts in `package.json` (templates come ready for deployment to github pages)     |
+| `mint config` <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token]       | Set up or view config (Github credentials etc.)   <br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)              |
+| `mint develop\|dev`                    | Launches local development server so you can see your project. <br> Excutes "develop" script in package.json>mintbean>scripts     |
+| `mint deploy\|d`                    | Deploy project (default: GitHub Pages). <br> Excutes "deploy" script in package.json>mintbean>scripts     |
 | `mint init`              | Alias for 'git init'.                      |
 | `mint connect\|c`              | Add or override remote origin with github preferences in config (won't usually need to run this as it is built into -c flag in `mint repo -c`)        |
 
