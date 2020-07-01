@@ -9,25 +9,23 @@ A command line interface for easy creation and deployment of submissions for Min
 `npm install -g mintbean-cli`
 
 ### Pre-requisites
-You need to have `node`, `npm` and `git` installed on your machine. Assuming you have npm for downloading `mintbean-cli`:
-```
-**LINUX**
-sudo apt install node git
+You need to have `node` and `git` installed on your machine. If you don't:
 
-**MAC**
-brew install node
-brew install git
+**LINUX**  `sudo apt install node git`
 
-```
-For Windows, Google your way through installing these :)
+**MAC**  `brew install node`  `brew install git`
+
+**WINDOWS** Google it :)
 
 ## Usage
 Run `mint` for list of commands
 
-### Basic flow
-After completing first-time config (see below), creating a project and deploying is easy as:
+### Creating and deploying projects
+First, connect your `mintbean-cli` to GitHub with first-time config (see below). Don't have a GitHub account? [Make one!](https://github.com/join)
 
-```
+#### Suggested flow for new projects
+
+```shell
 mint new <my-project>
 cd <my-project>
 mint repo --connect --push
@@ -36,21 +34,21 @@ mint deploy
 
 or for the cool kids:
 
-```
+```shell
 mint n <my-project>
 cd <my-project>
 mint r -cp
 mint d
 ```
 ### First-time config
-The first time you use `mintbean-cli` you will need to hook it up to your Github by saving your credentials using `mint config`
+The first time you use `mintbean-cli` you have to hook it up to your Github with `mint config`
 
 ```
 mint config -g <github-username> -t <token>
 ```
-For the token, create a new GitHub personal access token [here](https://github.com/settings/tokens). Be sure to assign this token full scope of 'repo' and 'user'. You can reset your token anytime and update your `mint` config.
+Create a new GitHub personal access token [here](https://github.com/settings/tokens). Be sure to assign this token full scope of 'repo' and 'user'. You can reset your token anytime and update your `mint` config.
 
-The connection type defaults to SSH. You can specify HTTPS connection instead with -H flag (or switch back to SSH with -S).
+> The connection type defaults to SSH. You can specify HTTPS connection instead with -H flag (or switch back to SSH with -S).
 
 ```
 mint config -g <github-username> -t <token> -H
