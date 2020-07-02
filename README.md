@@ -81,7 +81,8 @@ Basic Vue CLI template.
 
 ## WARNINGS
 1. Pick a unique project name that won't conflict with your existing GitHub repos
-2. `mint` commands will break if you change your project name... sorry. 
+2. `mint` commands will break if you change your project name... sorry.
+3. VANILLA-JS TEMPLATE: if you change your entry file from `./index.html`, be sure to update the deploy and predeploy npm scripts commands in `package.json`
 
 ## Commands
 In general, **run all commands at the project root!**. Commands you can run anywhere: `mint [-h|-V]`, `mint config` or `mint new`
