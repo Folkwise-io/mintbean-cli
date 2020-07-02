@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
-    "predeploy": "parcel build index.html --public-url https://clairefro.github.io/vanilla/",
+    "predeploy": "rm -fr .cache dist && parcel build index.html --public-url /<%= projectName %>",
     "deploy": "gh-pages -d dist"
   },
   "mintbean": {
