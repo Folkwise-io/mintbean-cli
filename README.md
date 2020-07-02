@@ -73,7 +73,7 @@ These start templates are currently available. They all come ready-to-deploy to 
 ### react-gh-pages
 Basic Create React App template.
 
-### vanilla-js
+### vanilla-js-gh-pages
 Basic vanilla JavaScript template that allows you to preview your project on a local server (`mint dev`)
 
 ### vue-gh-pages
