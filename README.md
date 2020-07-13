@@ -79,6 +79,9 @@ Basic vanilla JavaScript template that allows you to preview your project on a l
 ### vue-gh-pages
 Basic Vue CLI template.
 
+### bulma-theme
+A theme workspace for Bulma CSS, complete with a test page with all of Bulma's components.
+
 ## WARNINGS
 1. Pick a unique project name that won't conflict with your existing GitHub repos
 2. `mint` commands will break if you change your project name... sorry.
