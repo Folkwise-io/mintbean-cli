@@ -1,0 +1,19 @@
+{
+    "name": "<%= projectName %>",
+    "version": "1.0.0",
+    "description": "This project was generated from the Mintbean phaser-gh-pages template using the mintbean-cli tool.",
+    "main": "index.js",
+    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "start": "parcel src/index.html",
+        "build": "parcel build src/index.html"
+    },
+    "dependencies": {
+        "phaser": "3.24.1"
+    },
+    "devDependencies": {
+        "parcel-bundler": "1.12.4"
+    }
+}
