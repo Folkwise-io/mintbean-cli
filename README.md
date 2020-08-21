@@ -90,9 +90,14 @@ Basic vanilla JavaScript template that allows you to preview your project on a l
 
 Basic Vue CLI template.
 
+
+### bulma-theme
+A theme workspace for Bulma CSS, complete with a test page with all of Bulma's components.
+
 ### phaser-js-gh-pages
 
 Starter Kit for a full-fledged PhaserJS game project
+
 
 ## WARNINGS
 
