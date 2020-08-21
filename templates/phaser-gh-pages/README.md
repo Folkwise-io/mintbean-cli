@@ -22,6 +22,16 @@
 
 This is currently being developed. Please report any bugs in the issues tab!
 
+## FAQ
+
+### Why are my assets not showing up?
+
+All assets must be imported!
+
+### Where do I get started?
+
+I Recommend starting in src/scenes/game.js, edit the menu screen, and win screen after you complete your game.
+
 ## What we're trying to achieve
 
 This starter template is meant to be a kickoff spot for a full-fledged PhaserJS game project.
