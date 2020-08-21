@@ -92,7 +92,7 @@ Basic Vue CLI template.
 
 ### phaser-js-gh-pages
 
-Kickoff for a full-fledged PhaserJS game project
+Starter Kit for a full-fledged PhaserJS game project
 
 ## WARNINGS
 
