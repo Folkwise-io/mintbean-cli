@@ -7,6 +7,7 @@ const github = require('../lib/github');
 const connect = require('./connect').connect;
 
 const repo = (cmdObj) => {
+  console.log(cmdObj);
   const githubUsername = getConfig('github');
   const githubToken = getConfig('token');
 

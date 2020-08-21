@@ -1,5 +1,9 @@
-#!/usr/bin/env node
-const { createProgram } = require('./program');
+const { createProgram } = require("./program.js");
+function cli(args) {
+    const program = createProgram();
+    program.parse(args);
+}
 
-const program = createProgram();
-program.parse(process.argv);
+module.exports = {
+  cli: cli,
+};

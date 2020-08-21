@@ -82,6 +82,7 @@ module.exports = {
     }
     message.banner();
     const options = await getProjectOptions(project);
+    console.log(project);
     const templatingService = new TemplatingService();
     templatingService.template({...options});
   },
