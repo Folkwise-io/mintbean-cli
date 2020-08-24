@@ -17,7 +17,7 @@ const setRelativePaths = (dir, files=[]) => (
   }))
 );
 
-const getTemplatePath = (name) => path.join(__dirname, '../templates', name);
+const getTemplatePath = (name) => path.join(__dirname, '../../templates', name);
 const getTemporaryDirectory = () => tmp.dirSync();
 const getTargetPath = projectName => path.join(process.cwd(), projectName);
 

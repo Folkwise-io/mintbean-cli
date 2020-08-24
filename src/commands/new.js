@@ -9,7 +9,7 @@ const message = require('../lib/message');
 
 const TemplatingService = require('../service/templating.service');
 
-const TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, '../templates'));
+const TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, '../../templates'));
 const PM_CHOICES = ['yarn', 'npm'];
 
 const ghUsernameRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, 'i');

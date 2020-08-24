@@ -1,18 +1,18 @@
-var chalk = require("chalk");
-var path = require("path");
-var fs = require("fs");
-var Command = require("commander").Command;
-var shell = require("shelljs");
-var config = require("./commands/config").config;
-var create = require("./commands/new");
-var deploy = require("./commands/deploy").deploy;
-var connect = require("./commands/connect").connect;
-var init = require("./commands/init").initialize;
-var repo = require("./commands/repo").repo;
-var develop = require("./commands/develop").develop;
-var test = require("./commands/test").test;
-var version = require("./package.json").version;
-var createProgram = function ():void {
+const chalk = require("chalk");
+const path = require("path");
+const fs = require("fs");
+const Command = require("commander").Command;
+const shell = require("shelljs");
+const config = require("./commands/config").config;
+const create = require("./commands/new");
+const deploy = require("./commands/deploy").deploy;
+const connect = require("./commands/connect").connect;
+const init = require("./commands/init").initialize;
+const repo = require("./commands/repo").repo;
+const develop = require("./commands/develop").develop;
+const test = require("./commands/test").test;
+const version = require("./../package.json").version;
+const createProgram = function ():void {
     var program = new Command();
     program.version(version);
     program

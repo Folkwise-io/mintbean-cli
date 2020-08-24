@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const shell = require('shelljs');
+const shell = require("shelljs");
 const connect = require('./connect').connect;
 const hasRemoteOrigin = require('../lib/git').hasRemoteOrigin;
 const parsePackageDotJson = require('../lib/files').parsePackageDotJson;

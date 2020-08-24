@@ -1,4 +1,4 @@
-const shell = require('shelljs');
+const shell = require("shelljs");
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');

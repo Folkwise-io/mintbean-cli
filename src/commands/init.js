@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
-const shell = require('shelljs');
+const shell = require("shelljs");
 const git = require('../lib/git');
 
 module.exports = {
