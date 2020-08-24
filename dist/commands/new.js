@@ -10,6 +10,25 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,42 +65,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var fs = require('fs');
-var path = require('path');
-var inquirer = require('inquirer');
-var chalk = require('chalk');
-var files = require('../lib/files');
-var config = require('../lib/config');
-var message = require('../lib/message');
-var TemplatingService = require('../service/templating.service');
-var TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, '../../templates'));
-var PM_CHOICES = ['yarn', 'npm'];
-var ghUsernameRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, 'i');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.create = void 0;
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
+var inquirer_1 = __importDefault(require("inquirer"));
+var chalk_1 = __importDefault(require("chalk"));
+var files = __importStar(require("../lib/files"));
+var config_1 = require("../lib/config");
+var message = __importStar(require("../lib/message"));
+var templating_service_1 = __importDefault(require("../service/templating.service"));
+var TEMPLATE_CHOICES = fs_1.default.readdirSync(path_1.default.join(__dirname, "../../templates"));
+var PM_CHOICES = ["yarn", "npm"];
+var ghUsernameRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/, "i");
 var QUESTIONS = [
     {
-        name: 'template',
-        type: 'list',
-        message: 'Choose a template for new project:',
-        choices: TEMPLATE_CHOICES
+        name: "template",
+        type: "list",
+        message: "Choose a template for new project:",
+        choices: TEMPLATE_CHOICES,
     },
     {
-        name: 'packagemgr',
-        type: 'list',
-        message: 'Which package manager will you use:',
-        choices: PM_CHOICES
+        name: "packagemgr",
+        type: "list",
+        message: "Which package manager will you use:",
+        choices: PM_CHOICES,
     },
     {
-        name: 'github',
-        type: 'input',
-        message: 'GitHub username: ',
-        when: function () { return !config.getConfig('github'); },
+        name: "github",
+        type: "input",
+        message: "GitHub username: ",
+        when: function () { return !config_1.config.getConfig("github"); },
         validate: function (input) {
-            if (input === '' || !ghUsernameRegex.test(input)) {
-                return 'not valid username, try again';
+            if (input === "" || !ghUsernameRegex.test(input)) {
+                return "not valid username, try again";
             }
             return true;
-        }
-    }
+        },
+    },
 ];
 var generateProjectName = function () {
     var now = new Date();
@@ -91,14 +115,14 @@ var getProjectOptions = function (project) { return __awaiter(void 0, void 0, vo
     var answers, templateName, githubUsername, packageManager, projectName, options;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirer.prompt(QUESTIONS)];
+            case 0: return [4 /*yield*/, inquirer_1.default.prompt(QUESTIONS)];
             case 1:
                 answers = _a.sent();
                 templateName = answers.template;
                 if (answers.github) {
-                    config.setConfig('github', answers.github);
+                    config_1.config.setConfig("github", answers.github);
                 }
-                githubUsername = config.getConfig('github');
+                githubUsername = config_1.config.getConfig("github");
                 packageManager = answers.packagemgr;
                 console.log(packageManager);
                 projectName = project ? project : generateProjectName();
@@ -106,7 +130,7 @@ var getProjectOptions = function (project) { return __awaiter(void 0, void 0, vo
                     projectName: projectName,
                     githubUsername: githubUsername,
                     templateName: templateName,
-                    packageManager: packageManager
+                    packageManager: packageManager,
                 };
                 return [2 /*return*/, options];
         }
@@ -114,9 +138,9 @@ var getProjectOptions = function (project) { return __awaiter(void 0, void 0, vo
 }); };
 var checkForProjectPathConflict = function (project) {
     // returns false if no conflict
-    return files.checkFileOrDirExists(path.join(process.cwd(), project));
+    return files.checkFileOrDirExists(path_1.default.join(process.cwd(), project));
 };
-module.exports = {
+exports.create = {
     newProject: function (project) { return __awaiter(void 0, void 0, void 0, function () {
         var conflict, options, templatingService;
         return __generator(this, function (_a) {
@@ -125,7 +149,7 @@ module.exports = {
                     if (project) {
                         conflict = checkForProjectPathConflict(project);
                         if (conflict) {
-                            console.log(chalk.red("Whoops! Project with name '" + project + "' already exists.\nTry again with a different project name."));
+                            console.log(chalk_1.default.red("Whoops! Project with name '" + project + "' already exists.\nTry again with a different project name."));
                             return [2 /*return*/, false];
                         }
                     }
@@ -134,7 +158,7 @@ module.exports = {
                 case 1:
                     options = _a.sent();
                     console.log(project);
-                    templatingService = new TemplatingService();
+                    templatingService = new templating_service_1.default();
                     templatingService.template(__assign({}, options));
                     return [2 /*return*/];
             }

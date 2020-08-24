@@ -1,27 +1,31 @@
 "use strict";
-var fs = require('fs-extra');
-var path = require('path');
-var tmp = require('tmp');
-var ejs = require('ejs');
-var shell = require('shelljs');
-var mime = require('mime');
-var chalk = require('chalk');
-var walk = require('../lib/files').walk;
-var ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence;
-var installPackagesCmd = require('../lib/package').installPackagesCmd;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs_extra_1 = __importDefault(require("fs-extra"));
+var path_1 = __importDefault(require("path"));
+var tmp_1 = __importDefault(require("tmp"));
+var ejs_1 = __importDefault(require("ejs"));
+var shelljs_1 = __importDefault(require("shelljs"));
+var mime_1 = __importDefault(require("mime"));
+var chalk_1 = __importDefault(require("chalk"));
+var files_1 = require("../lib/files");
+var files_2 = require("../lib/files");
+var package_1 = require("../lib/package");
 var setRelativePaths = function (dir, files) {
     if (files === void 0) { files = []; }
     return (files.map(function (_a) {
         var absolutePath = _a.absolutePath;
         return ({
             absolutePath: absolutePath,
-            pathFromDirectoryRoot: path.relative(dir, absolutePath)
+            pathFromDirectoryRoot: path_1.default.relative(dir, absolutePath)
         });
     }));
 };
-var getTemplatePath = function (name) { return path.join(__dirname, '../../templates', name); };
-var getTemporaryDirectory = function () { return tmp.dirSync(); };
-var getTargetPath = function (projectName) { return path.join(process.cwd(), projectName); };
+var getTemplatePath = function (name) { return path_1.default.join(__dirname, '../../templates', name); };
+var getTemporaryDirectory = function () { return tmp_1.default.dirSync(); };
+var getTargetPath = function (projectName) { return path_1.default.join(process.cwd(), projectName); };
 /**
  * @param {TemplateOptions} options
  */
@@ -34,12 +38,12 @@ var validateOptions = function (options) {
     }
 };
 // returns true if file is of mimetype 'text/...' or 'application/...'
-var isEjsTemplatable = function (file) {
-    var ext = path.extname(file).replace('.', '');
-    var mimetype = mime.getType(ext);
+var isEjsTemptable = function (file) {
+    var ext = path_1.default.extname(file).replace('.', '');
+    var mimetype = mime_1.default.getType(ext);
     return (/^(text\/)|(application\/)/).test(mimetype);
 };
-module.exports = /** @class */ (function () {
+var TemplatingService = /** @class */ (function () {
     function TemplatingService() {
     }
     /**
@@ -52,28 +56,29 @@ module.exports = /** @class */ (function () {
         validateOptions(options);
         var templateName = options.templateName, projectName = options.projectName, githubUsername = options.githubUsername, packageManager = options.packageManager;
         var templatesPath = getTemplatePath(templateName);
-        var files = setRelativePaths(templatesPath, walk(templatesPath));
+        var files = setRelativePaths(templatesPath, files_1.walk(templatesPath));
         var temporaryDirectory = getTemporaryDirectory().name;
         files.forEach(function (_a) {
             var absolutePath = _a.absolutePath, pathFromDirectoryRoot = _a.pathFromDirectoryRoot;
-            var templateBuffer = fs.readFileSync(absolutePath);
+            var templateBuffer = fs_extra_1.default.readFileSync(absolutePath);
             // only run ejs.compile on text files
-            var isTemplatable = isEjsTemplatable(absolutePath);
+            var isTemplatable = isEjsTemptable(absolutePath);
             var output = isTemplatable ?
-                ejs.compile(templateBuffer.toString('utf-8'))(options) :
+                ejs_1.default.compile(templateBuffer.toString('utf-8'))(options) :
                 templateBuffer;
-            var tmpDestination = path.join(temporaryDirectory, pathFromDirectoryRoot);
-            ensureDirectoryExistence(tmpDestination);
-            fs.writeFileSync(tmpDestination, output);
+            var tmpDestination = path_1.default.join(temporaryDirectory, pathFromDirectoryRoot);
+            files_2.ensureDirectoryExistence(tmpDestination);
+            fs_extra_1.default.writeFileSync(tmpDestination, output);
         });
         var finalTarget = getTargetPath(projectName);
-        ensureDirectoryExistence(finalTarget);
-        console.log(chalk.cyanBright("Building project from template..."));
-        fs.copySync(temporaryDirectory, finalTarget);
-        console.log(chalk.cyanBright("Installing packages..."));
-        shell.exec("cd " + projectName + " && " + installPackagesCmd(packageManager));
-        console.log(chalk.cyanBright("Done! Created new project '" + projectName + "' for github user '" + githubUsername + "'"));
-        console.log(chalk.bold.cyanBright("'cd " + projectName + "'"), chalk.cyanBright('to start coding!'));
+        files_2.ensureDirectoryExistence(finalTarget);
+        console.log(chalk_1.default.cyanBright("Building project from template..."));
+        fs_extra_1.default.copySync(temporaryDirectory, finalTarget);
+        console.log(chalk_1.default.cyanBright("Installing packages..."));
+        shelljs_1.default.exec("cd " + projectName + " && " + package_1.installPackagesCmd(packageManager));
+        console.log(chalk_1.default.cyanBright("Done! Created new project '" + projectName + "' for github user '" + githubUsername + "'"));
+        console.log(chalk_1.default.bold.cyanBright("'cd " + projectName + "'"), chalk_1.default.cyanBright('to start coding!'));
     };
     return TemplatingService;
 }());
+exports.default = TemplatingService;

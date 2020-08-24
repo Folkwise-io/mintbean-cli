@@ -1,16 +1,14 @@
 "use strict";
-var Pref = require('dotpref').Pref;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.setConfig = exports.getConfig = void 0;
+var dotpref_1 = require("dotpref");
 // returns false if no key or value is undefined, returns value if key
-var getConfig = function (key) {
-    var value = Pref.get(key);
-    if (typeof value === 'undefined')
+exports.getConfig = function (key) {
+    var value = dotpref_1.Pref.get(key);
+    if (typeof value === "undefined")
         return false;
     return value;
 };
-var setConfig = function (key, val) {
-    Pref.set(key, val);
-};
-module.exports = {
-    getConfig: getConfig,
-    setConfig: setConfig
+exports.setConfig = function (key, val) {
+    dotpref_1.Pref.set(key, val);
 };

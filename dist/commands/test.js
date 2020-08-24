@@ -1,7 +1,5 @@
 "use strict";
-var git = require('../lib/git');
-var test = function () {
-};
-module.exports = {
-    test: test,
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.test = void 0;
+exports.test = function () {
 };

@@ -1,41 +1,40 @@
 "use strict";
-var chalk = require("chalk");
-var path = require("path");
-var fs = require("fs");
-var Command = require("commander").Command;
-var shell = require("shelljs");
-var config = require("./commands/config").config;
-var create = require("./commands/new");
-var deploy = require("./commands/deploy").deploy;
-var connect = require("./commands/connect").connect;
-var init = require("./commands/init").initialize;
-var repo = require("./commands/repo").repo;
-var develop = require("./commands/develop").develop;
-var test = require("./commands/test").test;
-var version = require("./../package.json").version;
-var createProgram = function () {
-    var program = new Command();
-    program.version(version);
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createProgram = void 0;
+var commander_1 = require("commander");
+var config_1 = require("./commands/config");
+var new_1 = require("./commands/new");
+var deploy_1 = require("./commands/deploy");
+var connect_1 = require("./commands/connect");
+var init_1 = require("./commands/init");
+var repo_1 = require("./commands/repo");
+var develop_1 = require("./commands/develop");
+var test_1 = require("./commands/test");
+// @ts-ignore
+var package_json_1 = require("./../package.json");
+exports.createProgram = function () {
+    var program = new commander_1.Command();
+    program.version(package_json_1.version);
     program
         .command("new [project]")
         .alias("n")
         .description("Start new project from template")
         .action(function (project) {
         console.log(project);
-        create.newProject(project);
+        new_1.create.newProject(project);
     });
     program
         .command("deploy")
         .alias("d")
         .description('Deploy project as prescribed in package.json > "mintbean" predeploy and deploy scripts.')
         .action(function () {
-        deploy();
+        deploy_1.deploy();
     });
     program
         .command("init")
         .description("Alias for 'git init'.")
         .action(function (v) {
-        init();
+        init_1.init();
     });
     program
         .command("repo")
@@ -44,14 +43,15 @@ var createProgram = function () {
         .option("-p, --push", "(recommended) Intial add/commit/push of master to new repo")
         .description("Create GitHub remote repo with project name (RUN FROM PROJECT ROOT))")
         .action(function (cmdObj) {
-        repo(cmdObj);
+        console.log(cmdObj);
+        repo_1.repo(cmdObj);
     });
     program
         .command("connect")
         .alias("c")
         .description("Add or override remote origin with github preferences in config")
         .action(function () {
-        connect();
+        connect_1.connect();
     });
     program
         .command("config")
@@ -62,23 +62,21 @@ var createProgram = function () {
         .option("-S, --ssh", "set github connection type to ssh")
         .option("-H, --https", "set github connection type to https")
         .action(function (cmdObj) {
-        config(cmdObj);
+        console.log(cmdObj);
+        config_1.config(cmdObj);
     });
     program
         .command("develop")
         .alias("dev")
         .description("Start development server to test out your project")
         .action(function () {
-        develop();
+        develop_1.develop();
     });
     program
         .command("test")
         .description("[For dev use only]")
         .action(function () {
-        test();
+        test_1.test();
     });
     return program;
-};
-module.exports = {
-    createProgram: createProgram
 };
