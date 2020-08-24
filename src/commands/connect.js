@@ -1,9 +1,9 @@
-const chalk = require('chalk');
-const files = require('../lib/files');
-const git = require('../lib/git');
-const getConfig = require('../lib/config').getConfig;
+import chalk from 'chalk';
+import * as files from '../lib/files';
+import * as git from '../lib/git';
+import { getConfig } from '../lib/config'
 
-const connect = (username, project, connection, opts) => {
+export const connect = (username, project, connection, opts) => {
   console.log(chalk.cyanBright('Connecting remote origin...'));
   const githubUsername = username || getConfig('github');
   const projectName = project || files.getCurrentDirectoryBase();
@@ -17,8 +17,4 @@ const connect = (username, project, connection, opts) => {
     console.log("git commit -m \"init\"");
     console.log("git push origin master");
   }
-}
-
-module.exports = {
-  connect,
 }

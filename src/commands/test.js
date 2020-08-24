@@ -1,8 +1,5 @@
-const git = require('../lib/git');
+import * as git from '../lib/git';
 
-const test = () => {
+export const test = () => {
 }
 
-module.exports = {
-  test,
-}

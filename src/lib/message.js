@@ -1,9 +1,8 @@
-const chalk = require('chalk');
-const figlet = require('figlet');
+import chalk from 'chalk';
+import figlet from 'figlet';
 
-module.exports = {
-  banner: () => {
-    console.log(
+export const banner = () => {
+  console.log(
       chalk.cyanBright(
         figlet.textSync('Mint', { horizontalLayout: 'full' })
       )
@@ -11,5 +10,4 @@ module.exports = {
     console.log(
       chalk.whiteBright('Let mint do the hard work... you do the coding \n')
     );
-  }
 }

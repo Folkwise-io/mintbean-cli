@@ -1,14 +1,14 @@
-const fs = require('fs-extra');
-const path = require('path');
-const tmp = require('tmp');
-const ejs = require('ejs');
-const shell = require('shelljs')
-const mime = require ('mime');
-const chalk = require ('chalk');
+import fs  from 'fs-extra';
+import path  from 'path';
+import tmp  from 'tmp';
+import ejs  from 'ejs';
+import shell  from 'shelljs'
+import mime  from 'mime';
+import chalk  from 'chalk';
 
-const walk = require('../lib/files').walk;
-const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
-const installPackagesCmd = require('../lib/package').installPackagesCmd;
+import { walk } from '../lib/files';
+import { ensureDirectoryExistence } from '../lib/files'
+import { installPackagesCmd } from '../lib/package'
 
 const setRelativePaths = (dir, files=[]) => (
   files.map(({ absolutePath }) => ({
@@ -35,13 +35,13 @@ const validateOptions = options => {
 }
 
 // returns true if file is of mimetype 'text/...' or 'application/...'
-const isEjsTemplatable = (file) => {
+const isEjsTemptable = (file) => {
   const ext = path.extname(file).replace('.','');
   const mimetype= mime.getType(ext);
   return (/^(text\/)|(application\/)/).test(mimetype)
 }
 
-module.exports = class TemplatingService {
+ class TemplatingService {
   /**
    *
    * @param {*} templateName
@@ -63,7 +63,7 @@ module.exports = class TemplatingService {
       const templateBuffer = fs.readFileSync(absolutePath)
 
       // only run ejs.compile on text files
-      const isTemplatable = isEjsTemplatable(absolutePath)
+      const isTemplatable = isEjsTemptable(absolutePath)
       const output = isTemplatable ?
                    ejs.compile(templateBuffer.toString('utf-8'))(options) :
                    templateBuffer;
@@ -84,3 +84,5 @@ module.exports = class TemplatingService {
     console.log(chalk.bold.cyanBright(`'cd ${projectName}'`), chalk.cyanBright('to start coding!'));
   }
 }
+
+export default TemplatingService

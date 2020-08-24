@@ -1,5 +1,5 @@
-const { createProgram } = require("./program.js");
-function cli(args) {
+import { createProgram } from "./program";
+function cli(args:string[]) {
     const program = createProgram();
     program.parse(args);
 }

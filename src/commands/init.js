@@ -1,15 +1,13 @@
-const chalk = require('chalk');
-const path = require('path');
-const fs = require('fs');
-const shell = require("shelljs");
-const git = require('../lib/git');
+import chalk from "chalk";
+import path from "path";
+import fs from "fs";
+import shell from "shelljs";
+import * as git from "../lib/git";
 
-module.exports = {
-  initialize: () => {
-    if(git.hasGitInitialized()) {
-      console.log(chalk.red('git already initialized in this project. Aborting'))
-      return false;
-    }
-    git.init()
+export const init = () => {
+  if (git.hasGitInitialized()) {
+    console.log(chalk.red("git already initialized in this project. Aborting"));
+    return false;
   }
-}
+  git.init();
+};

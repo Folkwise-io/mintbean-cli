@@ -1,12 +1,8 @@
-const shell = require('shelljs');
-const chalk = require('chalk');
+import shell from 'shelljs';
+import chalk from 'chalk';
 
 // this syntax works for both 'yarn' and 'npm'
-const installPackagesCmd = (packageManager) => {
+export const installPackagesCmd = (packageManager) => {
   console.log(`${packageManager} install`);
   return `${packageManager} install`
-}
-
-module.exports = {
-  installPackagesCmd,
 }

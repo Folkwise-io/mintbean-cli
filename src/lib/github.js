@@ -1,9 +1,9 @@
-const shell = require("shelljs");
-const chalk = require('chalk');
-const git = require('./git');
+import shell from "shelljs";
+import chalk from 'chalk';
+import * as git from './git';
 
 // VALIDATIONS
-const validateGithubCredentials = (username, token) => {
+export const validateGithubCredentials = (username, token) => {
   if (!username || !token) {
     if(!username) {
       console.log(chalk.red("Missing GitHub username. Add it to config:"));
@@ -25,7 +25,7 @@ const attemptRepoCreation = (username, token, projectName) => {
   return shell.exec(`curl -H 'Authorization: token ${token}' https://api.github.com/user/repos -d '{"name":"${projectName}"}'`, {silent:true});
 }
 // Actions
-const createRepo = (username, token, projectName) => {
+export const createRepo = (username, token, projectName) => {
   const output = attemptRepoCreation(username, token, projectName);
   const curlErr = JSON.parse(output).message
   if(curlErr) {
@@ -34,9 +34,4 @@ const createRepo = (username, token, projectName) => {
   }
   console.log(chalk.cyanBright(`Successfully created repo at '${username}/${projectName}'`));
   return true;
-}
-
-module.exports = {
-  validateGithubCredentials,
-  createRepo,
 }
