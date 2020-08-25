@@ -81,6 +81,7 @@ module.exports = {
       }
     }
     message.banner();
+    message.sponsorBanner()
     const options = await getProjectOptions(project);
     const templatingService = new TemplatingService();
     templatingService.template({...options});
