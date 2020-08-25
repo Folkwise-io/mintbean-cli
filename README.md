@@ -90,14 +90,17 @@ Basic vanilla JavaScript template that allows you to preview your project on a l
 
 Basic Vue CLI template.
 
+### svelte-gh-pages
+
+Basic Svelte CLI template.
 
 ### bulma-theme
+
 A theme workspace for Bulma CSS, complete with a test page with all of Bulma's components.
 
 ### phaser-js-gh-pages
 
 Starter Kit for a full-fledged PhaserJS game project
-
 
 ## WARNINGS
 
@@ -112,15 +115,15 @@ In general, **run all commands at the project root!**. Commands you can run anyw
 
 | cmd | description |
 | - | - |
-| `mint [-h|--help`] | display help |
-| `mint -V|--version` | display mintbean-cli version |
-| `mint new|n [project-name]` | create new project from template that you select after running. If no project name given, name defaults to`mintbean-hackathon-challenge-YYYY-MM-DD` |
-| `mint repo|r` <br> [-c\|--connect]<br>  [-p\|--push] | Create new public GitHub repo.<br> options: <br>(-c): (recommended) also connect git remote origin to new repo <br> (-p): (recommended) also do initial git add/commit/push of master to remote origin |
+| `mint [-h | --help`] |
+| `mint -V | --version` |
+| `mint new | n [project-name]` |
+| `mint repo | r`<br> [-c\|--connect]<br>  [-p\|--push] |
 | `mint config` <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token] | Set up or view config (Github credentials etc.)<br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
-| `mint develop|dev` | Launches local development server so you can see your project.<br> Excutes "develop" script in package.json>mintbean>scripts |
-| `mint deploy|d` | Deploy project (default: GitHub Pages).<br> Excutes "deploy" script in package.json>mintbean>scripts |
+| `mint develop | dev` |
+| `mint deploy | d` |
 | `mint init` | Alias for 'git init'. |
-| `mint connect|c` | Add or override remote origin with github preferences in config (won't usually need to run this as it is built into -c flag in`mint repo -c`) |
+| `mint connect | c` |
 
 # Developers
 
