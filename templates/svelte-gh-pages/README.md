@@ -1,104 +1,37 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Mintbean's Svelte Template
 
----
+## Getting Started
 
-# svelte app
+1. Mint new [ Project name ]
+2. Select `svelte-gh-pages`
+3. `mint r -cp`
+4. `mint develop`
+5. Visit `localhost:5000`
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+## Deployment
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+1. `mint deploy`
+2. Output files are on gh-pages
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
+## Resources
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+[Svelte Tutorial](https://svelte.dev/tutorial/basics)
 
+[Svelte Docs](https://svelte.dev/docs)
 
-## Get started
+## !Work in progress!
 
-Install the dependencies...
+This is currently being developed. Please report any bugs in the issues tab!
 
-```bash
-cd svelte-app
-npm install
-```
+## FAQ
 
-...then start [Rollup](https://rollupjs.org):
+### Where do I get started?
 
-```bash
-npm run dev
-```
+I recomend starting in the src/App.svelte then creating components in the corresponding folder.
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+## What we're trying to achieve
 
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
+This starter template is meant to be a kickoff spot for a full-fledged Svelte project.
 
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+- Simple template to help you get started
+- Yarn for faster package resolution
