@@ -1,6 +1,10 @@
 {
-  "name": "svelte-app",
+  "name": "<%= projectName %>",
   "version": "1.0.0",
+  "description": "This project was generated from the Mintbean svelte-gh-pages template using the mintbean-cli tool.",
+  "version": "0.1.0",
+  "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+  "private": true,
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -15,10 +19,10 @@
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "gh-pages": "^3.1.0"
   },
   "dependencies": {
-    "gh-pages": "^3.1.0",
     "sirv-cli": "^1.0.0"
   }
 }
