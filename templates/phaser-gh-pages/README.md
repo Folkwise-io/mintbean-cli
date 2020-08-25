@@ -2,15 +2,16 @@
 
 ## Getting Started
 
-1. Download or clone this project
-2. `npm run install`
-3. `npm run start`
-4. Visit `localhost:1234`
+1. Mint new [ Project name ]
+2. Select `phaser-gh-pages`
+3. `mint r -cp`
+4. `mint develop`
+5. Visit `localhost:1234`
 
 ## Deployment
 
-1. `npm run build`
-2. Output files are in `dist/`
+1. `mint deploy`
+2. Output files are on gh-pages
 
 ## Resources
 
