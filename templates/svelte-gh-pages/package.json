@@ -1,6 +1,5 @@
 {
   "name": "<%= projectName %>",
-  "version": "1.0.0",
   "description": "This project was generated from the Mintbean svelte-gh-pages template using the mintbean-cli tool.",
   "version": "0.1.0",
   "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
@@ -11,6 +10,14 @@
     "start": "sirv public",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d public"
+  },
+  "mintbean": {
+    "template": "<%= templateName %>",
+    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+    "scripts": {
+      "deploy": "npm run deploy",
+      "develop": "npm run dev"
+    }
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -24,5 +31,17 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
