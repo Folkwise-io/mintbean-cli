@@ -46,10 +46,10 @@ const QUESTIONS = [
 ];
 
 const generateProjectName = (templateName) => {
-  const month = moment().format("MMM")
+  const month = moment().format("MM")
   const day = moment().format("DD")
   const year = moment().format("YYYY")
-  return `mintbean-${templateName}-${month.toLowerCase()}-${day}-${year}`;
+  return `mintbean-${templateName}-${year}-${month}-${day}`;
 };
 
 const getProjectOptions = async (project) => {
