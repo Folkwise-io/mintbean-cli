@@ -2,7 +2,7 @@
   "name": "<%= projectName %>",
   "description": "This project was generated from the Mintbean react-gh-pages template using the mintbean-cli tool.",
   "version": "0.1.0",
-  "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+  "homepage": ".",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -11,14 +11,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  },
-  "mintbean": {
-    "template": "<%= templateName %>",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "scripts": {
-      "deploy": "npm run deploy",
-      "develop": "npm run start"
-    }
   },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
