@@ -47,6 +47,7 @@ const createProgram = () => {
     .alias('r')
     .option('-c, --connect', "connect to repo")
     .option('-p, --push', "(recommended) Intial add/commit/push of master to new repo")
+    .option('-O, --org [organization]', "Set Organization")
     .description('Create GitHub remote repo with project name (RUN FROM PROJECT ROOT))')
     .action(function (cmdObj) {
       repo(cmdObj)
