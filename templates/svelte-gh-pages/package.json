@@ -7,17 +7,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "npm run build && sirv public",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d public"
-  },
-  "mintbean": {
-    "template": "<%= templateName %>",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "scripts": {
-      "deploy": "npm run deploy",
-      "develop": "npm run dev"
-    }
+    "start": "npm run build && sirv dist"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
