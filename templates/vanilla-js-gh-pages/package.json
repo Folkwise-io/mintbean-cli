@@ -5,20 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html",
-    "predeploy": "rm -fr .cache dist && parcel build index.html --public-url /<%= projectName %>",
-    "deploy": "gh-pages -d dist"
-  },
-  "mintbean": {
-    "template": "<%= templateName %>",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "scripts": {
-      "deploy": "npm run deploy",
-      "develop": "npm run start"
-    }
+     "start": "parcel index.html",
+     "build": "rm -fr .cache dist && parcel build index.html --public-url '.'"
   },
   "devDependencies": {
-    "parcel": "^1.12.4",
-    "gh-pages": "^3.1.0"
+    "parcel": "^1.12.4"
   }
 }
