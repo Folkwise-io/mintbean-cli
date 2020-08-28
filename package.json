@@ -37,10 +37,10 @@
     "moment": "^2.27.0",
     "shelljs": "0.8.4",
     "simple-git": "2.10.0",
+    "term-size": "^2.2.0",
     "terminal-link": "^2.1.1",
     "tmp": "0.2.1",
-    "touch": "3.1.0",
-    "window-size": "^1.1.1"
+    "touch": "3.1.0"
   },
   "devDependencies": {
     "jest": "26.1.0"
