@@ -6,16 +6,7 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "vgh --public-path <%= projectName %>"
-  },
-  "mintbean": {
-    "template": "<%= templateName %>",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "packageManager": "<%= packageManager %>",
-    "scripts": {
-      "deploy": "npm run deploy",
-      "develop": "npm run serve"
-    }
+    "start": "npm run serve"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -28,7 +19,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vgh-pages": "^1.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
