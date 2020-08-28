@@ -1,8 +1,18 @@
+const terminalLink = require("terminal-link");
+
+
+function createLink(as, url) {
+  return terminalLink(as, url);
+}
+
 let description = {
   description: [
-    "# FeaturePeek gives you superpowers in some way that I",
-    "# can't explain right now, but trust me, they are awesome.",
-    "# Copy paste the following command to get started.",
+    "# FeaturePeek gives you super speed and more! Deploy in a flash!",
+    `# Also checkout their other revolutionary features ${createLink(
+      "here",
+      "https://youtu.be/OSvst-lCySE"
+    )}`,
+    "# Copy paste the following commands to get started.",
   ],
 };
 let gettingStarted = {command:"npm install -g @featurepeek/peek"};
@@ -23,11 +33,11 @@ let init = {
 
 let deployment = {
   description: [
-    "# When your ready to deploy a new version run the following command",
+    "# When your ready to deploy a new version run the following commands",
   ],
-  command: "featurepeek",
+  command: "npm run build && featurepeek",
   instructions: [
-    "# some magic will happen behind the scenes and spit our a url where you can find your project",
+    "# Once your site is done compiling FeaturePeak will provide you with a URL to view your deployment ",
   ],
 };
 
