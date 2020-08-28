@@ -113,6 +113,7 @@ Starter Kit for a full-fledged PhaserJS game project
 In general, **run all commands at the project root!**. Commands you can run anywhere: `mint [-h|-V]`, `mint config` or `mint new`
 
 
+
 | cmd | description |
 | - | - |
 | `mint [-h | --help`] |
@@ -123,7 +124,6 @@ In general, **run all commands at the project root!**. Commands you can run anyw
 | `mint develop | dev` |
 | `mint deploy | d` |
 | `mint init` | Alias for 'git init'. |
-| `mint connect | c` |
 
 # Developers
 
