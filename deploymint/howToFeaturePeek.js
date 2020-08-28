@@ -18,7 +18,7 @@ let description = {
 let gettingStarted = {command:"npm install -g @featurepeek/peek"};
 
 let login = {
-  description: ["First time using FeaturePeak"],
+  description: ["First time using FeaturePeak(per device)"],
   command: "featurepeek login",
   instructions: [
     "# Creates a FeaturePeek account for you if you don't have one already, and authenticate you in your CLI.",
@@ -35,7 +35,7 @@ let init = {
 
 let deployment = {
   description: [
-    "# When you're ready to deploy a new version run the following commands.",
+    "# When you're ready to deploy a new version run the following commands.(Every Time)",
   ],
   command: "npm run build && featurepeek",
   instructions: [
