@@ -35,7 +35,8 @@ let init = {
 
 let deployment = {
   description: [
-    "# When you're ready to deploy a new version run the following commands.(Every Time)",
+    "# When you're ready to deploy a new version, make sure all changes are pushed up,",
+    "# & run the following commands.(Every Time)",
   ],
   command: "npm run build && featurepeek",
   instructions: [
