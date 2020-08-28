@@ -1,10 +1,10 @@
 const shell = require("shelljs");
 const path = require("path");
 const chalk = require("chalk");
-const { parsePackageDotJson } = require("../lib/files");
 const { checkFileOrDirExists } = require("../lib/files.js");
-const packageDotJson = parsePackageDotJson();
-const { homepage } = packageDotJson.mintbean;
+const config = require("../lib/config");
+const githubUsername = config.getConfig("github");
+const parsePackageDotJson = require("../lib/files").parsePackageDotJson;
 
 function findOutput() {
   let build = checkFileOrDirExists(path.join(process.cwd(), "./build/"));
@@ -44,6 +44,7 @@ function sayCommand(item) {
 
 function ghPages(args) {
   const main = require("../node_modules/gh-pages/bin/gh-pages");
+  const {name} = parsePackageDotJson();
   shell.exec("npm run build");
 
   let outputFolder = findOutput();
@@ -56,7 +57,7 @@ function ghPages(args) {
     main([...args, "-d", outputFolder]);
     console.log(
       chalk.cyanBright(`Deployed to`),
-      chalk.bold.cyanBright(`${homepage}`)
+      chalk.bold.cyanBright(`https://${githubUsername}.github.io/${name}/`)
     );
     console.log(
       chalk.bold.cyanBright(
