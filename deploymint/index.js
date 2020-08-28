@@ -15,7 +15,7 @@ function findOutput() {
   } else if (dist) {
     return "dist";
   } else {
-    console.log(chalk.red(`No Publish Directory found please specify one`));
+    console.log(chalk.red(`Publish Directory must either be /dist or /build`));
     process.exit(1);
   }
 }
