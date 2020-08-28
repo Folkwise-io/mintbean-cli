@@ -28,6 +28,7 @@ let init = {
   command: "featurepeek init",
   instructions: [
     "# Generates a configuration file that the CLI uses in your project,",
+    "# We Have include a default config in all of our templates,",
   ],
 };
 
