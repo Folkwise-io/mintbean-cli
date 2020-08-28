@@ -1,0 +1,14 @@
+{
+  "name": "<%= projectName %>",
+  "description": "This project was generated from the Mintbean vanilla-js template using the mintbean-cli tool.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+     "start": "parcel index.html",
+     "build": "rm -fr .cache dist && parcel build index.html --public-url '.'"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
+}

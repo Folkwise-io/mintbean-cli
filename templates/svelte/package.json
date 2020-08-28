@@ -7,17 +7,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d public"
-  },
-  "mintbean": {
-    "template": "<%= templateName %>",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
-    "scripts": {
-      "deploy": "npm run deploy",
-      "develop": "npm run dev"
-    }
+    "start": "npm run build && sirv dist"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -26,8 +16,7 @@
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0",
-    "gh-pages": "^3.1.0"
+    "svelte": "^3.0.0"
   },
   "dependencies": {
     "sirv-cli": "^1.0.0"

@@ -11,7 +11,7 @@ const connect = (username, project, connection, opts) => {
 
   git.createOrOverrideRemoteOrigin(githubUsername, projectName, connectionType);
 
-  if(!opts.skipInitMsg) {
+  if(opts && !opts.skipInitMsg) {
     console.log(chalk.cyanBright("To make first push:"));
     console.log("git add .");
     console.log("git commit -m \"init\"");
