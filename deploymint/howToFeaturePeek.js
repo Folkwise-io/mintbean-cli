@@ -18,6 +18,7 @@ let description = {
 let gettingStarted = {command:"npm install -g @featurepeek/peek"};
 
 let login = {
+  description: ["First time using FeaturePeak"],
   command: "featurepeek login",
   instructions: [
     "# Creates a FeaturePeek account for you if you don't have one already, and authenticate you in your CLI.",
@@ -25,7 +26,7 @@ let login = {
 };
 
 let init = {
-  description: [ "# We Have include a default config in all of our templates so you can skip this step,",],
+  description: [ "# We Have include a default config in all of our templates so you can skip this step if you used one,",],
   command: "featurepeek init",
   instructions: [
     "# Generates a configuration file that the CLI uses in your project,",

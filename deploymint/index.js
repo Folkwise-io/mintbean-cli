@@ -77,7 +77,6 @@ function featurePeek(_, answers) {
   sayCommand(instructions.description);
   sayCommand(instructions.gettingStarted);
   sayCommand(instructions.login);
-  sayCommand(instructions.init);
   sayCommand(instructions.deployment);
 }
 
