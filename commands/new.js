@@ -8,7 +8,7 @@ const files = require("../lib/files");
 const config = require("../lib/config");
 const message = require("../lib/message");
 
-const TemplatingService = require("../service/templating.service");
+const {createProject} = require("../service/templating.service");
 
 const TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, "../templates"));
 const PM_CHOICES = ["yarn", "npm"];
@@ -93,7 +93,6 @@ module.exports = {
     message.banner();
     message.sponsorBanner();
     const options = await getProjectOptions(project);
-    const templatingService = new TemplatingService();
-    templatingService.template({ ...options });
+    createProject({ ...options });
   },
 };
