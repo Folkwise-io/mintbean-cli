@@ -1,53 +1,35 @@
-const chalk = require("chalk");
-const fs = require("fs");
-const files = require("../lib/files.js");
-const getConfig = require("../lib/config").getConfig;
-const git = require("../lib/git");
-const github = require("../lib/github");
-const { command } = require("commander");
-const connect = require("./connect").connect;
+import chalk from "chalk";
+import files from "../lib/files.js";
+import { getConfig } from "../lib/config";
+import { validateGithubCredentials, createRepo } from "../lib/github";
+import { addCommitPushMaster } from "../lib/git";
+import { connect } from "./connect";
+import DotJson from "dot-json";
+import path from "path";
 
-const runConnect = (
-  githubUsername,
-  projectName,
-  connectionType,
-  organization,
-  push
-) => {
-  connect(githubUsername, projectName, connectionType, organization, {
-    skipInitMsg: push ? true : false,
-  });
-};
 
-const repo = async (cmdObj) => {
-  const githubUsername = getConfig("github");
-  const githubToken = getConfig("token");
+export const repo = async (cmdObj) => {
+  cmdObj.githubUsername = getConfig("github");
+  cmdObj.githubToken = getConfig("token");
+  cmdObj.projectName = files.getCurrentDirectoryBase();
 
   // return if credentials not set
-  const err = github.validateGithubCredentials(githubUsername, githubToken);
-  if (err) return;
+  validateGithubCredentials(cmdObj);
+  connect(cmdObj);
 
-  // create new github repo, add it to remote (origin)
-  const projectName = files.getCurrentDirectoryBase();
-  const success = await github.createRepo(
-    githubUsername,
-    githubToken,
-    projectName,
-    cmdObj.org
-  );
-  if (!success) return;
-  if (cmdObj.connect) {
-    const connectionType = getConfig("connection");
-    runConnect(
-      githubUsername,
-      projectName,
-      connectionType,
-      cmdObj.org,
-      cmdObj.push
-    );
+
+  if (cmdObj.org) {
+    const myJson = new DotJson(path.join(process.cwd(), "package.json"));
+    myJson.set("organization", cmdObj.org).save();
   }
-};
+  // create new github repo, add it to remote (origin)
 
-module.exports = {
-  repo,
+  try {
+    await createRepo(cmdObj);
+    console.log(chalk.cyanBright("Making initial commit"));
+    addCommitPushMaster("Initial commit");
+  } catch (error) {
+    console.error(chalk.red(`ERROR exiting process`));
+    process.exit(1);
+  }
 };
