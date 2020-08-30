@@ -35,6 +35,7 @@ export const repo = async (cmdObj) => {
     console.log(chalk.cyanBright("Making initial commit"));
     addCommitPushMaster("Initial commit");
   } catch (error) {
+    console.log(error)
     console.error(chalk.red(`ERROR ${error.msg}`));
     process.exit(1);
   }
