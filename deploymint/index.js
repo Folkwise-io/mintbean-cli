@@ -1,10 +1,11 @@
-const shell = require("shelljs");
-const path = require("path");
-const chalk = require("chalk");
-const { checkFileOrDirExists } = require("../lib/files.js");
-const config = require("../lib/config");
-const githubUsername = config.getConfig("github");
-const parsePackageDotJson = require("../lib/files").parsePackageDotJson;
+import shell from "shelljs";
+import path from "path";
+import chalk from "chalk";
+import { checkFileOrDirExists } from "../lib/files";
+import { getConfig } from "../lib/config";
+import { parsePackageDotJson } from "../lib/files";
+
+const githubUsername = getConfig("github");
 
 function findOutput() {
   let build = checkFileOrDirExists(path.join(process.cwd(), "./build/"));
@@ -21,30 +22,31 @@ function findOutput() {
 }
 
 function sayCommand(item) {
-    if (item.description) {
-      console.log(" ");
-        item.description.forEach((string) => {
-          console.log(chalk.green(string));
-        });
-      console.log(" ");
-    }
+  if (item.description) {
+    console.log(" ");
+    item.description.forEach((string) => {
+      console.log(chalk.green(string));
+    });
+    console.log(" ");
+  }
 
-    if (item.command) {
-      console.log(chalk.bold.green(item.command));
-      console.log(' ');
-    }
+  if (item.command) {
+    console.log(chalk.bold.green(item.command));
+    console.log(" ");
+  }
 
-    if (item.instructions) {
-      item.instructions.forEach((string) => {
-        console.log(chalk.green(string));
-      });
-      console.log(" ");
-    }
+  if (item.instructions) {
+    item.instructions.forEach((string) => {
+      console.log(chalk.green(string));
+    });
+    console.log(" ");
+  }
 }
 
 function ghPages(args) {
   const main = require("../node_modules/gh-pages/bin/gh-pages");
-  const {name} = parsePackageDotJson();
+  const { name, organization } = parsePackageDotJson();
+  const owner = organization || githubUsername;
   shell.exec("npm run build");
 
   let outputFolder = findOutput();
@@ -57,7 +59,7 @@ function ghPages(args) {
     main([...args, "-d", outputFolder]);
     console.log(
       chalk.cyanBright(`Deployed to`),
-      chalk.bold.cyanBright(`https://${githubUsername}.github.io/${name}/`)
+      chalk.bold.cyanBright(`https://${owner}.github.io/${name}/`)
     );
     console.log(
       chalk.bold.cyanBright(
@@ -80,7 +82,7 @@ function featurePeek(_, answers) {
   sayCommand(instructions.deployment);
 }
 
-module.exports = {
+export default {
   ghPages,
   featurePeek,
 };
