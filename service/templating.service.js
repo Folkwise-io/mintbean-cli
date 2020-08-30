@@ -1,86 +1,89 @@
-const fs = require('fs-extra');
-const path = require('path');
-const tmp = require('tmp');
-const ejs = require('ejs');
-const shell = require('shelljs')
-const mime = require ('mime');
-const chalk = require ('chalk');
+import chalk from "chalk";
+import fs from "fs";
+import ncp from "ncp";
+import path from "path";
+import { promisify } from "util";
+import execa from "execa";
+import Listr from "listr";
+import DotJson from "dot-json";
+import { projectInstall } from "pkg-install";
 
-const walk = require('../lib/files').walk;
-const ensureDirectoryExistence = require('../lib/files').ensureDirectoryExistence
-const installPackagesCmd = require('../lib/package').installPackagesCmd;
 
-const setRelativePaths = (dir, files=[]) => (
-  files.map(({ absolutePath }) => ({
-  absolutePath,
-  pathFromDirectoryRoot: path.relative(dir, absolutePath)
-  }))
-);
+const access = promisify(fs.access);
+const copy = promisify(ncp);
 
-const getTemplatePath = (name) => path.join(__dirname, '../templates', name);
-const getTemporaryDirectory = () => tmp.dirSync();
-const getTargetPath = projectName => path.join(process.cwd(), projectName);
-
-/**
- * @param {TemplateOptions} options
- */
-const validateOptions = options => {
-  if (!options) {
-    throw new Error("No options received. This is an illegal state. Please report it to the author of this project with the following trace.")
+async function copyTemplateFiles(options) {
+  if (options.clobber) {
+    await execa("rm", ["-rf", options.projectName]);
   }
 
-  if (!options.templateName) {
-    throw new Error("No template name specified");
+  await copy(options.templateDir, options.targetDir, {
+    clobber: options.clobber,
+  });
+
+  const myJson = new DotJson(path.join(options.targetDir, "package.json"));
+  const description = `This project was generated from the Mintbean ${options.templateName} template using the mintbean-cli tool.`;
+
+  myJson.set("name", options.projectName).save();
+  myJson.set("description", description).save();
+  
+
+  return true;
+}
+
+async function initGit(options) {
+  const result = await execa("git", ["init"], {
+    cwd: options.targetDir,
+  });
+  if (result.failed) {
+    return Promise.reject(new Error("Failed to initialize git"));
   }
+  return;
 }
 
-// returns true if file is of mimetype 'text/...' or 'application/...'
-const isEjsTemplatable = (file) => {
-  const ext = path.extname(file).replace('.','');
-  const mimetype= mime.getType(ext);
-  return (/^(text\/)|(application\/)/).test(mimetype)
-}
+export async function createProject(options) {
+  options = {
+    ...options,
+    targetDir:
+      options.targetDir || path.join(process.cwd(), options.projectName),
+  };
 
-module.exports = class TemplatingService {
-  /**
-   *
-   * @param {*} templateName
-   * @param { TemplateOptions } options
-   */
-  template(options = {}) {
-    validateOptions(options);
-    const { templateName,
-            projectName,
-            githubUsername,
-            packageManager
-          } = options;
+  
 
-    const templatesPath = getTemplatePath(templateName);
-    const files = setRelativePaths(templatesPath, walk(templatesPath));
-    const temporaryDirectory = getTemporaryDirectory().name;
+  const currentFileUrl = import.meta.url;
+  const templateDir = path.resolve(
+    new URL(currentFileUrl).pathname,
+    "../../templates",
+    options.templateName.toLowerCase()
+  );
 
-    files.forEach(({ absolutePath, pathFromDirectoryRoot }) => {
-      const templateBuffer = fs.readFileSync(absolutePath)
+  options.templateDir = templateDir;
 
-      // only run ejs.compile on text files
-      const isTemplatable = isEjsTemplatable(absolutePath)
-      const output = isTemplatable ?
-                   ejs.compile(templateBuffer.toString('utf-8'))(options) :
-                   templateBuffer;
-      const tmpDestination = path.join(temporaryDirectory, pathFromDirectoryRoot);
-      ensureDirectoryExistence(tmpDestination);
-      fs.writeFileSync(tmpDestination, output);
-    });
-
-    const finalTarget = getTargetPath(projectName);
-    ensureDirectoryExistence(finalTarget);
-    console.log(chalk.cyanBright(`Building project from template...`));
-    fs.copySync(temporaryDirectory, finalTarget);
-
-    console.log(chalk.cyanBright(`Installing packages...`));
-    shell.exec(`cd ${projectName} && ${installPackagesCmd(packageManager)}`);
-
-    console.log(chalk.cyanBright(`Done! Created new project '${projectName}' for github user '${githubUsername}'`));
-    console.log(chalk.bold.cyanBright(`'cd ${projectName}'`), chalk.cyanBright('to start coding!'));
+  try {
+    await access(templateDir, fs.constants.R_OK);
+  } catch (error) {
+    console.error("%s Invalid template name", chalk.red.bold("ERROR"));
+    process.exit(1);
   }
+
+  const tasks = new Listr([
+    {
+      title: "Copying project files",
+      task: () => copyTemplateFiles(options),
+    },
+    {
+      title: "Initializing git",
+      task: () => initGit(options),
+    },
+    {
+      title: "Installing dependencies",
+      task: () =>
+        projectInstall({
+          cwd: options.targetDir,
+          prefer: options.packageManager,
+        }),
+    },
+  ]);
+  await tasks.run();
 }
+
