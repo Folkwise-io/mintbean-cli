@@ -2,6 +2,7 @@
   "name": "<%= projectName %>",
   "description": "This project was generated from the Mintbean vanilla-js template using the mintbean-cli tool.",
   "version": "1.0.0",
+  "homepage": ".",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

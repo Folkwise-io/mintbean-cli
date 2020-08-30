@@ -2,7 +2,7 @@
   "name": "<%= projectName %>",
   "description": "This project was generated from the Mintbean svelte-gh-pages template using the mintbean-cli tool.",
   "version": "0.1.0",
-  "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+  "homepage": ".",
   "private": true,
   "scripts": {
     "build": "rollup -c",

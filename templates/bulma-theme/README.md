@@ -1,4 +1,4 @@
-# <%= projectName %> - A Bulma Theme
+# Mintbean Bulma Theme Template
 
 ## What this is
 
