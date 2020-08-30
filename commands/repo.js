@@ -1,10 +1,11 @@
 import chalk from "chalk";
 import files from "../lib/files.js";
+import fs from "fs"
 import { getConfig } from "../lib/config";
 import { validateGithubCredentials, createRepo } from "../lib/github";
 import { addCommitPushMaster } from "../lib/git";
 import { connect } from "./connect";
-import DotJson from "dot-json";
+import writeJson from "write-json";
 import path from "path";
 
 
@@ -19,10 +20,15 @@ export const repo = async (cmdObj) => {
 
 
   if (cmdObj.org) {
-    const myJson = new DotJson(path.join(process.cwd(), "package.json"));
-    myJson.set("organization", cmdObj.org).save();
+    const myJson = fs
+      .readFileSync(path.join(process.cwd(), "package.json"))
+      .toString("utf-8");
+    
+    const newJson = JSON.parse(myJson)
+    newJson.organization = cmdObj.org;
+    writeJson.sync("package.json", newJson);
   }
-  // create new github repo, add it to remote (origin)
+  // create new github repo
 
   try {
     await createRepo(cmdObj);
