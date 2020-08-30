@@ -5,7 +5,7 @@ import path from "path";
 import { promisify } from "util";
 import execa from "execa";
 import Listr from "listr";
-import DotJson from "dot-json";
+import ejs from "ejs"
 import { projectInstall } from "pkg-install";
 
 
@@ -21,14 +21,11 @@ async function copyTemplateFiles(options) {
     clobber: options.clobber,
   });
 
-  const myJson = new DotJson(path.join(options.targetDir, "package.json"));
-  const description = `This project was generated from the Mintbean ${options.templateName} template using the mintbean-cli tool.`;
-
-  myJson.set("name", options.projectName).save();
-  myJson.set("description", description).save();
+  const myJson = fs.readFileSync(path.join(options.targetDir, "package.json"));
+  const newJson = ejs.compile(myJson.toString("utf-8"))(options);
   
+  fs.writeFileSync(path.join(options.targetDir, "package.json"), newJson);
 
-  return true;
 }
 
 async function initGit(options) {
@@ -38,7 +35,7 @@ async function initGit(options) {
   if (result.failed) {
     return Promise.reject(new Error("Failed to initialize git"));
   }
-  return;
+  return
 }
 
 export async function createProject(options) {
