@@ -29,9 +29,9 @@ If it is your first time using `mintbean-cli`, first connect to GitHub with conf
 #### Suggested flow for new projects
 
 ```shell
-mint new <my-project>
-cd <my-project>
-mint repo --connect --push
+mint new
+cd
+mint repo 
 mint deploy
 ```
 
@@ -40,7 +40,7 @@ or for the cool kids:
 ```shell
 mint n <my-project>
 cd <my-project>
-mint r -cp
+mint r
 mint d
 ```
 
@@ -118,7 +118,7 @@ In general, **run all commands at the project root!**. Commands you can run anyw
 | `mint [-h | --help`] |
 | `mint -V | --version` |
 | `mint new | n [project-name]` |
-| `mint repo | r`<br> [-c\|--connect]<br>  [-p\|--push] [-O\|--org <organization–name>]<br /> |
+| `mint repo | r`<br> [-O\|--org <organization–name>]<br /> |
 | `mint config` <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token] | Set up or view config (Github credentials etc.)<br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
 | `mint develop | dev` |
 | `mint deploy | d` |
