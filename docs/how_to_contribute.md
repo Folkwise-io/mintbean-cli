@@ -1,4 +1,8 @@
-# Get Involved
+# Getting Involved
+
+## Hello!
+
+Thank you for wanting to help our community by getting involved. Our tool is here to help, but needs a little help of its own. Below are some areas were you can lend a hand:
 
 ### Docs
 
@@ -6,17 +10,30 @@ There is no such thing as too descriptive when it comes to documentation. If you
 
 ### Code
 
-##### Templates
+##### 1. Project Templates
 
 Do you want a new template? Check out the adding new templates guide also in the Docs folder.
 
-##### Features
+##### 2. Features
 
 Do you wish a feature existed? Either suggest it from the issues tab or try creating it your self.
 
+##### 3. Solve an Issue
+
+Navigate over to the issues tab and find an issue you want to solve there is a nifty labeling system to help you find one of your caliber.
+
+The tags to look for are:
+
+* bug
+* documentation
+* help wanted
+* good first issue
+* enhancment
+* template
+
 ### Issues/Bugs
 
-Find an issue? Want to suggest a template? Want to suggest a feature? Create a Github issues by filling out one of our templates.
+Find an issue? Want to suggest a template? Want to suggest a feature? Create a Github issues by filling out one of our provided froms. Add any lables you think fit the task.
 
 ## Getting Started
 
@@ -24,3 +41,7 @@ Find an issue? Want to suggest a template? Want to suggest a feature? Create a G
 2. Create a branch with a descriptive name of the changes
 3. Apply your changes
 4. Open a pull request against the main branch
+
+## Help! Help!
+
+The mintbean-cli is a tool built for the community. So who better to impove it than our members.
