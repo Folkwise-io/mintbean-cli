@@ -1,4 +1,4 @@
-# How to Add a template
+# How to Add a Project Template
 
 ## Getting Started
 
