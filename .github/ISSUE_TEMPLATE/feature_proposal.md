@@ -1,9 +1,8 @@
 ---
-
-name: Template proposal
-about: Suggest a project starter template to add
-title: 'Template proposal: '
-labels: template
+name: Feature proposal
+about: Suggest a Feature 
+title: 'Feature proposal: '
+labels: 'help wanted'
 assignees: ''
 
 ---
