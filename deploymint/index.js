@@ -1,4 +1,4 @@
-import shell from "shelljs";
+import execa from "execa";
 import path from "path";
 import chalk from "chalk";
 import { checkFileOrDirExists } from "../lib/files";
@@ -47,7 +47,7 @@ function ghPages(args) {
   const main = require("../node_modules/gh-pages/bin/gh-pages");
   const { name, organization } = parsePackageDotJson();
   const owner = organization || githubUsername;
-  shell.exec("npm run build");
+  execa("npm", ["run build"]);
 
   let outputFolder = findOutput();
 
