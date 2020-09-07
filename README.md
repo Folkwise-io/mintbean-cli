@@ -4,6 +4,10 @@
 
 A command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
 
+## How to contribute
+
+Check out https://github.com/firstcontributions/first-contributions
+
 ## Development flow
 
 You can run the CLI for dev purposes by running the command `npm start`.
