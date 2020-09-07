@@ -4,9 +4,11 @@
 
 A command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
 
-## How to contribute
+## How to make your first contribution
 
-Check out https://github.com/firstcontributions/first-contributions
+One of the goals of this project is to make it easy for first-time open source contributors to work on the project.
+
+Check out https://github.com/firstcontributions/first-contributions to understand how to contribute to open source projects like this one.
 
 ## Development flow
 
