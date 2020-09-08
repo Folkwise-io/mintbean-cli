@@ -4,7 +4,6 @@ import { newProject } from "./commands/new";
 import shell from "shelljs"
 import { repo } from "./commands/repo";
 import { deploy } from "./commands/deploy";
-// import { test } from "./commands/test";
 import { version } from "./package.json";
 
 export const createProgram = (args) => {
@@ -27,7 +26,7 @@ export const createProgram = (args) => {
       'Deploy project as prescribed in package.json > "mintbean" predeploy and deploy scripts.'
     )
     .action(function () {
-      deploy()
+      deploy();
     });
 
   program
@@ -52,22 +51,6 @@ export const createProgram = (args) => {
     .action((cmdObj) => {
       config(cmdObj);
     });
-
-  program
-    .command("develop")
-    .alias("dev")
-    .description("Start development server to test out your project")
-    .action(() => {
-      shell.exec("npm run deploy");
-    });
-
-// this command does nothing
-  // program
-  //   .command("test")
-  //   .description("[For dev use only]")
-  //   .action(() => {
-  //     test();
-  //   });
 
   program.parse(args);
 };

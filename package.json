@@ -9,6 +9,7 @@
     "mint": "./index.js"
   },
   "scripts": {
+    "start": "node ./index.js",
     "test": "jest /test --verbose"
   },
   "keywords": [
