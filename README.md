@@ -127,14 +127,12 @@ In general, **run all commands at the project root!**. Commands you can run anyw
 
 | cmd | description |
 | - | - |
-| `mint [--help]` | List all commands`alias: -h` |
-| `mint --version` | Pring current Version`alias: -V` |
-| `mint new [project-name]` | Create new project`alias: n` |
-| `mint repo |   |
+| mint [-h | --help] |
+| mint -V | --version |
+| mint new | n [project-name] |
+| mint repo | r,  -O, --org [organization] |
 | `mint config` <br> [-v\|--view] <br> [-g\|--github] <br> [-t\|--token] | Set up or view config (Github credentials etc.)<br> options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
-| `mint develop | dev` |
 | `mint deploy | d` |
-| `mint init` | Alias for 'git init'. |
 
 # Developers
 
