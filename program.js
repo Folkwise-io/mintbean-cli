@@ -1,7 +1,6 @@
 import { Command } from "commander";
 import { config } from "./commands/config";
 import { newProject } from "./commands/new";
-import shell from "shelljs"
 import { repo } from "./commands/repo";
 import { deploy } from "./commands/deploy";
 import { version } from "./package.json";
