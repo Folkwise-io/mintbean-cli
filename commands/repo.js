@@ -32,7 +32,7 @@ export const repo = async (cmdObj) => {
 
   try {
     await createRepo(cmdObj);
-    console.log(chalk.cyanBright("Making initial commit"));
+    console.log(chalk.green("DONE!!!"));
     addCommitPushMaster("Initial commit");
   } catch (error) {
     console.log(error)
