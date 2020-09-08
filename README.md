@@ -10,6 +10,8 @@ One of the goals of this project is to make it easy for first-time open source c
 
 Check out https://github.com/firstcontributions/first-contributions to understand how to contribute to open source projects like this one.
 
+[How to Contribute](./docs/how_to_contribute.md)
+
 ## Development flow
 
 You can run the CLI for dev purposes by running the command `npm start`.
@@ -43,7 +45,7 @@ If it is your first time using `mintbean-cli`, first connect to GitHub with conf
 ```shell
 mint new <my-project>
 cd <my-project>
-mint repo --connect --push
+mint repo 
 mint deploy
 ```
 
@@ -52,7 +54,7 @@ or for the cool kids:
 ```shell
 mint n <my-project>
 cd <my-project>
-mint r -cp
+mint r
 mint d
 ```
 
@@ -124,16 +126,15 @@ Starter Kit for a full-fledged PhaserJS game project
 
 In general, **run all commands at the project root!**. Commands you can run anywhere: `mint [-h|-V]`, `mint config` or `mint new`
 
-| cmd                                                                    | description                                                                                                                                                                                                                                                     |
-| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mint [-h                                                              | --help`]                                                                                                                                                                                                                                                        |
-| `mint -V                                                               | --version`                                                                                                                                                                                                                                                      |
-| `mint new                                                              | n [project-name]`                                                                                                                                                                                                                                               |
-| `mint repo                                                             | r`<br> [-c\|--connect]<br> [-p\|--push]                                                                                                                                                                                                                         |
+
+| cmd | description |
+| - | - |
+| mint [-h | --help] |
+| mint -V | --version |
+| mint new | n [project-name] |
+| mint repo | r,  -O, --org [organization] |
 | `mint config` <br> [-v\|--view] <br> [-g\|--github] <br> [-t\|--token] | Set up or view config (Github credentials etc.)<br> options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
-| `mint develop                                                          | dev`                                                                                                                                                                                                                                                            |
-| `mint deploy                                                           | d`                                                                                                                                                                                                                                                              |
-| `mint init`                                                            | Alias for 'git init'.                                                                                                                                                                                                                                           |
+| `mint deploy | d` |
 
 # Developers
 

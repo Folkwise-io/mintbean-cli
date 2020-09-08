@@ -1,9 +1,9 @@
 {
     "name": "<%= projectName %>",
     "version": "1.0.0",
-    "description": "This project was generated from the Mintbean phaser-gh-pages template using the mintbean-cli tool.",
+    "description": "This project was generated from the Mintbean <%= templateName %> template using the mintbean-cli tool.",
     "main": "index.js",
-    "homepage": "https://<%= githubUsername %>.github.io/<%= projectName %>/",
+    "homepage": ".",
     "license": "MIT",
     "private": true,
     "scripts": {

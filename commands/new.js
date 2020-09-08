@@ -1,14 +1,14 @@
-const fs = require("fs");
-const path = require("path");
-const inquirer = require("inquirer");
-const chalk = require("chalk");
-const moment = require("moment");
+import fs from "fs";
+import path from "path";
+import inquirer from "inquirer";
+import chalk from "chalk";
+import moment from "moment";
 
-const files = require("../lib/files");
-const config = require("../lib/config");
-const message = require("../lib/message");
+import files from "../lib/files";
+import config from "../lib/config";
+import message from "../lib/message";
 
-const TemplatingService = require("../service/templating.service");
+import { createProject } from "../service/templating.service";
 
 const TEMPLATE_CHOICES = fs.readdirSync(path.join(__dirname, "../templates"));
 const PM_CHOICES = ["yarn", "npm"];
@@ -46,9 +46,9 @@ const QUESTIONS = [
 ];
 
 const generateProjectName = (templateName) => {
-  const month = moment().format("MM")
-  const day = moment().format("DD")
-  const year = moment().format("YYYY")
+  const month = moment().format("MM");
+  const day = moment().format("DD");
+  const year = moment().format("YYYY");
   return `mintbean-${templateName}-${year}-${month}-${day}`;
 };
 
@@ -77,23 +77,26 @@ const checkForProjectPathConflict = (project) => {
   return files.checkFileOrDirExists(path.join(process.cwd(), project));
 };
 
-module.exports = {
-  newProject: async (project) => {
-    if (project) {
-      const conflict = checkForProjectPathConflict(project);
-      if (conflict) {
-        console.log(
-          chalk.red(
-            `Whoops! Project with name '${project}' already exists.\nTry again with a different project name.`
-          )
-        );
-        return false;
-      }
+export const newProject = async (project) => {
+  message.banner();
+  let options = await getProjectOptions(project);
+  if (project) {
+    const conflict = checkForProjectPathConflict(options.projectName);
+    if (conflict) {
+      const clobber = await inquirer.prompt([
+        {
+          name: "confirm",
+          type: "confirm",
+          message: `Whoops! Project with name '${options.projectName}' already exists. Do you want to replace it?`,
+          default: false,
+        },
+      ]);
+      options.clobber = clobber.confirm;
     }
-    message.banner();
-    message.sponsorBanner();
-    const options = await getProjectOptions(project);
-    const templatingService = new TemplatingService();
-    templatingService.template({ ...options });
-  },
+    if (options.clobber === false) {
+      console.log(chalk.red("Try again with a new project name"));
+      process.exit(1);
+    }
+  }
+  createProject({ ...options });
 };

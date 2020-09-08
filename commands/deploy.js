@@ -1,19 +1,16 @@
-const chalk = require("chalk");
-const shell = require("shelljs");
-const connect = require("./connect").connect;
-const hasRemoteOrigin = require("../lib/git").hasRemoteOrigin;
-const parsePackageDotJson = require("../lib/files").parsePackageDotJson;
-const inquirer = require("inquirer");
-const deploymint = require("../deploymint/index");
-const message = require("../lib/message");
+import chalk from "chalk";
+import { hasRemoteOrigin } from "../lib/git";
+import inquirer from "inquirer";
+import deploymint from "../deploymint/index";
 
-const deploy = async () => {
+export const deploy = async () => {
   if (!hasRemoteOrigin()) {
-    console.log(chalk.bold.red(`No git remote found! Are you in your project folder?`));
-    process.exit(1)
+    console.log(
+      chalk.bold.red(`No git remote found! Are you in your project folder?`)
+    );
+    process.exit(1);
   }
 
-  
   const star = chalk.hex("#FFDF00")("✯✯✯");
   const featurePeek = `${star} FeaturePeek(Recommended) ${star}`;
 
@@ -39,15 +36,11 @@ const deploy = async () => {
     if (answers.confirm === false) {
       return askPlatform();
     } else {
-      return answers; 
+      return answers;
     }
   }
 
   const answers = await askPlatform();
 
   deploymint[answers.platform](process.argv, answers);
-};
-
-module.exports = {
-  deploy,
 };

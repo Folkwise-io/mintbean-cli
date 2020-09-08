@@ -1,6 +1,7 @@
 {
     "name": "<%= projectName %>",
     "description": "This project was generated from the Mintbean <%= templateName %> template using the mintbean-cli tool.",
+    "homepage": ".",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",

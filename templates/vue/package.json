@@ -2,6 +2,7 @@
   "name": "<%= projectName %>",
   "version": "0.1.0",
   "private": true,
+  "description": "This project was generated from the Mintbean <%= templateName %> template using the mintbean-cli tool.",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",

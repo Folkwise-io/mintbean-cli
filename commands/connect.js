@@ -1,24 +1,19 @@
-const chalk = require('chalk');
-const files = require('../lib/files');
-const git = require('../lib/git');
-const getConfig = require('../lib/config').getConfig;
+import chalk from "chalk";
+import { createOrOverrideRemoteOrigin } from "../lib/git";
 
-const connect = (username, project, connection, opts) => {
-  console.log(chalk.cyanBright('Connecting remote origin...'));
-  const githubUsername = username || getConfig('github');
-  const projectName = project || files.getCurrentDirectoryBase();
-  const connectionType = connection || getConfig('connection');
+export const connect = ({ connectionType, org, projectName, githubUsername }) => {
+  console.log(chalk.cyanBright("Setting remote origin..."));
 
-  git.createOrOverrideRemoteOrigin(githubUsername, projectName, connectionType);
-
-  if(opts && !opts.skipInitMsg) {
-    console.log(chalk.cyanBright("To make first push:"));
-    console.log("git add .");
-    console.log("git commit -m \"init\"");
-    console.log("git push origin master");
+  if (org) {
+    createOrOverrideRemoteOrigin(org, projectName, connectionType);
+  } else {
+    createOrOverrideRemoteOrigin(
+      githubUsername,
+      projectName,
+      connectionType
+    );
   }
-}
 
-module.exports = {
-  connect,
-}
+  console.log(chalk.cyanBright("Remote set"));
+};
+

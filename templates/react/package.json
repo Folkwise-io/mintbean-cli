@@ -1,6 +1,6 @@
 {
   "name": "<%= projectName %>",
-  "description": "This project was generated from the Mintbean react-gh-pages template using the mintbean-cli tool.",
+  "description": "This project was generated from the Mintbean <%= templateName %> template using the mintbean-cli tool.",
   "version": "0.1.0",
   "homepage": ".",
   "private": true,

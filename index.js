@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { createProgram } = require('./program');
 
-const program = createProgram();
-program.parse(process.argv);
+require = require("esm")(module /*, options*/);
+require("./program").createProgram(process.argv);
+

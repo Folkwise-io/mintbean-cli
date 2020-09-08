@@ -1,32 +1,42 @@
-const chalk = require('chalk');
-const fs = require('fs');
-const files = require('../lib/files.js');
-const getConfig = require('../lib/config').getConfig;
-const git = require('../lib/git');
-const github = require('../lib/github');
-const connect = require('./connect').connect;
+import chalk from "chalk";
+import files from "../lib/files.js";
+import fs from "fs"
+import { getConfig } from "../lib/config";
+import { validateGithubCredentials, createRepo } from "../lib/github";
+import { addCommitPushMaster } from "../lib/git";
+import { connect } from "./connect";
+import writeJson from "write-json";
+import path from "path";
 
-const repo = (cmdObj) => {
-  const githubUsername = getConfig('github');
-  const githubToken = getConfig('token');
+
+export const repo = async (cmdObj) => {
+  cmdObj.githubUsername = getConfig("github");
+  cmdObj.githubToken = getConfig("token");
+  cmdObj.projectName = files.getCurrentDirectoryBase();
 
   // return if credentials not set
-  const err = github.validateGithubCredentials(githubUsername, githubToken);
-  if (err) return;
+  validateGithubCredentials(cmdObj);
+  connect(cmdObj);
 
-  // create new github repo, add it to remote (origin)
-  const projectName = files.getCurrentDirectoryBase();
-  const success = github.createRepo(githubUsername, githubToken, projectName);
-  if (!success) return
-  if(cmdObj.connect) {
-    const connectionType = getConfig('connection');
-    connect(githubUsername, projectName, connectionType, { skipInitMsg: cmdObj.push? true : false });
-  }
-  if(cmdObj.push) {
-    git.addCommitPushMaster('Initial commit');
-  }
-}
 
-module.exports = {
-  repo,
-}
+  if (cmdObj.org) {
+    const myJson = fs
+      .readFileSync(path.join(process.cwd(), "package.json"))
+      .toString("utf-8");
+    
+    const newJson = JSON.parse(myJson)
+    newJson.organization = cmdObj.org;
+    writeJson.sync("package.json", newJson);
+  }
+  // create new github repo
+
+  try {
+    await createRepo(cmdObj);
+    console.log(chalk.green("DONE!!!"));
+    addCommitPushMaster("Initial commit");
+  } catch (error) {
+    console.log(error)
+    console.error(chalk.red(`ERROR ${error.msg}`));
+    process.exit(1);
+  }
+};

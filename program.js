@@ -1,19 +1,11 @@
-const chalk = require("chalk");
-const path = require("path");
-const fs = require("fs");
-const { Command } = require("commander");
-const shell = require("shelljs");
+import { Command } from "commander";
+import { config } from "./commands/config";
+import { newProject } from "./commands/new";
+import { repo } from "./commands/repo";
+import { deploy } from "./commands/deploy";
+import { version } from "./package.json";
 
-const config = require("./commands/config").config;
-const create = require("./commands/new");
-const deploy = require("./commands/deploy").deploy;
-const connect = require("./commands/connect").connect;
-const init = require("./commands/init").initialize;
-const repo = require("./commands/repo").repo;
-const develop = require("./commands/develop").develop;
-const { version } = require("./package.json");
-
-const createProgram = () => {
+export const createProgram = (args) => {
   const program = new Command();
 
   program.version(version);
@@ -23,7 +15,7 @@ const createProgram = () => {
     .alias("n")
     .description("Start new project from template")
     .action(function (project) {
-      create.newProject(project);
+      newProject(project);
     });
 
   program
@@ -37,20 +29,9 @@ const createProgram = () => {
     });
 
   program
-    .command("init")
-    .description("Alias for 'git init'.")
-    .action(function () {
-      init();
-    });
-
-  program
     .command("repo")
     .alias("r")
-    .option("-c, --connect", "connect to repo")
-    .option(
-      "-p, --push",
-      "(recommended) Intial add/commit/push of master to new repo"
-    )
+    .option("-O, --org [organization]", "Set Organization")
     .description(
       "Create GitHub remote repo with project name (RUN FROM PROJECT ROOT))"
     )
@@ -70,17 +51,5 @@ const createProgram = () => {
       config(cmdObj);
     });
 
-  program
-    .command("develop")
-    .alias("dev")
-    .description("Start development server to test out your project")
-    .action(() => {
-      develop();
-    });
-
-  return program;
-};
-
-module.exports = {
-  createProgram,
+  program.parse(args);
 };
