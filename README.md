@@ -4,6 +4,18 @@
 
 A command line interface for easy creation and deployment of submissions for Mintbean hackathon challenges
 
+## How to make your first contribution
+
+One of the goals of this project is to make it easy for first-time open source contributors to work on the project.
+
+Check out https://github.com/firstcontributions/first-contributions to understand how to contribute to open source projects like this one.
+
+## Development flow
+
+You can run the CLI for dev purposes by running the command `npm start`.
+
+If you want to test that `mint` gets loaded up during development, run `npm link`.
+
 ## Install
 
 `npm install -g mintbean-cli`
@@ -12,9 +24,9 @@ A command line interface for easy creation and deployment of submissions for Min
 
 You need to have `node` and `git` installed on your machine. If you don't:
 
-**LINUX**  `sudo apt install node git`
+**LINUX** `sudo apt install node git`
 
-**MAC**  `brew install node`  `brew install git`
+**MAC** `brew install node` `brew install git`
 
 **WINDOWS** Google it :)
 
@@ -115,14 +127,12 @@ In general, **run all commands at the project root!**. Commands you can run anyw
 
 | cmd | description |
 | - | - |
-| `mint [-h | --help`] |
-| `mint -V | --version` |
-| `mint new | n [project-name]` |
-| `mint repo | r`<br> [-O\|--org <organization–name>]<br /> |
-| `mint config` <br>  [-v\|--view] <br>  [-g\|--github] <br>  [-t\|--token] | Set up or view config (Github credentials etc.)<br>   options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
-| `mint develop | dev` |
+| mint [-h | --help] |
+| mint -V | --version |
+| mint new | n [project-name] |
+| mint repo | r,  -O, --org [organization] |
+| `mint config` <br> [-v\|--view] <br> [-g\|--github] <br> [-t\|--token] | Set up or view config (Github credentials etc.)<br> options: <br> (-v) view current config<br>(-g) set github username <br>(-t) set [github personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
 | `mint deploy | d` |
-| `mint init` | Alias for 'git init'. |
 
 # Developers
 
