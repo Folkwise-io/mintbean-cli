@@ -58,7 +58,7 @@ export const createProgram = (args) => {
     .alias("dev")
     .description("Start development server to test out your project")
     .action(() => {
-      shell.exec("npm run deploy");
+      shell.exec("npm start");
     });
 
 // this command does nothing
