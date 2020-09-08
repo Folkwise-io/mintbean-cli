@@ -14,7 +14,7 @@ There is no such thing as too descriptive when it comes to documentation. If you
 
 ##### 1. Project Templates
 
-Do you want a new template? Check out the adding new templates guide also in the Docs folder.
+Do you want a new template? Check out the adding new [templates guide](adding_new_templates.md) also in the Docs folder.
 
 ##### 2. Features
 

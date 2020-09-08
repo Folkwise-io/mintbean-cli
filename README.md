@@ -41,8 +41,8 @@ If it is your first time using `mintbean-cli`, first connect to GitHub with conf
 #### Suggested flow for new projects
 
 ```shell
-mint new
-cd
+mint new <my-project>
+cd <my-project>
 mint repo 
 mint deploy
 ```
