@@ -51,6 +51,5 @@ export const createProgram = (args) => {
       config(cmdObj);
     });
 
-
   program.parse(args);
 };

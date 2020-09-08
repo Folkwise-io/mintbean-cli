@@ -77,32 +77,26 @@ const checkForProjectPathConflict = (project) => {
   return files.checkFileOrDirExists(path.join(process.cwd(), project));
 };
 
-export const newProject = async(project) => {
+export const newProject = async (project) => {
   message.banner();
-    message.sponsorBanner();
-    let options = await getProjectOptions(project);
-    if (project) {
-      const conflict = checkForProjectPathConflict(options.projectName);
-      if (conflict) {
-        const clobber = await inquirer.prompt([
-          {
-            name: "confirm",
-            type: "confirm",
-            message: `Whoops! Project with name '${options.projectName}' already exists. Do you want to replace it?`,
-            default: false,
-          },
-        ]);
-        options.clobber = clobber.confirm;
-      } 
-      if (options.clobber === false) {
-        console.log(
-          chalk.red(
-            "Try again with a new project name"
-          )
-        );
-        process.exit(1)
-      }
+  let options = await getProjectOptions(project);
+  if (project) {
+    const conflict = checkForProjectPathConflict(options.projectName);
+    if (conflict) {
+      const clobber = await inquirer.prompt([
+        {
+          name: "confirm",
+          type: "confirm",
+          message: `Whoops! Project with name '${options.projectName}' already exists. Do you want to replace it?`,
+          default: false,
+        },
+      ]);
+      options.clobber = clobber.confirm;
     }
-    createProject({ ...options });
-}
-
+    if (options.clobber === false) {
+      console.log(chalk.red("Try again with a new project name"));
+      process.exit(1);
+    }
+  }
+  createProject({ ...options });
+};
