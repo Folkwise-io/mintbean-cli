@@ -2,10 +2,13 @@
 
 ## Getting Started
 
-1. Fork the repository
-2. Create a branch named Template[Name]
-3. Add your Template to the templates folder
-4. Open a pull request against the main branch
+1. If you have mint installed globaly `npm uninstall -g mintbean-cli`
+2. Fork the repository
+3. `git clone <fork>`
+4. Link it to your global packages `npm link`
+5. Create a branch with a descriptive name of the template `git checkout -b temp/[template-name]`
+6. Apply your changes
+7. Open a pull request against the main branch
 
 #### Every template requires the following
 

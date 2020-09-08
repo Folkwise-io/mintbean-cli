@@ -1,7 +1,5 @@
 # Help! Help!
 
-The mintbean-cli is a tool built for the community. So who better to impove it than our members.
-
 ## Hello!
 
 Thank you for wanting to help our community by getting involved. Our tool is here to help, but needs a little help of its own. Below are some areas were you can lend a hand:
@@ -26,12 +24,12 @@ Navigate over to the issues tab and find an issue you want to solve there is a n
 
 The tags to look for are:
 
-* bug
-* documentation
-* help wanted
-* good first issue
-* enhancment
-* template
+- bug
+- documentation
+- help wanted
+- good first issue
+- enhancment
+- template
 
 ### Issues/Bugs
 
@@ -39,10 +37,23 @@ Find an issue? Want to suggest a template? Want to suggest a feature? Create a G
 
 ## Getting Started
 
-1. If you have mint installed globaly `npm uninstall -g mintbean-cli`
+1. If you have mint installed globaly`npm uninstall -g mintbean-cli`
 2. Fork the repository
 3. `git clone <fork>`
-4. Link it to your global packages `npm link`
-5. Create a branch with a descriptive name of the changes `git checkout -b [branch-name]`
+4. Link it to your global packages`npm link`
+5. Create a branch with the propre type and descriptive name of the changes`git checkout -b type/[branch-name]`
 6. Apply your changes
 7. Open a pull request against the main branch
+
+#### Branch Types
+
+
+| type | description |
+| - | - |
+| temp | For adding templates to the CLI |
+| feat | For adding Features to the CLI |
+| bug | For fixing bugs in the CLI |
+| docs | For adding to the CLI or Templates documentation |
+| sand | For experimenting and spelunking |
+| wip | Works in progress; stuff I know won't be finished soon |
+
