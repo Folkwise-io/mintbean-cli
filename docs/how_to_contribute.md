@@ -1,4 +1,6 @@
-# Getting Involved
+# Help! Help!
+
+The mintbean-cli is a tool built for the community. So who better to impove it than our members.
 
 ## Hello!
 
@@ -37,11 +39,10 @@ Find an issue? Want to suggest a template? Want to suggest a feature? Create a G
 
 ## Getting Started
 
-1. Fork the repository
-2. Create a branch with a descriptive name of the changes
-3. Apply your changes
-4. Open a pull request against the main branch
-
-## Help! Help!
-
-The mintbean-cli is a tool built for the community. So who better to impove it than our members.
+1. If you have mint installed globaly `npm uninstall -g mintbean-cli`
+2. Fork the repository
+3. `git clone <fork>`
+4. Link it to your global packages `npm link`
+5. Create a branch with a descriptive name of the changes `git checkout -b [branch-name]`
+6. Apply your changes
+7. Open a pull request against the main branch
