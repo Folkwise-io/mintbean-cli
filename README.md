@@ -10,7 +10,7 @@ One of the goals of this project is to make it easy for first-time open source c
 
 Check out https://github.com/firstcontributions/first-contributions to understand how to contribute to open source projects like this one.
 
-[How to Contribute](./docs/how_to_contribute.md)
+### [How to Contribute](./docs/how_to_contribute.md)
 
 ## Development flow
 
