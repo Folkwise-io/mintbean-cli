@@ -46,13 +46,13 @@ export async function createProject(options) {
   };
 
   
-
-  const currentFileUrl = import.meta.url;
   const templateDir = path.resolve(
-    new URL(currentFileUrl).pathname,
-    "../../templates",
+    __dirname,
+    "../templates",
     options.templateName.toLowerCase()
   );
+
+  console.log(chalk.greenBright(templateDir));
 
   options.templateDir = templateDir;
 
