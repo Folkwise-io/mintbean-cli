@@ -26,6 +26,7 @@
     "clear": "0.1.0",
     "clui": "0.3.6",
     "commander": "5.1.0",
+    "concat-stream": "2.0.0",
     "configstore": "5.0.1",
     "dotpref": "1.0.0",
     "ejs": "3.1.3",

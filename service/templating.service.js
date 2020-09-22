@@ -52,8 +52,6 @@ export async function createProject(options) {
     options.templateName.toLowerCase()
   );
 
-  console.log(chalk.greenBright(templateDir));
-
   options.templateDir = templateDir;
 
   try {
