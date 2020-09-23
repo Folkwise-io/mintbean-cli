@@ -18,33 +18,6 @@ const ghUsernameRegex = new RegExp(
   "i"
 );
 
-const QUESTIONS = [
-  {
-    name: "template",
-    type: "list",
-    message: "Choose a template for new project:",
-    choices: TEMPLATE_CHOICES,
-  },
-  {
-    name: "packagemgr",
-    type: "list",
-    message: "Which package manager will you use:",
-    choices: PM_CHOICES,
-  },
-  {
-    name: "github",
-    type: "input",
-    message: "GitHub username: ",
-    when: () => !config.getConfig("github"),
-    validate: (input) => {
-      if (input === "" || !ghUsernameRegex.test(input)) {
-        return "not valid username, try again";
-      }
-      return true;
-    },
-  },
-];
-
 const generateProjectName = (templateName) => {
   const month = moment().format("MM");
   const day = moment().format("DD");
@@ -53,6 +26,33 @@ const generateProjectName = (templateName) => {
 };
 
 const getProjectOptions = async (project, cmdObj) => {
+  const QUESTIONS = [
+    {
+      name: "template",
+      type: "list",
+      message: "Choose a template for new project:",
+      choices: TEMPLATE_CHOICES,
+    },
+    {
+      name: "packagemgr",
+      type: "list",
+      when: () => cmdObj.install,
+      message: "Which package manager will you use:",
+      choices: PM_CHOICES,
+    },
+    {
+      name: "github",
+      type: "input",
+      message: "GitHub username: ",
+      when: () => !config.getConfig("github"),
+      validate: (input) => {
+        if (input === "" || !ghUsernameRegex.test(input)) {
+          return "not valid username, try again";
+        }
+        return true;
+      },
+    },
+  ];
   const answers = await inquirer.prompt(QUESTIONS);
   const templateName = answers.template;
   if (answers.github) {
