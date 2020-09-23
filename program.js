@@ -13,9 +13,11 @@ export const createProgram = (args) => {
   program
     .command("new [project]")
     .alias("n")
+    .option("-ni, --no-install")
+    .description("Prevent package manager from running install")
     .description("Start new project from template")
-    .action(function (project) {
-      newProject(project);
+    .action(function (project, cmdObj) {
+      newProject(project, cmdObj);
     });
 
   program
@@ -50,9 +52,6 @@ export const createProgram = (args) => {
     .action((cmdObj) => {
       config(cmdObj);
     });
-
-  console.log(args);
-  console.log(program);
 
   program.parse(args);
 };

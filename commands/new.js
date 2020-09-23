@@ -52,7 +52,7 @@ const generateProjectName = (templateName) => {
   return `mintbean-${templateName}-${year}-${month}-${day}`;
 };
 
-const getProjectOptions = async (project) => {
+const getProjectOptions = async (project, cmdObj) => {
   const answers = await inquirer.prompt(QUESTIONS);
   const templateName = answers.template;
   if (answers.github) {
@@ -60,7 +60,6 @@ const getProjectOptions = async (project) => {
   }
   const githubUsername = config.getConfig("github");
   const packageManager = answers.packagemgr;
-  console.log(packageManager);
   const projectName = project ? project : generateProjectName(answers.template);
 
   const options = {
@@ -68,6 +67,7 @@ const getProjectOptions = async (project) => {
     githubUsername,
     templateName,
     packageManager,
+    install: cmdObj.install,
   };
   return options;
 };
@@ -77,9 +77,9 @@ const checkForProjectPathConflict = (project) => {
   return files.checkFileOrDirExists(path.join(process.cwd(), project));
 };
 
-export const newProject = async (project) => {
+export const newProject = async (project, commandObj) => {
   message.banner();
-  let options = await getProjectOptions(project);
+  let options = await getProjectOptions(project, commandObj);
   const conflict = checkForProjectPathConflict(options.projectName);
   if (conflict) {
     const clobber = await inquirer.prompt([

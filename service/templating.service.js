@@ -72,6 +72,7 @@ export async function createProject(options) {
     },
     {
       title: "Installing dependencies",
+      skip: () => !options.install,
       task: () =>
         projectInstall({
           cwd: options.targetDir,
@@ -79,6 +80,7 @@ export async function createProject(options) {
         }),
     },
   ]);
+  console.log(options);
   await tasks.run();
 }
 
