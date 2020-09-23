@@ -1,6 +1,7 @@
 import cmd from "./testUtils";
 import tmp from "tmp";
-import fs from "fs";
+import path from "path";
+import { compareSync } from "dir-compare";
 
 // "/usr/local/bin/mint"
 
@@ -36,8 +37,21 @@ class TestManager {
     return await this.program.execute(args, inputs, opts);
   }
 
-  listFiles() {
-    return fs.readdirSync(this.dir.name);
+  compareFiles(templateName) {
+    const testProjectPath = path.join(this.dir.name, "testProject");
+    const templatePath = path.resolve(
+      __dirname,
+      "../../templates",
+      templateName.toLowerCase()
+    );
+    const match = compareSync(testProjectPath, templatePath, {
+      compareContent: true,
+      compareSize: true,
+      // These files are different intentionally excluded from compare
+      excludeFilter: "package.json, .git",
+    });
+    return match.same;
+
   }
 
   cleanUp() {
@@ -46,4 +60,4 @@ class TestManager {
   }
 }
 
-export default TestManager
+export default TestManager;
