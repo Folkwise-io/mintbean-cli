@@ -1,20 +1,4 @@
-import TestManager from "./TestManager";
-
-const helpResponse = `Usage: mint [options] [command]
-
-Options:
-  -V, --version              output the version number
-  -h, --help                 display help for command
-
-Commands:
-  new|n [options] [project]  Start new project from template
-  deploy|d                   Deploy project as prescribed in package.json >
-                             "mintbean" predeploy and deploy scripts.
-  repo|r [options]           Create GitHub remote repo with project name (RUN
-                             FROM PROJECT ROOT))
-  config [options]           Set up or view config (Github credentials etc.)
-  help [command]             display help for command
-`;
+import TestManager from "./Tools/TestManager";
 
 describe("Mintbean-CLI Help", () => {
   let testManager;
@@ -26,9 +10,9 @@ describe("Mintbean-CLI Help", () => {
     testManager.cleanUp();
   });
 
-  it.only("`mint -h` command prints help menu", async () => {
-    const results = await testManager.switchToTmpDir().execute(["-h"]);
-    console.log(results);
-    expect(results).toBe(helpResponse);
+  it("`mint -h` command prints help menu", async () => {
+    const terminalPrint = await testManager.execute(["-h"]);
+    const results = terminalPrint.includes("Usage: mint [options] [command]");
+    expect(results).toBe(true);
   });
 });
