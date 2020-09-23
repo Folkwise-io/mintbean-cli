@@ -1,12 +1,16 @@
-import { createProgram } from "../program";
+import cmd from "./testUtils";
 import tmp from "tmp";
+import fs from "fs";
+
+// "/usr/local/bin/mint"
 
 function generateTestProgram() {
-  const program = createProgram;
+  const program = createProgram();
+  program.exitOverride();
   return program;
 }
 
-export class TestManager {
+class TestManager {
   constructor(tmpDir, program) {
     this.dir = tmpDir;
     this.currentDir = tmpDir;
@@ -18,18 +22,22 @@ export class TestManager {
       unsafeCleanup: true,
     };
     const tempDir = tmp.dirSync(options);
-    const program = generateTestProgram();
+    const program = cmd.create("/usr/local/bin/mint");
     return new TestManager(tempDir, program);
   }
 
   switchToTmpDir() {
     process.chdir(this.dir.name);
     this.currentDir = process.cwd();
-    return process.cwd()
+    return this;
   }
 
-  async execute(args) {
-    return await this.program(["node", "mint", ...args]);
+  async execute(args, inputs, opts) {
+    return await this.program.execute(args, inputs, opts);
+  }
+
+  listFiles() {
+    return fs.readdirSync(this.dir.name);
   }
 
   cleanUp() {
@@ -37,3 +45,5 @@ export class TestManager {
     this.dir.removeCallback();
   }
 }
+
+export default TestManager
