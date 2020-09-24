@@ -79,6 +79,7 @@ const checkForProjectPathConflict = (project) => {
 
 export const newProject = async (project) => {
   message.banner();
+  message.sponsorBanner()
   let options = await getProjectOptions(project);
   if (project) {
     const conflict = checkForProjectPathConflict(options.projectName);
