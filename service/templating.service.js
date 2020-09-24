@@ -5,27 +5,26 @@ import path from "path";
 import { promisify } from "util";
 import execa from "execa";
 import Listr from "listr";
-import ejs from "ejs"
+import ejs from "ejs";
 import { projectInstall } from "pkg-install";
-
+import { transform } from "lodash";
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
 
 async function copyTemplateFiles(options) {
-  if (options.clobber) {
-    await execa("rm", ["-rf", options.projectName]);
-  }
+  const transform = (read, write, file) => {
+    const ejsTemplatable = fs.readFileSync(file.name);
+    const ejsTemplated = ejs.compile(ejsTemplatable.toString("utf-8"))(options);
+    fs.writeFileSync(file.name, ejsTemplated);
+
+    read.pipe(write);
+  };
 
   await copy(options.templateDir, options.targetDir, {
     clobber: options.clobber,
+    transform: transform,
   });
-
-  const myJson = fs.readFileSync(path.join(options.targetDir, "package.json"));
-  const newJson = ejs.compile(myJson.toString("utf-8"))(options);
-  
-  fs.writeFileSync(path.join(options.targetDir, "package.json"), newJson);
-
 }
 
 async function initGit(options) {
@@ -35,7 +34,7 @@ async function initGit(options) {
   if (result.failed) {
     return Promise.reject(new Error("Failed to initialize git"));
   }
-  return
+  return;
 }
 
 export async function createProject(options) {
@@ -44,8 +43,6 @@ export async function createProject(options) {
     targetDir:
       options.targetDir || path.join(process.cwd(), options.projectName),
   };
-
-  
 
   const currentFileUrl = import.meta.url;
   const templateDir = path.resolve(
@@ -83,4 +80,3 @@ export async function createProject(options) {
   ]);
   await tasks.run();
 }
-
