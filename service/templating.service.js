@@ -7,23 +7,37 @@ import execa from "execa";
 import Listr from "listr";
 import ejs from "ejs";
 import { projectInstall } from "pkg-install";
-import { transform } from "lodash";
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
 
 async function copyTemplateFiles(options) {
+  const needsEjs = [];
   const transform = (read, write, file) => {
-    const ejsTemplatable = fs.readFileSync(file.name);
-    const ejsTemplated = ejs.compile(ejsTemplatable.toString("utf-8"))(options);
-    fs.writeFileSync(file.name, ejsTemplated);
+    const isEjsTemplatable = fs.readFileSync(file.name).toString("utf-8");
 
     read.pipe(write);
+
+    if (isEjsTemplatable.match(/(<%= (.*?) %>)/) !== null) {
+      needsEjs.push(write.path);
+    }
+
+    if (file.name.includes("gitignore")) {
+      const parentDir = path.resolve(write.path, "..");
+      const newPath = path.join(parentDir, ".gitignore");
+      fs.renameSync(write.path, newPath);
+    }
   };
 
   await copy(options.templateDir, options.targetDir, {
     clobber: options.clobber,
     transform: transform,
+  });
+
+  needsEjs.forEach((file) => {
+    const ejsTemplatable = fs.readFileSync(file);
+    const ejsTemplated = ejs.compile(ejsTemplatable.toString("utf-8"))(options);
+    fs.writeFileSync(file, ejsTemplated);
   });
 }
 
