@@ -54,5 +54,8 @@
     "size-limit": "4.6.0",
     "tsdx": "0.14.0",
     "tslib": "2.0.1"
+  },
+  "dependencies": {
+    "yargs": "16.0.3"
   }
 }
