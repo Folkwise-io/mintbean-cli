@@ -1,3 +1,5 @@
-export const  cli = (args: string[]) => {
-  console.log(args);
-}
+import {core} from './core';
+// import { commandParser } from './services/commandParser';
+
+// Main execution of the command begins.
+core();
