@@ -1,10 +1,9 @@
 import yargs from 'yargs';
-import { parseCommand } from './util/parseCommand';
-import samplePlugin from './plugins/samplePlugin';
+import { pluginLoader } from "./util/pluginLoader"
 
 export const core = () => {
   const program = yargs;
-  parseCommand(program, samplePlugin);
+  pluginLoader();
 
   program
     .completion()
