@@ -8,14 +8,35 @@ const addCommandTreeBranch = (
   files: MintPluginDes['dec']['files'],
   commandTree: any
 ) => {
+  // eslint-disable-next-line no-native-reassign
   require = require('esm')(module /*, options */);
-  const lexCommands = files.map(file => {
-    const plugin = require(file).default;
-    return  lex(plugin.command);
+  const plugins = files.map((file: string) => {
+    const plugin: any = require(file).default;
+    return {
+      ...plugin,
+      command: lex(plugin.command),
+    };
   });
-  lexCommands.reduce((acc:any, cur:LexedCommand) => {
+  plugins.reduce((acc: any, cur: MintCommand) => {
+    const { path, commandToken } = cur.command;
+    let current = acc;
+    for (let i = 0; i < path.length; i++) {
+      if (!current[path[i]]) {
+        current[path[i]] = {};
+      }
+      current = current[path[i]];
+    }
 
+    current[commandToken] = {
+      command: commandToken,
+      arguments: cur.command.arguments,
+      description: cur.description,
+      callback: cur.callback,
+      ...current[commandToken],
+    };
+    return acc;
   }, commandTree);
+  console.log(commandTree);
 };
 
 const buildCommandTree = (plugins: MintPluginDes[]) => {

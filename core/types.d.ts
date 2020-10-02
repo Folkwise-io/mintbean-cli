@@ -1,8 +1,8 @@
 interface LexedCommand {
-  commandToken?: string;
+  commandToken: string;
   flags: string[];
   arguments: string[];
-  path?: Path;
+  path: Path;
 }
 
 type Path = string[];
@@ -37,13 +37,17 @@ interface PluginLifecycleHook {
 }
 
 interface MintCommand {
-  command: string;
+  command: LexedCommand;
   description: string;
-  options: yargs.Options;
+  options: { [key: string]: any };
   callback?: (args: Arguments<unknown>) => void;
-  commands: MintCommand[];
 }
 
+type Arguments<T = {}> = T & {
+  _: string[];
+  $0: string;
+  [argName: string]: unknown;
+};
 
 interface MintPlugin<C> {
   lifecycle: {
@@ -59,5 +63,3 @@ interface MintPlugin<C> {
     value: any | null
   ) => { setContext(key: string, value: any | null): void };
 }
-
-

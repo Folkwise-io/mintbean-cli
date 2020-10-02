@@ -1,7 +1,7 @@
 const split = (command: string) => command.split(' ');
 const isArgument = (token: string) => /^\[\w+\]$/g.test(token);
 const isCommandFragment = (token: string) => /^\w+$/g.test(token);
-const isFlag = (token: string) => /^\-\-\w+$/g.test(token);
+const isFlag = (token: string) => /^--\w+$/g.test(token);
 
 export const lex = (command: string): LexedCommand => {
   // It must start with "mint".
@@ -13,16 +13,15 @@ export const lex = (command: string): LexedCommand => {
   }
   const tokens = split(command);
 
-  const endNode: LexedCommand = {
-    commandToken: undefined,
+  const endNode: any = {
+    commandToken: null,
     flags: [],
     arguments: [],
-    path: undefined,
+    path: [],
   };
   let i;
   for (i = tokens.length - 1; i > 0; i--) {
     const token = tokens[i];
-    console.log(isArgument(token));
 
     if (isArgument(token)) {
       endNode.arguments.push(token);
@@ -34,13 +33,13 @@ export const lex = (command: string): LexedCommand => {
     }
   }
   // We need the remaining path. It's here.
-  endNode.path = tokens.slice(0, i);
+  endNode.path = [...tokens.slice(0, i)];
   // if commandToken is not there or path is not there, something went wrong
-    if (!endNode.commandToken || !endNode.path) {
-      console.log(endNode);
-      throw new Error(
-        'Unexpected state, please check the command if it is valid: ' + command
-      );
-    }
+  if (!endNode.commandToken || !endNode.path) {
+    console.log(endNode);
+    throw new Error(
+      'Unexpected state, please check the command if it is valid: ' + command
+    );
+  }
   return endNode;
 };

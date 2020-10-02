@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { pluginLoader } from "./util/pluginLoader"
+import { pluginLoader } from './util/pluginLoader';
 
 export const core = () => {
   const program = yargs;
@@ -10,5 +10,5 @@ export const core = () => {
     .recommendCommands()
     .strict();
 
-  program.help().argv;
+  program.help().parse();
 };
