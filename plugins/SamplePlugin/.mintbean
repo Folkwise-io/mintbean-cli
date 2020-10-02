@@ -1,0 +1,7 @@
+{
+    "title": "Sample Plugin",
+    "namespaces":["time"],
+    "files": ["src/**/*.js"],
+    "exclude": ["node_modules"],
+    "protected" : true
+}
