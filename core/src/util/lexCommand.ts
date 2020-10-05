@@ -13,29 +13,31 @@ export const lex = (command: string): LexedCommand => {
   }
   const tokens = split(command);
 
-  const endNode: any = {
-    commandToken: null,
+  const endNode: LexedCommand = {
+    command: '',
     flags: [],
-    arguments: [],
+    args: [],
     path: [],
+    fullCommand: '',
   };
   let i;
   for (i = tokens.length - 1; i > 0; i--) {
     const token = tokens[i];
 
     if (isArgument(token)) {
-      endNode.arguments.push(token);
+      endNode.args.push(token);
     } else if (isFlag(token)) {
-      endNode.arguments.push(token);
+      endNode.args.push(token);
     } else if (isCommandFragment(token)) {
-      endNode.commandToken = token;
+      endNode.command = token;
       break;
     }
   }
   // We need the remaining path. It's here.
+  endNode.fullCommand = command;
   endNode.path = [...tokens.slice(0, i)];
-  // if commandToken is not there or path is not there, something went wrong
-  if (!endNode.commandToken || !endNode.path) {
+  // if command is not there or path is not there, something went wrong
+  if (!endNode.command || !endNode.path) {
     console.log(endNode);
     throw new Error(
       'Unexpected state, please check the command if it is valid: ' + command

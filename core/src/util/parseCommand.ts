@@ -1,48 +1,46 @@
-import yargs, { Argv } from 'yargs';
-// import { MintCommand } from '../../types';
-import _ from 'lodash';
-const MAX_SUBCOMMAND_DEPTH = 4;
+import yargs, { Argv, Options } from 'yargs';
+
+export interface MintCommand2 {
+  command: string;
+  args: string[];
+  description: string;
+  options: { [key: string]: Options };
+  handler?: (args: Arguments) => void;
+  children: MintCommand2[];
+}
+
+export interface MintCommand {
+  command: LexedCommand;
+  description: string;
+  options: yargs.Options;
+  callback?: yargs.ParseCallback;
+  children: MintCommand[];
+}
 
 export const parseCommand = (
-  program: yargs.Argv<{}>,
-  def: MintCommand,
-  depth = 0
-) => {
-  if (++depth > MAX_SUBCOMMAND_DEPTH) {
-    throw new Error('Max depth exceeded!');
+  program: yargs.Argv<Record<string, unknown>>,
+  def: CommandBranch
+): void => {
+  if (def.children) {
+    program.command(
+      def.command,
+      def.description,
+      (program: Argv<Record<string, unknown>>) => {
+        for (const child in def.children) {
+          return parseCommand(program, def.children[child]);
+        }
+        program.command('*', '', {}, () => {
+          return program.showHelp('log');
+        });
+      },
+      def.handler
+    );
   }
 
-  if (def.commands.length > 0) {
-    program.command(
-      def.command,
-      def.description,
-      (program: Argv<{}>) => {
-        let hasDefault = false;
-        _.forEach(def.commands, cmd => {
-          hasDefault = hasDefault || cmd.command === '*';
-          return parseCommand(program, cmd, depth);
-        });
-        if (!hasDefault) {
-          program.command('*', '', {}, () => {
-            _.forEach(
-              _.sortBy(def.commands, cmd => cmd.command),
-              cmd => {
-                hasDefault = hasDefault || cmd.command === '*';
-                return parseCommand(program, cmd, depth);
-              }
-            );
-            return program.showHelp('log');
-          });
-        }
-      },
-      def.callback
-    );
-  } else if (def.callback) {
-    program.command(
-      def.command,
-      def.description,
-      def.options || {},
-      def.callback
-    );
-  }
+  program.command(
+    def.command,
+    def.description,
+    {},
+    def.handler
+  );
 };

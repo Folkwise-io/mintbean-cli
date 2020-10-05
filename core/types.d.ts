@@ -1,13 +1,29 @@
 interface LexedCommand {
-  commandToken: string;
+  command: string;
+  fullCommand: string;
   flags: string[];
-  arguments: string[];
+  args: string[];
   path: Path;
+  [key: string]: unknown
+}
+
+interface CommandBranch {
+  command: string;
+  fullCommand: string;
+  description: string;
+  flags: string[];
+  args: string[];
+  path: Path;
+  children?: CommandBranchChildren;
+  handler?: (args: Arguments<unknown>) => void;
+}
+interface CommandBranchChildren {
+  [command: string]: CommandBranch
 }
 
 type Path = string[];
 
-interface MintPluginDes {
+interface PluginProjectDefinition {
   dec: {
     title: string;
     namespaces: string;
@@ -17,6 +33,10 @@ interface MintPluginDes {
     protected: boolean;
   };
   path: string;
+}
+
+interface PluginProjectDefinitionLexed extends PluginProjectDefinition {
+  lexedCommands: LexedCommand[];
 }
 
 type User = {

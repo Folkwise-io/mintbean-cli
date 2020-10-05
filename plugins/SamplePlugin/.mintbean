@@ -1,8 +1,7 @@
 {
   "title": "Sample Plugin",
   "namespaces": "time",
-  "entry": "src/index.mint.js",
-  "files": ["commands/*/*.mint.js"],
+  "files": ["src/commands/**/*.js"],
   "exclude": ["node_modules"],
   "protected": true
 }
