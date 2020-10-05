@@ -1,5 +1,5 @@
 const samplePlugin = {
-  command: 'mint time',
+  command: 'time',
   description: 'These commands have to do with time, time formatting, and time travel.'
 }
 

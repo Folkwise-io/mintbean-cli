@@ -1,9 +1,9 @@
 import moment from "moment"
 
 const TimeFormattedPlugin = {
-    command: 'mint time [format]',
+    command: '* [format]',
     description: 'This command returns the current time in the format provided.',
-    callback: (argv) => {
+    handler: (argv) => {
       console.log(moment().format(argv.format))
     }
 }
