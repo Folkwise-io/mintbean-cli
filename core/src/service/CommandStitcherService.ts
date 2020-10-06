@@ -41,7 +41,7 @@ export class CommandStitcherServiceImpl
         }
       );
     } else {
-      // When a command has no children construct a command without no builder
+      // When a command has no children construct a command without builder
       program.command(
         commandWithArgs,
         commandBranch.description,

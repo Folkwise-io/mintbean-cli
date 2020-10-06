@@ -1,50 +1,50 @@
 import chalk from 'chalk';
 
 /**
- * @param mainTree - A command object that all command branches will attach to
+ * @param rootTree - A command object that all command branches will attach to
  * @param pluginBundle - A plugin bundle contains all of the command definitions and metadata for the plugin
  */
 const createBranch = (
-  mainTree: CommandBranchChildren,
+  rootTree: CommandBranchChildren,
   pluginBundle: PluginProjectDefinitionLexed
 ) => {
   // Create a branch for each command in the plugin off the main tree
   pluginBundle.lexedCommands.reduce(
-    (tree: CommandBranchChildren, subBranch): CommandBranchChildren => {
-      // Create a walkable version of the tree
-      let branch: CommandBranchChildren = tree;
-      const { command, path, qualifiedCommand } = subBranch;
-      // Walk through the tree to the appropriate branch
+    (branch: CommandBranchChildren, lexedCommand): CommandBranchChildren => {
+      // Create a walkable version of the branch
+      let subBranch: CommandBranchChildren = branch;
+      const { command, path, qualifiedCommand } = lexedCommand;
+      // Walk through the branch to the appropriate subBranch
       path.forEach(fragment => {
         // Create branch if necessary
-        branch[fragment] = branch[fragment] || {
+        subBranch[fragment] = subBranch[fragment] || {
           children: {},
         };
 
-        // Switch to children branch of tree
-        branch = branch[fragment].children || {};
+        // Switch to children branch of subBranch
+        subBranch = subBranch[fragment].children || {};
       });
       // Create child if it doesn't exist
-      branch[command] = branch[command] || {
+      subBranch[command] = subBranch[command] || {
         children: {},
       };
       // Check for command for conflicts throws error if true
-      if (branch[command].command) {
+      if (subBranch[command].command) {
         throw new Error(
           chalk.red(
-            `${branch[command].qualifiedCommand} is in conflict with ${qualifiedCommand} from plugin at ${pluginBundle.path}`
+            `${subBranch[command].qualifiedCommand} is in conflict with ${qualifiedCommand} from plugin at ${pluginBundle.path}`
           )
         );
       } else {
         // Populate child with command branch
-        branch[command] = {
-          ...subBranch,
-          ...branch[command],
+        subBranch[command] = {
+          ...lexedCommand,
+          ...subBranch[command],
         };
       }
-      return tree;
+      return branch;
     },
-    mainTree
+    rootTree
   );
 };
 
@@ -56,10 +56,10 @@ export class PluginTreeBuilderServiceImpl implements PluginTreeBuilderService {
     PluginProjectDefinitionsLexed: PluginProjectDefinitionLexed[]
   ): CommandBranchChildren {
     try {
-      return PluginProjectDefinitionsLexed.reduce((mainTree, pluginBundle) => {
+      return PluginProjectDefinitionsLexed.reduce((rootTree, pluginBundle) => {
         // Create Branch for each namespace
-        createBranch(mainTree, pluginBundle);
-        return mainTree;
+        createBranch(rootTree, pluginBundle);
+        return rootTree;
       }, {});
     } catch (error) {
       console.error(error);
