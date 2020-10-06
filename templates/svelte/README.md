@@ -5,7 +5,7 @@
 1. Mint new [ Project name ]
 2. Select `svelte-gh-pages`
 3. `mint r -cp`
-4. `mint develop`
+4. `npm start` or `yarn start`
 5. Visit `localhost:5000`
 
 ## Deployment

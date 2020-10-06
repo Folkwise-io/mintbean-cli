@@ -45,7 +45,7 @@ If it is your first time using `mintbean-cli`, first connect to GitHub with conf
 ```shell
 mint new <my-project>
 cd <my-project>
-mint repo 
+mint repo
 mint deploy
 ```
 
@@ -74,7 +74,7 @@ View your config settings anytime with `mint config -v`.
 
 ### Development
 
-`mint develop` or `mint dev`
+`npm start` or `yarn start`
 
 Starts a local development server to display your code's output (look for `localhost` link). Changes to your code automatically updates when you save.
 
@@ -98,7 +98,7 @@ Basic Create React App template.
 
 ### vanilla-js-gh-pages
 
-Basic vanilla JavaScript template that allows you to preview your project on a local server (`mint dev`)
+Basic vanilla JavaScript template that allows you to preview your project on a local server (`npm start` or `yarn start` to start the server)
 
 ### vue-gh-pages
 
