@@ -57,6 +57,7 @@
     "@types/klaw": "3.0.1",
     "@types/klaw-sync": "6.0.0",
     "@types/lodash": "4.14.161",
+    "@types/node": "^14.11.3",
     "@types/yargs": "15.0.7",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
@@ -68,6 +69,7 @@
   },
   "dependencies": {
     "dotpref": "1.0.0",
+    "esm": "^3.2.25",
     "fs-extra": "9.0.1",
     "glob": "7.1.6",
     "klaw": "3.0.0",

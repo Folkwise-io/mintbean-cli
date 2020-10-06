@@ -71,6 +71,7 @@ const loadPluginFiles = (plugin: MintPluginDes) => {
     absolute: true,
     cwd: plugin.path,
   });
+
   return plugInFiles.map(path => grabPlugin(path));
 };
 

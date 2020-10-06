@@ -37,10 +37,5 @@ export const parseCommand = (
     );
   }
 
-  program.command(
-    def.command,
-    def.description,
-    {},
-    def.handler
-  );
+  program.command(def.command, def.description, {}, def.handler);
 };

@@ -3,23 +3,28 @@ const isArgument = (token: string) => /^\[\w+\]$/g.test(token);
 const isCommandFragment = (token: string) => /^\w+$/g.test(token);
 const isFlag = (token: string) => /^--\w+$/g.test(token);
 
-export const lex = (command: string): LexedCommand => {
+export const lex = (rawCommand: RawCommand): LexedCommand => {
+  const { command: qualifiedCommand, description, args, handler } = rawCommand;
+
   // It must start with "mint".
-  if (command.indexOf('mint') !== 0) {
+  if (qualifiedCommand.indexOf('mint') !== 0) {
     throw new Error(
       'Commands must all start with "mint". Instead, the command we got was: ' +
-        command
+        qualifiedCommand
     );
   }
-  const tokens = split(command);
+  const tokens = split(qualifiedCommand);
 
   const endNode: LexedCommand = {
-    command: '',
+    command: '', // This is NOT the same as the RawCommand.command
+    description,
     flags: [],
-    args: [],
+    args: args || [],
     path: [],
-    fullCommand: '',
+    qualifiedCommand,
+    handler,
   };
+
   let i;
   for (i = tokens.length - 1; i > 0; i--) {
     const token = tokens[i];
@@ -33,14 +38,13 @@ export const lex = (command: string): LexedCommand => {
       break;
     }
   }
-  // We need the remaining path. It's here.
-  endNode.fullCommand = command;
   endNode.path = [...tokens.slice(0, i)];
   // if command is not there or path is not there, something went wrong
   if (!endNode.command || !endNode.path) {
     console.log(endNode);
     throw new Error(
-      'Unexpected state, please check the command if it is valid: ' + command
+      'Unexpected state, please check the command if it is valid: ' +
+        qualifiedCommand
     );
   }
   return endNode;

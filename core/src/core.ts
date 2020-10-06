@@ -1,22 +1,11 @@
-import yargs from 'yargs';
-import { parseCommand } from './util/parseCommand';
-import { pluginLoader } from './util/pluginLoader';
+import { contextBuilder } from './context';
 
-export const core = (): void => {
-  const program = yargs;
-  const plugins: CommandBranch = pluginLoader();
-  // TODO: Setup `mint` root command here
-  for (const child in plugins.children) {
-    parseCommand(program, plugins.children[child]);
-  }
-
-  program
-    .command('*', false, {}, () => {
-      return program.showHelp();
-    })
-    .completion()
-    .recommendCommands()
-    .strict();
-
-  program.help().parse();
+export const core = () => {
+  const context = contextBuilder();
+  const plugins = context.pluginIdentificationService.findPlugins();
+  console.log(
+    context.pluginLexerService
+      .lexPlugin(plugins)
+      .map(x => x.lexedCommands.map(y => y.qualifiedCommand))
+  );
 };

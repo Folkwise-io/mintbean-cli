@@ -1,41 +1,37 @@
-interface LexedCommand {
+interface RawCommand {
   command: string;
-  fullCommand: string;
-  flags: string[];
+  description: string;
   args: string[];
-  path: Path;
-  [key: string]: unknown
+  handler?: (args: Arguments) => void;
 }
 
-interface CommandBranch {
-  command: string;
-  fullCommand: string;
-  description: string;
+interface LexedCommand extends RawCommand {
+  qualifiedCommand: string;
   flags: string[];
-  args: string[];
-  path: Path;
+  path: string[];
+}
+
+interface CommandBranch extends LexedCommand {
   children?: CommandBranchChildren;
   handler?: (args: Arguments<unknown>) => void;
 }
+
 interface CommandBranchChildren {
-  [command: string]: CommandBranch
+  [command: string]: CommandBranch;
 }
 
-type Path = string[];
-
-interface PluginProjectDefinition {
-  dec: {
+interface DotMintbeanFile {
+  manifest: {
     title: string;
     namespaces: string;
     exclude: string[];
-    files: string[]
-    entry: string;
+    files: string[];
     protected: boolean;
   };
   path: string;
 }
 
-interface PluginProjectDefinitionLexed extends PluginProjectDefinition {
+interface PluginProjectDefinitionLexed extends DotMintbeanFile {
   lexedCommands: LexedCommand[];
 }
 
@@ -43,14 +39,6 @@ type User = {
   username: string;
   password: 'hidden';
 };
-
-// interface Context {
-//   logger: any;
-//   user: User;
-//   persistence: any;
-//   userService: any;
-//   registrar: (key: string, value: any | null) => void;
-// }
 
 interface PluginLifecycleHook {
   order: number; // higher is sooner
@@ -62,3 +50,18 @@ type Arguments<T = Record<string, unknown>> = T & {
   $0: string;
   [argName: string]: unknown;
 };
+
+interface PluginIdentificationService {
+  findPlugins(): DotMintbeanFile[];
+}
+
+interface PluginLexerService {
+  lexPlugin(
+    dotMintbeanFiles: DotMintbeanFile[]
+  ): PluginProjectDefinitionLexed[];
+}
+
+interface Context {
+  pluginIdentificationService: PluginIdentificationService;
+  pluginLexerService: PluginLexerService;
+}
