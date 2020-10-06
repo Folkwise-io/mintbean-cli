@@ -14,14 +14,6 @@ const grabPlugin = (file: string): LexedCommand => {
   return { ...plugin, ...lex(plugin.command) };
 };
 
-const sortCommands = (cmds: LexedCommand[]) => {
-  cmds.sort((cmdA, cmdB) => {
-    const smallerPath = cmdA.path.length - cmdB.path.length;
-    const lessArgs = cmdA.args.length - cmdB.args.length;
-    return smallerPath || lessArgs;
-  });
-};
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const createTree = (commands: LexedCommand[], cmdTree: any) => {
   return commands.reduce((acc, cur): Record<string, unknown> => {

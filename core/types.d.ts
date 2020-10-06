@@ -12,18 +12,19 @@ interface LexedCommand extends RawCommand {
 }
 
 interface CommandBranch extends LexedCommand {
+  protected?: boolean;
   children?: CommandBranchChildren;
   handler?: (args: Arguments<unknown>) => void;
 }
 
 interface CommandBranchChildren {
-  [command: string]: CommandBranch;
+  [command: string]: CommandBranch | Partial<CommandBranch>;
 }
 
 interface DotMintbeanFile {
   manifest: {
     title: string;
-    namespaces: string;
+    namespaces: string[];
     exclude: string[];
     files: string[];
     protected: boolean;
@@ -61,7 +62,14 @@ interface PluginLexerService {
   ): PluginProjectDefinitionLexed[];
 }
 
+interface PluginTreeBuilderService {
+  createTree(
+    PluginProjectDefinitionsLexed: PluginProjectDefinitionLexed[]
+  ): CommandBranchChildren;
+}
+
 interface Context {
   pluginIdentificationService: PluginIdentificationService;
   pluginLexerService: PluginLexerService;
+  PluginTreeBuilderService: PluginTreeBuilderService;
 }
