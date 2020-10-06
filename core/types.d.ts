@@ -13,12 +13,12 @@ interface LexedCommand extends RawCommand {
 
 interface CommandBranch extends LexedCommand {
   protected?: boolean;
-  children?: CommandBranchChildren;
+  children: CommandBranchChildren;
   handler?: (args: Arguments<unknown>) => void;
 }
 
 interface CommandBranchChildren {
-  [command: string]: CommandBranch | Partial<CommandBranch>;
+  [command: string]: CommandBranch ;
 }
 
 interface DotMintbeanFile {
@@ -67,9 +67,16 @@ interface PluginTreeBuilderService {
     PluginProjectDefinitionsLexed: PluginProjectDefinitionLexed[]
   ): CommandBranchChildren;
 }
+interface CommandStitcherService<T> {
+  parseCommand(
+    program: T,
+    def: CommandBranch
+  ): void;
+}
 
-interface Context {
+interface Context<T> {
   pluginIdentificationService: PluginIdentificationService;
   pluginLexerService: PluginLexerService;
   PluginTreeBuilderService: PluginTreeBuilderService;
+  CommandStitcherService: CommandStitcherService<T>
 }
