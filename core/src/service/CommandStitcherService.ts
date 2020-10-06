@@ -2,29 +2,52 @@ import { Argv } from 'yargs';
 
 export class CommandStitcherServiceImpl
   implements CommandStitcherService<Argv> {
+  /**
+   * The purpose of the service is to take a command tree
+   * and turn it into actual cli commands
+   * @param program - CLI package of our choice currently yargs
+   * @param commandBranch - A branch of the command tree
+   * ready to be turned into commands for program
+   */
   parseCommand = (
     program: Argv<Record<string, unknown>>,
-    def: CommandBranch
+    commandBranch: CommandBranch
   ): void => {
-    if (Object.keys(def.children).length) {
+    // Combine command with its args 
+    const commandWithArgs = commandBranch.args.length
+      ? commandBranch.command + ` ${commandBranch.args.join(" ")}`
+      : commandBranch.command;
+    // Check for children
+    if (Object.keys(commandBranch.children).length) {
+      // Create command with children
       program.command(
-        def.command,
-        def.description,
+        commandWithArgs,
+        commandBranch.description,
         (program: Argv<Record<string, unknown>>) => {
-          for (const child in def.children) {
-            this.parseCommand(program, def.children[child]);
+          // Loop over children and recursively repeat the process
+          for (const child in commandBranch.children) {
+            this.parseCommand(program, commandBranch.children[child]);
           }
-          program.command('*', '', {}, () => {
-            return program.showHelp('log');
-          });
-        },
-        def.handler
+
+          if (!commandBranch.handler) {
+            // if command has a handler default will run handler
+            program.command('*', '', {}, commandBranch.handler);
+          } else {
+            // Add a default command to show the help menu when a command isn't recognized or no command is given
+            program.command('*', 'Show Help', {}, () => {
+              return program.showHelp('log');
+            });
+          }
+        }
       );
     } else {
-      const commandWithArgs = def.args.length
-        ? def.command + ` ${def.args}`
-        : def.command;
-      program.command(commandWithArgs, def.description, {}, def.handler);
+      // When a command has no children construct a command without no builder
+      program.command(
+        commandWithArgs,
+        commandBranch.description,
+        {},
+        commandBranch.handler
+      );
     }
   };
 }
