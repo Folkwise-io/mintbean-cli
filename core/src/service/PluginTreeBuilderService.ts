@@ -1,13 +1,15 @@
 import chalk from 'chalk';
 
+/**
+ * @param mainTree - A command object that all command branches will attach to
+ * @param pluginBundle - A plugin bundle contains all of the command definitions and metadata for the plugin
+ */
 const createBranch = (
   mainTree: CommandBranchChildren,
-  subBranch: PluginProjectDefinitionLexed
+  pluginBundle: PluginProjectDefinitionLexed
 ) => {
-  const { lexedCommands, path } = subBranch;
-  const grabPath = () => path;
   // Create a branch for each command in the plugin off the main tree
-  return lexedCommands.reduce(
+  pluginBundle.lexedCommands.reduce(
     (tree: CommandBranchChildren, subBranch): CommandBranchChildren => {
       // Create a walkable version of the tree
       let branch: CommandBranchChildren = tree;
@@ -30,9 +32,7 @@ const createBranch = (
       if (branch[command].command) {
         throw new Error(
           chalk.red(
-            `${
-              branch[command].qualifiedCommand
-            } is in conflict with ${qualifiedCommand} from plugin at ${grabPath()}`
+            `${branch[command].qualifiedCommand} is in conflict with ${qualifiedCommand} from plugin at ${pluginBundle.path}`
           )
         );
       } else {
@@ -49,18 +49,20 @@ const createBranch = (
 };
 
 export class PluginTreeBuilderServiceImpl implements PluginTreeBuilderService {
-  // Create Command Tree from all plugin files
+  /** Create Command Tree from all plugin files
+   * @param PluginProjectDefinitionsLexed - Array of plugin data
+   */
   createTree(
     PluginProjectDefinitionsLexed: PluginProjectDefinitionLexed[]
   ): CommandBranchChildren {
     try {
-      return PluginProjectDefinitionsLexed.reduce((mainTree, subBranch) => {
+      return PluginProjectDefinitionsLexed.reduce((mainTree, pluginBundle) => {
         // Create Branch for each namespace
-        createBranch(mainTree, subBranch);
+        createBranch(mainTree, pluginBundle);
         return mainTree;
       }, {});
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return {};
     }
   }

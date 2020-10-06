@@ -2,7 +2,13 @@ import path from 'path';
 import klawSync from 'klaw-sync';
 import fs from 'fs-extra';
 
+/* 
+  The purpose of the service is to go into the 
+  global plugins folder & grab all plugin manifests 
+*/
+
 // Grab config file
+/** @param pluginsPaths - array of path strings leading to the root dir of each plugin */
 const grabDotMintbeanFile = (pluginsPaths: string[]): DotMintbeanFile[] => {
   return pluginsPaths.map((pluginPath: string) => {
     const mintbeanDec = path.join(pluginPath, '.mintbean');
@@ -32,7 +38,6 @@ export class PluginIdentificationServiceImpl
     );
 
     // TODO: Validate the plugin definitions
-
 
     return definitions;
   }
