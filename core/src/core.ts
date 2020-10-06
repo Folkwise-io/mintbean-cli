@@ -8,6 +8,7 @@ export const core = (): void => {
   const lexedPlugins = context.pluginLexerService.lexPlugin(plugins);
   const commandTree = context.PluginTreeBuilderService.createTree(lexedPlugins)
     .mint.children;
+  // TODO: Setup `mint` root command here
   for (const command in commandTree) {
     context.CommandStitcherService.parseCommand(program, commandTree[command]);
   }
