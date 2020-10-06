@@ -1,11 +1,10 @@
 import { contextBuilder } from './context';
 
-export const core = () => {
+export const core = ():void => {
   const context = contextBuilder();
   const plugins = context.pluginIdentificationService.findPlugins();
-  console.log(
-    context.pluginLexerService
-      .lexPlugin(plugins)
-      .map(x => x.lexedCommands.map(y => y.qualifiedCommand))
-  );
+  const lexedPlugins = context.pluginLexerService.lexPlugin(plugins);
+  const commandTree =context.PluginTreeBuilderService.createTree(lexedPlugins)
+  console.log(commandTree);
+  
 };
