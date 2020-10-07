@@ -1,0 +1,7 @@
+version: 2
+main:
+  type: static
+  path: dist
+  spa: true
+
+  
