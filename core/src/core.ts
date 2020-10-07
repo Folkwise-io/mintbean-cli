@@ -14,9 +14,6 @@ export const core = (): void => {
   }
 
   program
-    .command('*', false, {}, () => {
-      return program.showHelp();
-    })
     .completion()
     .recommendCommands()
     .strict();

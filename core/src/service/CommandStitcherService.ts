@@ -13,9 +13,9 @@ export class CommandStitcherServiceImpl
     program: Argv<Record<string, unknown>>,
     commandBranch: CommandBranch
   ): void => {
-    // Combine command with its args 
+    // Combine command with its args
     const commandWithArgs = commandBranch.args.length
-      ? commandBranch.command + ` ${commandBranch.args.join(" ")}`
+      ? commandBranch.command + ` ${commandBranch.args.join(' ')}`
       : commandBranch.command;
     // Check for children
     if (Object.keys(commandBranch.children).length) {
@@ -28,17 +28,10 @@ export class CommandStitcherServiceImpl
           for (const child in commandBranch.children) {
             this.parseCommand(program, commandBranch.children[child]);
           }
-
-          if (!commandBranch.handler) {
-            // if command has a handler default will run handler
-            program.command('*', '', {}, commandBranch.handler);
-          } else {
-            // Add a default command to show the help menu when a command isn't recognized or no command is given
-            program.command('*', 'Show Help', {}, () => {
-              return program.showHelp('log');
-            });
-          }
-        }
+          
+          //TODO show help on default
+        },
+        commandBranch.handler
       );
     } else {
       // When a command has no children construct a command without builder
