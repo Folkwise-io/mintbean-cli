@@ -1,0 +1,16 @@
+{
+  "name": "@mintbean-core/generate",
+  "version": "0.1.0",
+  "description": "A community cord plug-in for generating projects from providing templates",
+  "main": "src/commands/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "plugin",
+    "mintbean-cli",
+    "mintbean"
+  ],
+  "author": "Kyle Barnett <kmbarnett94@gmail.com> (https://kylebar.net/)",
+  "license": "MIT"
+}
