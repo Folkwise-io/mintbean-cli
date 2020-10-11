@@ -19,6 +19,14 @@ export const createProgram = (args) => {
     });
 
   program
+    .command("lint [lintSources]")
+    .alias("l")
+    .description("Lint the code of the project")
+    .action(function (lintSources) {
+      lint(lintSources);
+    });
+
+  program
     .command("deploy")
     .alias("d")
     .description(
