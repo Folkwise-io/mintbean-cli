@@ -1,6 +1,6 @@
 const split = (command: string) => command.split(' ');
 const isArgument = (token: string) => /^\[\w+\]$/g.test(token);
-const isCommandFragment = (token: string) => /^\w+$/g.test(token);
+const isCommandFragment = (token: string) => /^\w[\w-]+\w$/g.test(token);
 const isFlag = (token: string) => /^--\w+$/g.test(token);
 
 export const lex = (rawCommand: RawCommand): LexedCommand => {
