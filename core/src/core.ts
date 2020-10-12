@@ -14,6 +14,7 @@ export const core = (): void => {
     context.CommandStitcherService.parseCommand(program, commandTree[command]);
   }
 
+  // TODO: Create Custom help command
   const askedHelp = process.argv.find(el => /^--help$/g.test(el));
   askedHelp &&
     console.log(chalk.bgBlack.hex('#02ed9d').underline('Mintbean CLI is here to help!'));
