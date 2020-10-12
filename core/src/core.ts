@@ -1,5 +1,6 @@
 import { contextBuilder } from './context';
 import yargs from 'yargs';
+import chalk from 'chalk';
 
 export const core = (): void => {
   const program = yargs;
@@ -13,10 +14,19 @@ export const core = (): void => {
     context.CommandStitcherService.parseCommand(program, commandTree[command]);
   }
 
+  // TODO: Create Custom help command
+  const askedHelp = process.argv.find(el => /^--help$/g.test(el));
+  askedHelp &&
+    console.log(chalk.bgBlack.hex('#02ed9d').underline('Mintbean CLI is here to help!'));
+  
+
+  
   program
     .completion()
+    .showHelpOnFail(false)
     .recommendCommands()
+    .help()
     .strict();
 
-  program.help().parse();
+  program.parse();
 };

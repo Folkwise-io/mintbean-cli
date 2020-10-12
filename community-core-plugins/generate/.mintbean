@@ -1,0 +1,7 @@
+{
+  "title": "Generate",
+  "namespaces": ["generate"],
+  "files": ["src/commands/*.js"],
+  "exclude": ["node_modules"],
+  "protected": true
+}

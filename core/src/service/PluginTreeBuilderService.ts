@@ -29,7 +29,7 @@ const createBranch = (
         children: {},
       };
       // Check for command for conflicts throws error if true
-      if (subBranch[command].command) {
+      if (subBranch[command].command === command) {
         throw new Error(
           chalk.red(
             `${subBranch[command].qualifiedCommand} is in conflict with ${qualifiedCommand} from plugin at ${pluginBundle.path}`
