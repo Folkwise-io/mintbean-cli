@@ -25,14 +25,15 @@ export class PluginIdentificationServiceImpl
   // TODO: make this async, this is an architectural change
   // where the CLI needs to also then be async
   findPlugins(): DotMintbeanFile[] {
-    // Grab plugins directory
+    // Grab plugins directories
     const rootDir = path.resolve(__filename, '../../..');
     // Grab all plugin Definition files
     const dotMintbeanPaths = glob.sync('**/.mintbean', {
       cwd: rootDir,
       absolute: true,
+      ignore:["node_modules"]
     });
-
+    
     // map over definition files and parse data
     const definitions = grabDotMintbeanFile(dotMintbeanPaths);
 
