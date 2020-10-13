@@ -1,16 +1,20 @@
 import chalk from "chalk";
 import { prompt } from "inquirer";
-import execa from 'execa'
-import deploymint from '../util/deploymint'
+import execa from "execa";
+import deploymint from "../util/deploymint";
 
-const verifyRemoteOrigin = async() => {
-    const {stdout} = await execa('git', ['remote', '-v'])
-    return stdout;
-}
-
+const verifyRemoteOrigin = async () => {
+  const { stdout } = await execa("git", ["remote", "-v"]);
+  const colon = stdout.search(/:/g);
+  const slash = stdout.search(/\//g);
+  const dot = stdout.search(/\.g/g);
+  return { username: stdout.slice(colon + 1, slash), repo: stdout.slice(slash + 1, dot) };
+};
 
 export const deployHandler = async () => {
-  if (await !verifyRemoteOrigin()) {
+  const github = await verifyRemoteOrigin();
+
+  if (!github) {
     console.log(chalk.bold.red(`No git remote found! Are you in your project folder?`));
     process.exit(1);
   }
@@ -46,5 +50,5 @@ export const deployHandler = async () => {
 
   const answers = await askPlatform();
 
-  deploymint[answers.platform](process.argv, answers);
+  deploymint[answers.platform](process.argv, github);
 };

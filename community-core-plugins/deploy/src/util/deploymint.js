@@ -39,8 +39,9 @@ const sayCommand = (item) => {
   }
 };
 
-const ghPages = async (args) => {
+const ghPages = async (args, github) => {
   const main = require("../../node_modules/gh-pages/bin/gh-pages");
+  const {username, repo} = github
   execa("npm", ["run", "build"]);
 
   let outputFolder = findOutput();
@@ -50,15 +51,7 @@ const ghPages = async (args) => {
   if (folderFound) {
     await main([...args, "-d", outputFolder]);
   }
-  const owner = chalk.bold.redBright("github-username");
-  const repo = chalk.bold.redBright("repo");
-
-  console.log(chalk.cyanBright(`\nDeployed to https://${owner}.github.io/${repo}/\n`));
-  console.log(
-    chalk.cyanBright(
-      "Make sure to replace github-username and repo with your actual github username and repo name\n",
-    ),
-  );
+  console.log(chalk.cyanBright(`\nDeployed to https://${username}.github.io/${repo}/\n`));
   console.log(chalk.bold.cyanBright(`(allow a minute or two for deploy to propagate...)`));
 };
 
