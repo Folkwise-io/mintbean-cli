@@ -1,0 +1,7 @@
+{
+  "title": "Deploy",
+  "namespaces": ["deploy"],
+  "files": ["src/commands/*.js"],
+  "exclude": ["node_modules"],
+  "protected": true
+}
