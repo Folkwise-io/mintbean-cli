@@ -11,7 +11,7 @@ const verifyRemoteOrigin = async () => {
   return { username: stdout.slice(colon + 1, slash), repo: stdout.slice(slash + 1, dot) };
 };
 
-export const deployHandler = async () => {
+export const deployHandler = async (strategy) => {
   const github = await verifyRemoteOrigin();
 
   if (!github) {
@@ -19,10 +19,9 @@ export const deployHandler = async () => {
     process.exit(1);
   }
 
-  const star = chalk.hex("#FFDF00")("✯✯✯");
-  const featurePeek = `${star} FeaturePeek(Recommended) ${star}`;
-
   async function askPlatform() {
+    const star = chalk.hex("#FFDF00")("✯✯✯");
+    const featurePeek = `${star} FeaturePeek(Recommended) ${star}`;
     const answers = await prompt([
       {
         name: "platform",
@@ -48,7 +47,9 @@ export const deployHandler = async () => {
     }
   }
 
-  const answers = await askPlatform();
+  if (!strategy) {
+    strategy = await askPlatform();
+  }
 
-  deploymint[answers.platform](process.argv, github);
+  deploymint[strategy.platform](process.argv, github);
 };
