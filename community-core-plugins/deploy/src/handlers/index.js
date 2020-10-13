@@ -38,7 +38,7 @@ export const deployHandler = async () => {
     ]);
 
     if (answers.confirm === false) {
-      return askPlatform();
+      return await askPlatform();
     } else {
       return answers;
     }
