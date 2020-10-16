@@ -1,7 +1,0 @@
-{
-  "title": "Sample Plugin",
-  "namespaces":[ "time"],
-  "files": ["src/commands/**/*.js"],
-  "exclude": ["node_modules"],
-  "protected": true
-}
