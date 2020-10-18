@@ -1,9 +1,8 @@
 import chalk from 'chalk';
+import cp from 'child_process';
 
 export const lint = (lintSources = 'src/') => {
   console.log(chalk.cyanBright('Linting...'));
-
-  const cp = require('child_process');
 
   const eslint = cp.spawn('eslint', [lintSources], {
     stdio: ['inherit', 'inherit', 'pipe']
