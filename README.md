@@ -45,7 +45,7 @@ If it is your first time using `mintbean-cli`, first connect to GitHub with conf
 ```shell
 mint new <my-project>
 cd <my-project>
-mint repo 
+mint repo
 mint deploy
 ```
 
@@ -77,6 +77,12 @@ View your config settings anytime with `mint config -v`.
 `mint develop` or `mint dev`
 
 Starts a local development server to display your code's output (look for `localhost` link). Changes to your code automatically updates when you save.
+
+### Check for styling errors (linting)
+
+`mint mint` or `mint l`
+
+Lints the project files to flag any programming errors, bugs, or stylistic errors in your JavaScript code.
 
 ### Deployment
 
