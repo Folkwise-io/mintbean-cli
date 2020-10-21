@@ -1,11 +1,11 @@
 import { Command } from "commander";
+
 import { lint } from "./commands/lint";
 import { config } from "./commands/config";
 import { newProject } from "./commands/new";
 import { repo } from "./commands/repo";
 import { deploy } from "./commands/deploy";
 import { version } from "./package.json";
-
 
 export const createProgram = (args) => {
   const program = new Command();
