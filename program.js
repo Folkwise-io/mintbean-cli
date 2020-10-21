@@ -1,4 +1,6 @@
 import { Command } from "commander";
+
+import { lint } from "./commands/lint";
 import { config } from "./commands/config";
 import { newProject } from "./commands/new";
 import { repo } from "./commands/repo";
@@ -16,6 +18,14 @@ export const createProgram = (args) => {
     .description("Start new project from template")
     .action(function (project) {
       newProject(project);
+    });
+
+  program
+    .command("lint [lintSources]")
+    .alias("l")
+    .description("Lint the code of the project")
+    .action(function (lintSources) {
+      lint(lintSources);
     });
 
   program

@@ -78,6 +78,12 @@ View your config settings anytime with `mint config -v`.
 
 Starts a local development server to display your code's output (look for `localhost` link). Changes to your code automatically updates when you save.
 
+### Check for styling errors (linting)
+
+`mint mint` or `mint l`
+
+Lints the project files to flag any programming errors, bugs, or stylistic errors in your JavaScript code.
+
 ### Deployment
 
 If you haven't yet, create a remote repo: `mint repo -cp`
