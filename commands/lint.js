@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import cp from 'child_process';
 
 export const lint = (lintSources = 'src/') => {
-  const path = __dirname + '/../node_modules/eslint/bin/eslint.js'
+  const path = __dirname + '/../node_modules/eslint/bin/eslint.js';
 
   const eslint = cp.spawn(path, [lintSources], {
     stdio: ['inherit', 'inherit', 'pipe']
