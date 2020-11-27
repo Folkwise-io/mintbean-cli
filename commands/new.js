@@ -18,7 +18,13 @@ const ghUsernameRegex = new RegExp(
   "i"
 );
 
-const TOKEN = { name: "token", hidden: true, type: "password", mask: "*" };
+const TOKEN = {
+  name: "token",
+  message: "Enter Github access token:",
+  hidden: true,
+  type: "password",
+  mask: "*",
+};
 
 const QUESTIONS = [
   {
