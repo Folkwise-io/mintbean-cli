@@ -16,7 +16,7 @@ export const config = (cmdObj) => {
     console.log(chalk.cyanBright("Your current config:"));
     console.log(`github username:  ${getConfig("github")}`);
     console.log(
-      `token:            ${getConfig("token") ? "<hidden>" : "undefined"}`
+      `token:            ${getConfig("token") ? `<hidden>` : "undefined"}`
     );
     console.log(
       `connection type:  ${
