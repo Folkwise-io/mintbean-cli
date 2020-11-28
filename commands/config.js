@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { getConfig, setConfig } from "../lib/config.js";
+import { addToken } from "./new";
 
 export const config = (cmdObj) => {
   // return if choosing multiple connection types simulataneously
@@ -15,7 +16,7 @@ export const config = (cmdObj) => {
     console.log(chalk.cyanBright("Your current config:"));
     console.log(`github username:  ${getConfig("github")}`);
     console.log(
-      `token:            ${getConfig("token") ? "<hidden>" : "undefined"}`
+      `token:            ${getConfig("token") ? `<hidden>` : "undefined"}`
     );
     console.log(
       `connection type:  ${
@@ -37,10 +38,7 @@ export const config = (cmdObj) => {
   }
 
   if (cmdObj.token) {
-    setConfig("token", cmdObj.token);
-    console.log(
-      chalk.cyanBright(`Successfully set github personal access token.`)
-    );
+    addToken();
   }
 
   if (cmdObj.ssh) {

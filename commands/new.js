@@ -18,6 +18,14 @@ const ghUsernameRegex = new RegExp(
   "i"
 );
 
+const TOKEN = {
+  name: "token",
+  message: "Enter Github access token:",
+  hidden: true,
+  type: "password",
+  mask: "*",
+};
+
 const QUESTIONS = [
   {
     name: "template",
@@ -79,7 +87,7 @@ const checkForProjectPathConflict = (project) => {
 
 export const newProject = async (project) => {
   message.banner();
-  message.sponsorBanner()
+  message.sponsorBanner();
   let options = await getProjectOptions(project);
   if (project) {
     const conflict = checkForProjectPathConflict(options.projectName);
@@ -100,4 +108,12 @@ export const newProject = async (project) => {
     }
   }
   createProject({ ...options });
+};
+
+export const addToken = async () => {
+  const tokenObj = await inquirer.prompt(TOKEN);
+  config.setConfig("token", tokenObj.token);
+  console.log(
+    chalk.cyanBright(`Successfully set github personal access token.`)
+  );
 };

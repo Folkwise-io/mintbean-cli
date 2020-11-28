@@ -44,7 +44,7 @@ export const createProgram = (args) => {
     .description("Set up or view config (Github credentials etc.)")
     .option("-v, --view", "view current config")
     .option("-g, --github <username>", "set github username")
-    .option("-t, --token <token>", "set github personal access token")
+    .option("-t, --token", "set github personal access token")
     .option("-S, --ssh", "set github connection type to ssh")
     .option("-H, --https", "set github connection type to https")
     .action((cmdObj) => {
